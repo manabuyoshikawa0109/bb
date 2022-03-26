@@ -1,0 +1,25 @@
+.logo {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #EAEAEA;
+    border-radius: 50%;
+}
+
+.nav-sm .navbar.nav_title a .logo {
+    width: 40px;
+    height: 40px;
+    margin: 13px 0 7px 4px;
+}
+
+.top_nav .navbar-right li {
+    position: relative;
+}
+
+.main_menu .fa-solid {
+    width: 26px;
+    opacity: .99;
+    display: inline-block;
+    font-style: normal;
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+}
