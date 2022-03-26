@@ -17,6 +17,8 @@ class UsersTableSeeder extends Seeder
     {
         ini_set('memory_limit', '512M');
 
+        DB::table('users')->truncate();
+
         $path = 'database/sql/users.sql';
         $this->command->info("START：{$path}");
         DB::unprepared(file_get_contents($path));

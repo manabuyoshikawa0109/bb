@@ -31,6 +31,14 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // ログイン用のビュー設定
+        Fortify::loginView (function () {
+            $view = 'user.pages.auth.login';
+            if(request()->is('admin/*')){
+                $view = 'admin.pages.auth.login';
+            }
+            return view($view);
+        });
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
