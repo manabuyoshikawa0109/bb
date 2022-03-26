@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Contracts\LogoutResponse as LogoutResponseContract;
+use App\Responses\LogoutResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -46,10 +48,20 @@ class FortifyServiceProvider extends ServiceProvider
 
         // ログイン用のビュー設定（デフォルトのオーバーライド）
         $view = 'user.pages.auth.login';
-        if(request()->is('admin/*')){
+        if(request()->is('admin') || request()->is('admin/*')){
             $view = 'admin.pages.auth.login';
         }
+
         Fortify::loginView($view);
+
+        // vendor/laravel/fortify/src/FortifyServiceProviderの80行目付近に
+        // $this->app->singleton(LogoutResponseContract::class, LogoutResponse::class)とある。
+        // LoginControllerのdestroyメソッド呼び出し時にapp(LogoutResponse)と呼び出すことで
+        // vendor/laravel/fortify/src/Http/LogoutResponseクラスを呼び出す。
+        // その為App\Responses\LogoutResponseでvendor/laravel/fortify/src/Http/LogoutResponseを
+        // オーバーライドする
+
+        $this->app->singleton(LogoutResponseContract::class, LogoutResponse::class);
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);

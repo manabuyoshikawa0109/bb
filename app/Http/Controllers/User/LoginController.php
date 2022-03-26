@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Auth;
 
 /**
  * laravel9でログイン認証を行うAuthenticatedSessionControllerをオーバーライド
- *
  */
 class LoginController extends AuthenticatedSessionController
 {
