@@ -58,4 +58,13 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+    * フルネームを返す
+    * @return string
+    */
+    public function fullName()
+    {
+        return "{$this->last_name} {$this->first_name}";
+    }
 }
