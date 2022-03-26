@@ -26,19 +26,30 @@ class FortifyServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
+     * メモ：app.phpにはアプリへアクセス時に読み込むサービスの一覧が記述されている
+     * その為サービスプロバイダーはアプリへアクセスした際に読み込まれる
      *
      * @return void
      */
     public function boot()
     {
-        // ログイン用のビュー設定
-        Fortify::loginView (function () {
-            $view = 'user.pages.auth.login';
-            if(request()->is('admin/*')){
-                $view = 'admin.pages.auth.login';
-            }
-            return view($view);
-        });
+        // 1. vendor/laravel/jetstream/src/JetstreamServiceProviderのbootメソッドに
+        // Fortify::viewPrefix('auth.')という記述がある
+        // 2. vendor/laravel/fortify/src/FortifyのviewPrefixメソッドには
+        // static::loginView($prefix.'login')という記述がある
+        // 3. vendor/laravel/fortify/src/FortifyのloginViewメソッドでは
+        // サービスコンテナが定義されており、app(LoginViewResponse)が呼ばれると
+        // SimpleViewResponseクラスで引数に渡されたビューを返すようになっている
+        // 参考
+        // ログイン処理：https://reffect.co.jp/laravel/laravel-jetstream
+        // サービスコンテナ：https://reffect.co.jp/laravel/laravel-service-container-understand#singletonbind
+
+        // ログイン用のビュー設定（デフォルトのオーバーライド）
+        $view = 'user.pages.auth.login';
+        if(request()->is('admin/*')){
+            $view = 'admin.pages.auth.login';
+        }
+        Fortify::loginView($view);
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);

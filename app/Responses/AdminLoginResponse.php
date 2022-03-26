@@ -18,6 +18,7 @@ class AdminLoginResponse implements LoginResponseContract
      */
     public function toResponse($request)
     {
+        // 管理者のログイン後に遷移させたいリダイレクト先を指定
         return $request->wantsJson()
                     ? response()->json(['two_factor' => false])
                     : redirect()->intended(RouteServiceProvider::ADMIN_HOME);
