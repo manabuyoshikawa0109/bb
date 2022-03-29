@@ -52,6 +52,7 @@ class LoginController extends AuthenticatedSessionController
     public function create(Request $request): LoginViewResponse
     {
         // App\Providers\FortifyServiceProviderでログイン画面の設定をしている
+        // 参考：https://reffect.co.jp/laravel/laravel-jetstream#i-8
         return app(LoginViewResponse::class);
     }
 

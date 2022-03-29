@@ -4,7 +4,7 @@
             <a href="index.html" class="site_title">
                 <img class="logo" src="/assets/common/images/logo.jpg" alt="">
                 <!-- <i class="fa fa-paw"></i> -->
-                <span>Bandail管理者</span>
+                <span>Bandail 管理者</span>
             </a>
         </div>
 

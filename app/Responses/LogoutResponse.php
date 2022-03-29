@@ -15,6 +15,7 @@ class LogoutResponse implements LogoutResponseContract
      */
     public function toResponse($request)
     {
+        // 参考：https://www.4web8.com/25845.html
         $path = '/';
         if(request()->is('admin') || request()->is('admin/*')){
             $path = '/admin';
