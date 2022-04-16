@@ -1,0 +1,32 @@
+/*
+テーブルセル内の値を改行しない
+*/
+.table-responsive th, .table-responsive td {
+    white-space: nowrap !important;
+    text-align: center;
+    vertical-align: middle;
+}
+/*
+form-inlineで囲んだ要素を自動改行しない
+*/
+.form-inline {
+    flex-flow: row nowrap !important;
+}
+/*
+スマホ・ダブレット時に列幅を固定する
+※自動設定だと列幅が狭くなってしまう為
+*/
+@media screen and (max-width: 1024px) {
+    .table-responsive table {
+        table-layout: fixed;
+    }
+    .w-250-px {
+        width: 250px;
+    }
+    .w-150-px {
+        width: 150px;
+    }
+    .w-100-px {
+        width: 100px;
+    }
+}
