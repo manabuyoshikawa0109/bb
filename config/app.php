@@ -180,6 +180,8 @@ return [
         App\Providers\JetstreamServiceProvider::class,
         App\Providers\UserLoginServiceProvider::class,
         App\Providers\AdminLoginServiceProvider::class,
+        Jenssegers\Agent\AgentServiceProvider::class,
+        App\Providers\VariableServiceProvider::class,
 
     ],
 
@@ -195,7 +197,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // ...
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
     ])->toArray(),
 
 ];
