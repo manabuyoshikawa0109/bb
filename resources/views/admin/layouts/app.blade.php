@@ -1,6 +1,6 @@
 @extends('admin.layouts.base')
 
-@section('body_class', 'nav-md')
+@section('body_class', $agent->isMobile() ? 'nav-sm' : 'nav-md')
 
 @section('inner_body')
 <div class="container body">
