@@ -12,7 +12,7 @@
             <section class="login_content">
                 <form method="POST" action="{{ route('admin.login.create') }}">
                     @csrf
-                    <h1>管理者ログイン画面</h1>
+                    <h1>ログイン画面</h1>
                     <div>
                         <input type="email" name="email" class="form-control" placeholder="bandail@gmail.com" required autofocus />
                     </div>
@@ -35,7 +35,7 @@
                         <br />
 
                         <div>
-                            <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                            <h1>B-B テニストーナメント</h1>
                             <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
                         </div>
                     </div>
