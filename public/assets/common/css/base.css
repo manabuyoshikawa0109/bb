@@ -15,11 +15,17 @@
     position: relative;
 }
 
-.main_menu .fa-solid {
+.main_menu .fa-solid, .main_menu .fas {
     width: 26px;
     opacity: .99;
     display: inline-block;
     font-style: normal;
     font-size: 18px;
     -webkit-font-smoothing: antialiased;
+}
+
+@media screen and (max-width: 991px) {
+    .right_col {
+        padding: 10px 5px !important;
+    }
 }
