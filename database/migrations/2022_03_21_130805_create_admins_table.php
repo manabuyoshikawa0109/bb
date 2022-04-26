@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('zip', 8)->nullable()->comment('郵便番号');
             $table->string('address', 255)->nullable()->comment('住所');
             $table->integer('gender_id')->comment('性別ID');
-            $table->integer('is_developer')->default(0)->comment('開発者フラグ');
+            $table->boolean('is_developer')->default(0)->comment('開発者フラグ');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
