@@ -3,7 +3,6 @@
         <div class="navbar nav_title" style="border: 0;">
             <a href="{{ route('admin.home.show') }}" class="site_title">
                 <img class="logo" src="/assets/common/images/logo.png" alt="">
-                <!-- <i class="fa fa-paw"></i> -->
                 <span>BB テニス</span>
             </a>
         </div>
