@@ -29,3 +29,11 @@
         padding: 10px 5px !important;
     }
 }
+
+/*
+sweetalert2の黒背景の重なり調整
+※デフォルトだとサイドバーの方が上に来てしまう為
+*/
+.swal2-container {
+    z-index: 10000 !important;
+}

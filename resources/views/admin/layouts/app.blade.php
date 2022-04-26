@@ -20,3 +20,6 @@
     </div>
 </div>
 @endsection
+
+{{-- アラート表示 --}}
+@include('admin.commons.components.js.sweetalert')

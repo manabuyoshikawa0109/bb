@@ -5,7 +5,7 @@
 
 @if(session('message'))
 @push('links')
-<link href="/assets/plugins/sweetalert2/sweetalert2.all.min.css" rel="stylesheet">
+<link href="/assets/plugins/sweetalert2/sweetalert2.min.css" rel="stylesheet">
 @endpush
 
 @push('scripts')
@@ -16,6 +16,8 @@ $(function(){
     Swal.fire({
         icon: 'success',
         title: '{{ session('message') }}',
+        showConfirmButton: false,
+        timer: 1500
     })
 });
 </script>
