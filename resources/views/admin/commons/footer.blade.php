@@ -1,6 +1,6 @@
 <footer>
     <div class="pull-right">
-        Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+        Copyright © 2002 <a href="{{ route('admin.home.show') }}">BBテニストーナメント.</a> All rights reserved.
     </div>
     <div class="clearfix"></div>
 </footer>
