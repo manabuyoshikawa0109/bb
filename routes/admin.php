@@ -29,7 +29,7 @@ Route::group(['middleware' => 'auth:admin'], function() {
     // 種目マスタ
     Route::group(['prefix' => 'event'], function() {
         Route::get  ('input', 'EventController@input')->name('admin.event.input');
-        Route::post ('save',  'EventController@save')->name('admin.event.save');
+        Route::post ('register',  'EventController@register')->name('admin.event.register');
     });
 
 });

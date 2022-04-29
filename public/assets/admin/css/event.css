@@ -30,3 +30,23 @@ form-inlineで囲んだ要素を自動改行しない
         width: 100px;
     }
 }
+
+/*
+ゴミ箱アイコンのサイズ変更
+*/
+.fa-trash-alt {
+    font-size: 18px;
+}
+
+@media screen and (max-width: 1024px) {
+    .fa-trash-alt {
+        font-size: 23px;
+    }
+}
+
+/*
+ゴミ箱アイコンにカーソルを合わせた際にポインターになるようにする
+*/
+.fa-trash-alt:before {
+    cursor: pointer;
+}

@@ -5,6 +5,7 @@
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/assets/common/images/favicon.ico" type="image/ico" />
 
@@ -18,6 +19,8 @@
     <link href="/assets/plugins/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="/assets/plugins/iCheck/skins/flat/green.css" rel="stylesheet">
+    <link href="/assets/plugins/iCheck/skins/flat/blue.css" rel="stylesheet">
+    <link href="/assets/plugins/iCheck/skins/flat/red.css" rel="stylesheet">
 
     <!-- bootstrap-progressbar -->
     <link href="/assets/plugins/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
