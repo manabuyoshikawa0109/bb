@@ -32,7 +32,6 @@ class RegisterEventRequest extends FormRequest
         return [
             'events'                 => ['required', 'array'],
             'events.*'               => ['required', 'array'],
-            'events.*.id'            => ['nullable', 'integer', 'exists:events'],
             'events.*.name'          => ['required', 'string', 'max:100'],
             'events.*.applicants'    => ['nullable', 'integer'],
             'events.*.entry_fee'     => ['nullable', 'integer'],

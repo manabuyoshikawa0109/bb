@@ -18,17 +18,19 @@ class EventController extends Controller
     public function input(Request $request)
     {
         if(old('events')){
+            $newId = min(array_keys(old('events'))) -1;
             $events = collect();
-            foreach (old('events') as $input) {
+            foreach (old('events') as $id => $input) {
                $event = new Event($input);
-               $event->id = $input['id'];
+               $event->id = $id;
                $events->push($event);
             }
         }else{
+            $newId = -1;
             $events = Event::all();
         }
         $eventInstance = new Event();
-        return view('admin.pages.event.input', compact('events', 'eventInstance'));
+        return view('admin.pages.event.input', compact('events', 'eventInstance', 'newId'));
     }
 
     /**
@@ -39,9 +41,9 @@ class EventController extends Controller
     public function register(RegisterEventRequest $request)
     {
         $inputs = Arr::get($request->validated(), 'events');
-        foreach ($inputs as $input) {
-            $event = Event::firstOrNew(['id' => $input['id']]);
-            if(isset($input['delete'])){
+        foreach ($inputs as $id => $input) {
+            $event = Event::firstOrNew(['id' => $id]);
+            if(isset($input['delete']) && $input['delete'] === '1'){
                 $event->delete();
                 continue;
             }

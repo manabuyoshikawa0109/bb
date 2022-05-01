@@ -68,8 +68,7 @@ $row = str_replace(array("\r\n", "\r", "\n"), '', $row);
 function hideTableHeader(){
     var count = $('#events').find('tr').length;
     if(count === 0){
-        $('.headings').addClass('d-none');
-        $('#form-submit-button-area').addClass('d-none');
+        $('.headings, #form-submit-button-area').addClass('d-none');
     }
 }
 
@@ -95,26 +94,21 @@ function initIcheckRed(){
 }
 
 $(function(){
-    @if($errors->any())
-        var no = parseInt({{ min(array_keys(old('events'))) }})-1;
-    @else
-        var no = -1;
-    @endif
+    var newId = {{ $newId }};
 
     deleteRow();
     initIcheckBlue();
     initIcheckRed();
 
     $('.add-row-btn').click(function() {
-        $('.headings').removeClass('d-none');
-        $('#form-submit-button-area').removeClass('d-none');
+        $('.headings, #form-submit-button-area').removeClass('d-none');
         var row = '{!! $row !!}';
-        row = row.replace(/@no@/g, no);
+        row = row.replace(/@id@/g, newId);
         $('#events').append(row);
         deleteRow();
         initIcheckBlue();
         initIcheckRed();
-        no--;
+        newId--;
         // initSortable();
     });
 
