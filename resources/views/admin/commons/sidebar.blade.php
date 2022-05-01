@@ -53,7 +53,7 @@
                 <h3>マスタ</h3>
                 <ul class="nav side-menu">
                     <li class="@if(request()->route()->named('admin.event.*')) active @endif">
-                        <a href="{{ route('admin.event.input') }}"><i class="fas fa-racquet"></i>種目マスタ</a>
+                        <a href="{{ route('admin.event.input') }}"><i class="fa-solid fa-children"></i>種目マスタ</a>
                     </li>
                     <li class="@if(request()->route()->named('admin.place.*')) active @endif">
                         <a href="#"><i class="fas fa-map-marker-alt"></i>場所マスタ</a>
