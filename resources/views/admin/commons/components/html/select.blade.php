@@ -15,7 +15,7 @@ $name = str_replace('[', '.', $fieldName);
 $name = str_replace(']', '', $name);
 @endphp
 
-<select id="" class="custom-select @if($agent->isDesktop()) custom-select-sm @endif {{ $class ?? null }}" name="{{ $fieldName }}">
+<select id="" class="custom-select {{ $class ?? null }}" name="{{ $fieldName }}">
     <option value="" @if(old($name, $default ?? null) === null) selected @endif>{{ $label ?? '選択してください' }}</option>
     @foreach ($options as $key => $value)
         <option value="{{ $key }}" @if((string)old($name, $default ?? null) === (string)$key)) selected @endif>{{ $value }}</option>

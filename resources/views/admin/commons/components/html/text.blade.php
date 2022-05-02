@@ -14,6 +14,6 @@
 $name = str_replace('[', '.', $fieldName);
 $name = str_replace(']', '', $name);
 @endphp
-    <input id="" type="text" class="form-control @if($agent->isDesktop()) form-control-sm @endif {{ $class ?? null }}" name="{{ $fieldName }}" value="{{ old($name, $default ?? null) }}" maxlength="{{ $maxLength ?? null }}" placeholder="{{ $placeholder ?? null }}">
+    <input id="" type="text" class="form-control {{ $class ?? null }}" name="{{ $fieldName }}" value="{{ old($name, $default ?? null) }}" maxlength="{{ $maxLength ?? null }}" placeholder="{{ $placeholder ?? null }}">
     @include('admin.commons.components.html.errors', ['fieldName' => $name])
 @endisset
