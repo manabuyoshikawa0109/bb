@@ -40,7 +40,7 @@
                             </tr>
                         </thead>
 
-                        <tbody id="events">
+                        <tbody id="items">
                             @foreach ($events as $event)
                                 @include('admin.pages.event.row', ['event' => $event ])
                             @endforeach
@@ -62,111 +62,5 @@ $row = view('admin.pages.event.row', ['event' => $eventInstance ])->render();
 $row = str_replace(array("\r\n", "\r", "\n"), '', $row);
 @endphp
 
-@push('scripts')
-<script src="/assets/plugins/sweetalert2/sweetalert2.all.min.js"></script>
-<script type="text/javascript">
-function hideTableHeader(){
-    var count = $('#events').find('tr').length;
-    if(count === 0){
-        $('.headings, #form-submit-button-area').addClass('d-none');
-    }
-}
-
-function deleteRow(){
-    $('.fa-trash-alt').click(function() {
-        $(this).closest('tr').remove();
-        hideTableHeader();
-    });
-}
-
-function initIcheckBlue(){
-    $('.icheck-blue').iCheck({
-        checkboxClass: 'icheckbox_flat-blue',
-        radioClass: 'iradio_flat-blue'
-    });
-}
-
-function initIcheckRed(){
-    $('.icheck-red').iCheck({
-        checkboxClass: 'icheckbox_flat-red',
-        radioClass: 'iradio_flat-red'
-    });
-}
-
-$(function(){
-    var newId = {{ $newId }};
-
-    deleteRow();
-    initIcheckBlue();
-    initIcheckRed();
-
-    $('.add-row-btn').click(function() {
-        $('.headings, #form-submit-button-area').removeClass('d-none');
-        var row = '{!! $row !!}';
-        row = row.replace(/@id@/g, newId);
-        $('#events').append(row);
-        deleteRow();
-        initIcheckBlue();
-        initIcheckRed();
-        newId--;
-        // initSortable();
-    });
-
-    // チェックボックス選択時に行の背景色を変えないようイベントをクリア
-    $('table input').unbind('ifChecked').unbind('ifUnchecked');
-
-{{--
-    // 非同期削除
-    // 参考：https://qiita.com/u-dai/items/d43e932cd6d96c09b69a
-    $('.ajax-delete').click(function() {
-        Swal.fire({
-            title: '削除しますか？',
-            text: "保存されている種目情報を削除します。",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '削除する',
-            cancelButtonText: 'キャンセル',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type : 'POST',
-                    url  : '{{ route('admin.api.event.delete') }}',
-                    // attrでhtmlのカスタムデータ属性から直接取得(jsのキャッシュから取得しない)
-                    // 参考：https://qiita.com/Kta-M/items/2eda39750abd10df9801
-                    data : {
-                        'id' : $(this).attr('data-id'),
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // csrfトークンの追加
-                    }
-                })
-                .done(function () {
-                    // 成功した場合の処理
-                    $(this).closest('tr').remove();
-                    hideTableHeader();
-                    Swal.fire({
-                        icon: 'success',
-                        title: '種目情報を削除しました。',
-                        showConfirmButton: false,
-                        timer: 1500,
-                    });
-                })
-                .fail(function () {
-                    // エラーの場合の処理
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'エラーが発生しました。',
-                        text: 'しばらく経ってから再度お試しください。',
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
-                })
-            }
-        })
-    });
---}}
-});
-</script>
-@endpush
+{{-- テーブル初期設定JS --}}
+@include('admin.commons.components.js.table', ['newId' => $newId, 'row' => $row ])
