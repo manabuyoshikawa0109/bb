@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @push('links')
-<link rel="stylesheet" type="text/css" href="/assets/admin/css/event.css?{{ now()->format('YmdHis') }}">
+<link rel="stylesheet" type="text/css" href="/assets/admin/css/table.css?{{ now()->format('YmdHis') }}">
 @endpush
 
 @section('content')
