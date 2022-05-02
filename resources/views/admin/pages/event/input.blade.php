@@ -30,7 +30,7 @@
                     <table class="table table-striped jambo_table bulk_action">
                         <thead>
                             <tr class="headings @if($events->isEmpty()) d-none @endif">
-                                <th class="w-250-px">種目名<span class="badge badge-danger ml-1">必須</span></th>
+                                <th class="w-250-px">種目名@required()</th>
                                 <th class="w-100-px">募集数</th>
                                 <th class="w-150-px">参加費</th>
                                 <th class="w-150-px">開始時間</th>

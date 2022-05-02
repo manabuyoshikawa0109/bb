@@ -30,7 +30,7 @@
                     <table class="table table-striped jambo_table bulk_action">
                         <thead>
                             <tr class="headings @if($places->isEmpty()) d-none @endif">
-                                <th class="w-200-px">場所名<span class="badge badge-danger ml-1">必須</span></th>
+                                <th class="w-200-px">場所名@required()</th>
                                 <th class="w-350-px">公式サイトURL</th>
                                 <th class="w-350-px">GoogleマップのURL
                                     <i class="ml-1 fas fa-question-circle"
