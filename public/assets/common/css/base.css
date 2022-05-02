@@ -37,3 +37,10 @@ sweetalert2の黒背景の重なり調整
 .swal2-container {
     z-index: 10000 !important;
 }
+
+/*
+ポップオーバーのヘッダーにはデフォルトでマージンがあるので、その調整
+*/
+.popover-header {
+    margin: 0 !important;
+}

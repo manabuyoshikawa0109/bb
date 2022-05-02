@@ -56,7 +56,7 @@
                         <a href="{{ route('admin.event.input') }}"><i class="fa-solid fa-children"></i>種目マスタ</a>
                     </li>
                     <li class="@if(request()->route()->named('admin.place.*')) active @endif">
-                        <a href="#"><i class="fas fa-map-marker-alt"></i>場所マスタ</a>
+                        <a href="{{ route('admin.place.input') }}"><i class="fas fa-map-marker-alt"></i>場所マスタ</a>
                     </li>
                     <li class="@if(request()->route()->named('admin.organizer.*')) active @endif">
                         <a href="#"><i class="fas fa-user-clock"></i>運営者マスタ</a>

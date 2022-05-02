@@ -20,8 +20,14 @@ form-inlineで囲んだ要素を自動改行しない
     .table-responsive table {
         table-layout: fixed;
     }
+    .w-350-px {
+        width: 350px;
+    }
     .w-250-px {
         width: 250px;
+    }
+    .w-200-px {
+        width: 200px;
     }
     .w-150-px {
         width: 150px;

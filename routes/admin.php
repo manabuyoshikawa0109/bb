@@ -32,4 +32,10 @@ Route::group(['middleware' => 'auth:admin'], function() {
         Route::post ('register',  'EventController@register')->name('admin.event.register');
     });
 
+    // 場所マスタ
+    Route::group(['prefix' => 'place'], function() {
+        Route::get  ('input', 'PlaceController@input')->name('admin.place.input');
+        Route::post ('register',  'PlaceController@register')->name('admin.place.register');
+    });
+
 });

@@ -37,6 +37,7 @@ function initIcheckRed(){
 $(function(){
     var newId = {{ $newId }};
 
+    $('[data-toggle="popover"]').popover();
     deleteRow();
     initIcheckBlue();
     initIcheckRed();

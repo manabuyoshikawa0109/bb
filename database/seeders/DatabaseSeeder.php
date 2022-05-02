@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             AdminsTableSeeder::class,
             EventsTableSeeder::class,
+            PlacesTableSeeder::class,
         ]);
     }
 }
