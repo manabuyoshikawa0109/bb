@@ -51,8 +51,8 @@ class EventController extends Controller
             $event->fill($input);
             $event->start_time = null;
             if(isset($input['start_hour']) && isset($input['start_minutes'])){
-                $hourMinuteSeparator = Event::HOUR_MINUTE_SEPARATOR;
-                $startTime = "{$input['start_hour']}{$hourMinuteSeparator}{$input['start_minutes']}";
+                $hourMinutesSeparator = Event::HOUR_MINUTES_SEPARATOR;
+                $startTime = "{$input['start_hour']}{$hourMinutesSeparator}{$input['start_minutes']}";
                 $event->start_time = $startTime;
             }
             $event->save();

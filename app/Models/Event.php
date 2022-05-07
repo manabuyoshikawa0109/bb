@@ -12,7 +12,7 @@ class Event extends Model
     /**
      * 時間と分の区切り文字
      */
-    const HOUR_MINUTE_SEPARATOR = ':';
+    const HOUR_MINUTES_SEPARATOR = ':';
 
     /**
      * モデルに関連付けるテーブル
@@ -41,7 +41,7 @@ class Event extends Model
         if($this->start_time === null){
             return null;
         }
-        list($startHour, $startMinutes) = explode(self::HOUR_MINUTE_SEPARATOR, $this->start_time);
+        list($startHour, $startMinutes) = explode(self::HOUR_MINUTES_SEPARATOR, $this->start_time);
         return $startHour;
     }
 
@@ -54,7 +54,7 @@ class Event extends Model
         if($this->start_time === null){
             return null;
         }
-        list($startHour, $startMinutes) = explode(self::HOUR_MINUTE_SEPARATOR, $this->start_time);
+        list($startHour, $startMinutes) = explode(self::HOUR_MINUTES_SEPARATOR, $this->start_time);
         return $startMinutes;
     }
 }

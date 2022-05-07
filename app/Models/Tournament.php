@@ -36,7 +36,7 @@ class Tournament extends Model
         if($this->start_time === null){
             return null;
         }
-        list($startHour, $startMinutes) = explode(Event::HOUR_MINUTE_SEPARATOR, $this->start_time);
+        list($startHour, $startMinutes) = explode(Event::HOUR_MINUTES_SEPARATOR, $this->start_time);
         return $startHour;
     }
 
@@ -49,7 +49,7 @@ class Tournament extends Model
         if($this->start_time === null){
             return null;
         }
-        list($startHour, $startMinutes) = explode(Event::HOUR_MINUTE_SEPARATOR, $this->start_time);
+        list($startHour, $startMinutes) = explode(Event::HOUR_MINUTES_SEPARATOR, $this->start_time);
         return $startMinutes;
     }
 }
