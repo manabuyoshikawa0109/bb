@@ -1,5 +1,6 @@
 {{--
     チェックボックスコンポーネント
+    $id : id属性
     $fieldName : name属性
     $class : クラス名
     $value : チェックボックスの値(int型にする)
@@ -15,6 +16,6 @@ $name = str_replace(']', '', $name);
 @endphp
     {{-- チェックされなかった際のデフォルト値 --}}
     <input type="hidden" name="{{ $fieldName }}" value="0">
-    <input id="" type="checkbox" class="{{ $class ?? null }}" name="{{ $fieldName }}" value="{{ $value ?? 1 }}" @if((int)old($name, $default ?? null) === ($value ?? 1)) checked @endif>
+    <input id="{{ $id ?? null }}" type="checkbox" class="{{ $class ?? null }}" name="{{ $fieldName }}" value="{{ $value ?? 1 }}" @if((int)old($name, $default ?? null) === ($value ?? 1)) checked @endif>
     @include('admin.commons.components.html.errors', ['fieldName' => $name])
 @endisset
