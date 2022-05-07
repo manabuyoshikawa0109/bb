@@ -37,8 +37,8 @@
                     <li class="@if(request()->route()->named('admin.tournament.*')) active @endif">
                         <a><i class="fa fa-trophy"></i>大会管理<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="#">一覧</a></li>
-                            <li><a href="#">新規登録</a></li>
+                            <li><a href="{{ route('admin.tournament.list') }}">一覧</a></li>
+                            <li><a href="{{ route('admin.tournament.add') }}">新規登録</a></li>
                         </ul>
                     </li>
                     <li class="@if(request()->route()->named('admin.contact.*')) active @endif">

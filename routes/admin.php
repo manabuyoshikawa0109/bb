@@ -26,6 +26,16 @@ Route::group(['middleware' => 'auth:admin'], function() {
     // ホーム画面
     Route::get  ('home', 'HomeController@show')->name('admin.home.show');
 
+    // 大会管理
+    Route::group(['prefix' => 'tournament'], function() {
+        Route::any  ('list', 'TournamentController@list')->name('admin.tournament.list');
+        Route::get  ('add',  'TournamentController@add')->name('admin.tournament.add');
+        Route::post ('create',  'TournamentController@create')->name('admin.tournament.create');
+        Route::get  ('{tournament}/detail',  'TournamentController@detail')->name('admin.tournament.detail');
+        Route::get  ('{tournament}/edit',  'TournamentController@edit')->name('admin.tournament.edit');
+        Route::post ('{tournament}/update',  'TournamentController@update')->name('admin.tournament.update');
+    });
+
     // 種目マスタ
     Route::group(['prefix' => 'event'], function() {
         Route::get  ('input', 'EventController@input')->name('admin.event.input');

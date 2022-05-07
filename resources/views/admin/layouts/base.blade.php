@@ -29,6 +29,9 @@
     <!-- bootstrap-daterangepicker -->
     <link href="/assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
+    <!-- Switchery -->
+	<link href="/assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="/assets/common/css/custom.min.css" rel="stylesheet">
     <link href="/assets/common/css/base.css?{{ now()->format('YmdHis') }}" rel="stylesheet">
@@ -77,8 +80,11 @@
     <script src="/assets/plugins/moment/min/moment.min.js"></script>
     <script src="/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
 
+    <!-- Switchery -->
+	<script src="/assets/plugins/switchery/dist/switchery.min.js"></script>
+
     <!-- Custom Theme Scripts -->
-    <script src="/assets/common/js/custom.min.js"></script>
+    <script src="/assets/common/js/custom.js"></script>
     @stack('scripts')
 
 </body>
