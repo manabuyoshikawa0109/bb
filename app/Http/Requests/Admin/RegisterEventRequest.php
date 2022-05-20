@@ -36,7 +36,7 @@ class RegisterEventRequest extends FormRequest
             'events.*.name'          => ['required', 'string', 'max:100'],
             'events.*.type_id'       => ['required', Rule::in(array_keys(Type::$items))],
             'events.*.applicants'    => ['nullable', 'integer'],
-            'events.*.entry_fee'     => ['nullable', 'integer'],
+            'events.*.entry_fee'     => ['nullable', 'digits_between:1,5'],
             'events.*.start_hour'    => ['nullable', 'between:0,23'],
             'events.*.start_minutes' => ['nullable', Rule::in($minutes)],
             'events.*.delete'        => ['nullable', 'boolean'],

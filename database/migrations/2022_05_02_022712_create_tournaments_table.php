@@ -22,7 +22,7 @@ return new class extends Migration
             $table->date('date')->comment('開催日');
             $table->string('start_time', 5)->comment('開始時間');
             $table->integer('applicants')->comment('募集数');
-            $table->integer('entry_fee')->comment('参加費');
+            $table->decimal('entry_fee', 5, 0)->comment('参加費');
             $table->timestamps();
         });
         DB::statement("ALTER TABLE tournaments COMMENT '大会情報';");

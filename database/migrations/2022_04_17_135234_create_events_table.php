@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name', 100)->comment('種目名');
             $table->integer('type_id')->comment('種別ID');
             $table->integer('applicants')->nullable()->comment('募集数');
-            $table->integer('entry_fee')->nullable()->comment('参加費');
+            $table->decimal('entry_fee', 5, 0)->nullable()->comment('参加費');
             $table->string('start_time', 5)->nullable()->comment('開始時間');
             $table->timestamps();
         });
