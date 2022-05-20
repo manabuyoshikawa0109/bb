@@ -23,8 +23,6 @@ return new class extends Migration
             $table->string('start_time', 5)->comment('開始時間');
             $table->integer('applicants')->comment('募集数');
             $table->integer('entry_fee')->comment('参加費');
-            $table->boolean('is_doubles')->default(0)->comment('ダブルスフラグ');
-            $table->boolean('is_mix')->default(0)->comment('ミックスフラグ');
             $table->timestamps();
         });
         DB::statement("ALTER TABLE tournaments COMMENT '大会情報';");

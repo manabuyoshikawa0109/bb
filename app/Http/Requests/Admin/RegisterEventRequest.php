@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\ModelItems\Event\Type;
 use Illuminate\Validation\Rule;
 
 class RegisterEventRequest extends FormRequest
@@ -33,12 +34,11 @@ class RegisterEventRequest extends FormRequest
             'events'                 => ['required', 'array'],
             'events.*'               => ['required', 'array'],
             'events.*.name'          => ['required', 'string', 'max:100'],
+            'events.*.type_id'       => ['required', Rule::in(array_keys(Type::$items))],
             'events.*.applicants'    => ['nullable', 'integer'],
             'events.*.entry_fee'     => ['nullable', 'integer'],
             'events.*.start_hour'    => ['nullable', 'between:0,23'],
             'events.*.start_minutes' => ['nullable', Rule::in($minutes)],
-            'events.*.is_doubles'    => ['nullable', 'boolean'],
-            'events.*.is_mix'        => ['nullable', 'boolean'],
             'events.*.delete'        => ['nullable', 'boolean'],
         ];
     }
@@ -54,12 +54,11 @@ class RegisterEventRequest extends FormRequest
             'events'                 => '種目',
             'events.*'               => '種目',
             'events.*.name'          => '種目名',
+            'events.*.type_id'       => '種別',
             'events.*.applicants'    => '募集数',
             'events.*.entry_fee'     => '参加費',
             'events.*.start_hour'    => '開始時間',
             'events.*.start_minutes' => '開始分',
-            'events.*.is_doubles'    => 'ダブルス',
-            'events.*.is_mix'        => 'ミックス',
             'events.*.delete'        => '削除',
         ];
     }

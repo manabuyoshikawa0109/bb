@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
 
+@inject('type', 'App\ModelItems\Event\Type')
+
 @push('links')
 <link rel="stylesheet" type="text/css" href="/assets/admin/css/table.css?{{ now()->format('YmdHis') }}">
 @endpush
@@ -26,16 +28,15 @@
                         <button type="button" class="add-row-btn btn btn-sm btn-dark mx-0"><i class="fas fa-plus-circle mr-1"></i>行を追加</button>
                     </div>
                 </div>
-                <div class="table-responsive">
+                <div class="table-responsive mb-sm-2 mb-4">
                     <table class="table table-striped jambo_table bulk_action">
                         <thead>
                             <tr class="headings @if($events->isEmpty()) d-none @endif">
                                 <th class="w-250-px">種目名@required()</th>
+                                <th class="w-150-px">種別@required()</th>
                                 <th class="w-100-px">募集数</th>
                                 <th class="w-150-px">参加費</th>
                                 <th class="w-150-px">開始時間</th>
-                                <th class="w-100-px">ダブルス</th>
-                                <th class="w-100-px">ミックス</th>
                                 <th class="w-100-px">削除</th>
                             </tr>
                         </thead>
@@ -64,3 +65,18 @@ $row = str_replace(array("\r\n", "\r", "\n"), '', $row);
 
 {{-- テーブル初期設定JS --}}
 @include('admin.commons.components.js.table', ['newId' => $newId, 'row' => $row ])
+
+@push('scripts')
+<script type="text/javascript">
+$(function(){
+    // TODO: enterでフォーム送信取り消し
+    var types = @json($type::$items);
+    console.log(types);
+    $('.event-name').keyup(function() {
+        var input = $(this).val();
+        console.log(input);
+    });
+
+});
+</script>
+@endpush

@@ -1,3 +1,5 @@
+@inject('type', 'App\ModelItems\Event\Type')
+
 @php
 $id = $event->id ?? '@id@';
 $hours = [];
@@ -12,7 +14,10 @@ for($minute = 0; $minute <= 45; $minute+=15){
 @endphp
 <tr>
     <td>
-        @include('admin.commons.components.html.text', ['fieldName' => "events[{$id}][name]", 'default' => $event->name])
+        @include('admin.commons.components.html.text', ['fieldName' => "events[{$id}][name]", 'class' => 'event-name', 'default' => $event->name])
+    </td>
+    <td>
+        @include('admin.commons.components.html.select', ['fieldName' => "events[{$id}][type_id]", 'options' => $type::$items, 'default' => $event->type_id])
     </td>
     <td>
         @include('admin.commons.components.html.number', ['fieldName' => "events[{$id}][applicants]", 'default' => $event->applicants])
@@ -29,12 +34,6 @@ for($minute = 0; $minute <= 45; $minute+=15){
             <span>：</span>
             @include('admin.commons.components.html.select', ['fieldName' => "events[{$id}][start_minutes]", 'options' => $minutes, 'default' => $event->start_minutes, 'label' => '分'])
         </div>
-    </td>
-    <td>
-        @include('admin.commons.components.html.checkbox', ['fieldName' => "events[{$id}][is_doubles]", 'class' => 'icheck-blue', 'default' => $event->is_doubles])
-    </td>
-    <td>
-        @include('admin.commons.components.html.checkbox', ['fieldName' => "events[{$id}][is_mix]", 'class' => 'icheck-blue', 'default' => $event->is_mix])
     </td>
     <td>
         {{-- イベントIDが正の数=DBに登録されているのでチェックボックスを表示 --}}

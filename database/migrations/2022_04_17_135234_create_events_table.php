@@ -17,11 +17,10 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id()->comment('種目ID');
             $table->string('name', 100)->comment('種目名');
+            $table->integer('type_id')->comment('種別ID');
             $table->integer('applicants')->nullable()->comment('募集数');
             $table->integer('entry_fee')->nullable()->comment('参加費');
             $table->string('start_time', 5)->nullable()->comment('開始時間');
-            $table->boolean('is_doubles')->default(0)->comment('ダブルスフラグ');
-            $table->boolean('is_mix')->default(0)->comment('ミックスフラグ');
             $table->timestamps();
         });
 
