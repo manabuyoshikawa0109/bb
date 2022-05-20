@@ -37,7 +37,7 @@
                                        data-toggle="popover"
                                        data-html="true"
                                        title="GoogleマップのURL"
-                                       data-content="GoogleマップのURLは下記より取得できます。<br><br>Googleマップで場所検索 > 「共有」 > 「リンクを送信する」 > 「共有リンク」をコピー<br><br><a target='_blank' href='{{ config('admin.setting.google_map.top_page_url') }}'>Googleマップへ移動</a>">
+                                       data-content="GoogleマップのURLは下記より取得できます。<br><br>Googleマップで場所検索 > 「共有」 > 「リンクを送信する」 > 「共有リンク」をコピー<br><br><a target='_blank' href='{{ config('admin.setting.google_map.top_page_url') }}'>Googleマップへ移動<i class='fas fa-external-link ml-1'></i></a>">
                                     </i>
                                 </th>
                                 <th class="w-100-px">削除</th>
