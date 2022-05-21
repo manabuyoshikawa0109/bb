@@ -53,22 +53,30 @@ for($minute = 0; $minute <= 45; $minute+=15){
                     <div class="form-group mb-3 mb-sm-4">
                         <label class="col-form-label">開始時間@required()</label>
                         <div class="d-flex align-items-center">
-                            @include('admin.commons.components.html.select', ['id' => 'start-hour', 'fieldName' => 'start_hour', 'options' => $hours, 'default' => $tournament->start_hour])
-                            <span class="mx-1 mx-sm-2">：</span>
-                            @include('admin.commons.components.html.select', ['id' => 'start-minutes', 'fieldName' => 'start_minutes', 'options' => $minutes, 'default' => $tournament->start_minutes])
+                            <div class="col px-0">
+                                @include('admin.commons.components.html.select', ['id' => 'start-hour', 'fieldName' => 'start_hour', 'options' => $hours, 'default' => $tournament->start_hour])
+                            </div>
+                            <span class="col-1 text-center px-0">：</span>
+                            <div class="col px-0">
+                                @include('admin.commons.components.html.select', ['id' => 'start-minutes', 'fieldName' => 'start_minutes', 'options' => $minutes, 'default' => $tournament->start_minutes])
+                            </div>
                         </div>
                     </div>
                     <div class="form-group mb-3 mb-sm-4">
                         <label class="col-form-label">募集数@required()</label>
                         <div class="d-flex align-items-center">
-                            @include('admin.commons.components.html.number', ['id' => 'applicants', 'fieldName' => 'applicants', 'default' => $tournament->applicants])
+                            <div class="col px-0">
+                                @include('admin.commons.components.html.number', ['id' => 'applicants', 'fieldName' => 'applicants', 'default' => $tournament->applicants])
+                            </div>
                             <span id="applicants-unit" class="ml-2">　</span>
                         </div>
                     </div>
                     <div class="form-group mb-3 mb-sm-4">
                         <label class="col-form-label">参加費@required()</label>
                         <div class="d-flex align-items-center">
-                            @include('admin.commons.components.html.number', ['id' => 'entry-fee', 'fieldName' => 'entry_fee', 'default' => $tournament->entry_fee])
+                            <div class="col px-0">
+                                @include('admin.commons.components.html.number', ['id' => 'entry-fee', 'fieldName' => 'entry_fee', 'default' => $tournament->entry_fee])
+                            </div>
                             <span class="ml-2">円</span>
                         </div>
                     </div>
