@@ -16,7 +16,7 @@ $id = $place->id ?? '@id@';
         @if($place->id && 0 < $place->id)
             @include('admin.commons.components.html.checkbox', ['id' => null, 'fieldName' => "places[{$id}][delete]", 'class' => 'icheck-red'])
         @else
-            <i class="fas fa-trash-alt"></i>
+            <i class="fas fa-trash-alt delete-icon"></i>
         @endif
     </td>
 </tr>

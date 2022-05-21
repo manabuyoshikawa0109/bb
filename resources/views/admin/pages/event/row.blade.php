@@ -47,7 +47,7 @@ for($minute = 0; $minute <= 45; $minute+=15){
             @include('admin.commons.components.html.checkbox', ['id' => null, 'fieldName' => "events[{$id}][delete]", 'class' => 'icheck-red'])
         @else
             {{-- ajaxで削除する為のクラス名を付与（仮実装） --}}
-            <i class="fas fa-trash-alt @if($event->id && 0 < $event->id) ajax-delete @endif" data-id="{{ $event->id }}"></i>
+            <i class="fas fa-trash-alt delete-icon @if($event->id && 0 < $event->id) ajax-delete @endif" data-id="{{ $event->id }}"></i>
         @endif
     </td>
 </tr>

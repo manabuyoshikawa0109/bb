@@ -40,12 +40,12 @@ form-inlineで囲んだ要素を自動改行しない
 /*
 ゴミ箱アイコンのサイズ変更
 */
-.fa-trash-alt {
+.delete-icon {
     font-size: 18px;
 }
 
 @media screen and (max-width: 1024px) {
-    .fa-trash-alt {
+    .delete-icon {
         font-size: 23px;
     }
 }
@@ -53,6 +53,6 @@ form-inlineで囲んだ要素を自動改行しない
 /*
 ゴミ箱アイコンにカーソルを合わせた際にポインターになるようにする
 */
-.fa-trash-alt:before {
+.delete-icon:before {
     cursor: pointer;
 }
