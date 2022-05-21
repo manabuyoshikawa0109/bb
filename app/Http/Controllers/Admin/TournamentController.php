@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\RegisterTournamentRequest;
 use Illuminate\Http\Request;
 use App\Models\Tournament;
 use App\Models\Event;
@@ -39,12 +40,16 @@ class TournamentController extends Controller
 
     /**
      * 大会情報新規登録
-     * @param  Request $request
+     * @param  RegisterTournamentRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(RegisterTournamentRequest $request)
     {
+        $input = $request->validated();
         $tournament = new Tournament();
+        $tournament->start_time = "{$input['start_hour']}:{$input['start_minutes']}";
+        $tournament->fill($input)->save();
+
         // 完了メッセージをセット
         session()->flash('message', '大会情報を登録しました。');
         return redirect()->route('admin.tournament.detail', $tournament->id);
@@ -76,12 +81,15 @@ class TournamentController extends Controller
 
     /**
      * 大会情報更新
-     * @param  Request $request
+     * @param  RegisterTournamentRequest $request
      * @param  Tournament $tournament
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tournament $tournament)
+    public function update(RegisterTournamentRequest $request, Tournament $tournament)
     {
+        $input = $request->validated();
+        $tournament->start_time = "{$input['start_hour']}:{$input['start_minutes']}";
+        $tournament->fill($input)->save();
         // 完了メッセージをセット
         session()->flash('message', '大会情報を更新しました。');
         return redirect()->route('admin.tournament.detail', $tournament->id);
