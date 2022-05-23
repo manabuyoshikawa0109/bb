@@ -4,6 +4,10 @@
     $row : 追加する行のhtml（改行を除いた文字列）
 --}}
 
+{{-- iCheckの初期化 --}}
+@include('admin.commons.components.js.icheck_blue')
+@include('admin.commons.components.js.icheck_red')
+
 @push('scripts')
 <script type="text/javascript">
 function hideTableHeader(){
@@ -19,28 +23,11 @@ function deleteRow(){
         hideTableHeader();
     });
 }
-
-function initIcheckBlue(){
-    $('.icheck-blue').iCheck({
-        checkboxClass: 'icheckbox_flat-blue',
-        radioClass: 'iradio_flat-blue'
-    });
-}
-
-function initIcheckRed(){
-    $('.icheck-red').iCheck({
-        checkboxClass: 'icheckbox_flat-red',
-        radioClass: 'iradio_flat-red'
-    });
-}
-
 $(function(){
     var newId = {{ $newId }};
 
     $('[data-toggle="popover"]').popover();
     deleteRow();
-    initIcheckBlue();
-    initIcheckRed();
 
     $('.add-row-btn').click(function() {
         $('.headings, #form-submit-button-area').removeClass('d-none');
