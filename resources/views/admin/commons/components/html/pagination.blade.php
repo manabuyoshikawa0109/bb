@@ -1,3 +1,7 @@
+@push('links')
+<link rel="stylesheet" type="text/css" href="/assets/admin/css/pagination.css?{{ now()->format('YmdHis') }}">
+@endpush
+
 <div class="paginator-wrap overflow-auto">
     <div class="form-inline">
         <span class="mr-2 ml-1">{{ '全 ' . number_format($paginator->total()) . ' 件中 ' . number_format($paginator->firstItem()) . ' ～ ' . number_format($paginator->lastItem()) . ' 件を表示' }}</span>

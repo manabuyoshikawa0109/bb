@@ -1,0 +1,13 @@
+/*
+ページネーションの文字色を変更
+*/
+.page-item:not(.active) .page-link {
+    color: rgba(52,73,94,0.94) !important;
+}
+
+/*
+選択中のページの背景色を変更
+*/
+.page-item.active .page-link {
+    background-color: rgba(52,73,94,0.94) !important;
+}
