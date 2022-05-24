@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\ModelItems\Tournament\Status;
 
 class RegisterTournamentRequest extends FormRequest
 {
@@ -37,6 +38,7 @@ class RegisterTournamentRequest extends FormRequest
              'entry_fee'     => ['required', 'digits_between:1,5'],
              'start_hour'    => ['required', 'between:0,23'],
              'start_minutes' => ['required', Rule::in($minutes)],
+             'status_id'     => ['nullable', Rule::in(array_keys(Status::$items))],
          ];
      }
 
@@ -55,6 +57,7 @@ class RegisterTournamentRequest extends FormRequest
              'entry_fee'     => '参加費',
              'start_hour'    => '開始時間',
              'start_minutes' => '開始分',
+             'status_id'     => '状態',
          ];
      }
 

@@ -80,6 +80,12 @@ for($minute = 0; $minute <= 45; $minute+=15){
                             <span class="ml-2">円</span>
                         </div>
                     </div>
+                    <div class="form-group mb-3 mb-sm-4">
+                        <label class="col-form-label">状態</label>
+                        <div class="col px-0">
+                            @include('admin.commons.components.html.checkbox', ['fieldName' => 'status_id', 'class' => 'switchery', 'default' => $tournament->status_id])
+                        </div>
+                    </div>
 
                     <div class="ln_solid"></div>
                     <div class="form-group mb-3 mb-sm-4">
