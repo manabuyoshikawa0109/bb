@@ -8,9 +8,14 @@ use Illuminate\Http\Request;
 use App\Models\Tournament;
 use App\Models\Event;
 use App\Models\Place;
+use Illuminate\Support\Arr;
 
 class TournamentController extends Controller
 {
+    // 検索系のセッション情報のキー
+    const SESSION_KEY_SEARCH        = 'admin.tournaments.search';
+    const SESSION_KEY_SEARCH_PARAMS = 'admin.tournaments.search.params';
+    const SESSION_KEY_SEARCH_PAGE   = 'admin.tournaments.search.page';
     /**
      * 大会情報一覧
      * @param  Request $request
@@ -18,9 +23,54 @@ class TournamentController extends Controller
      */
     public function list(Request $request)
     {
-        // TODO: 検索・並び替え実装
-        $tournaments = Tournament::paginate(10);
-        return view('admin.pages.tournament.list', compact('tournaments'));
+        // TODO: 並び替え実装
+        if ($request->reset) {
+            // 検索条件のリセット(検索条件・ページ数)
+            session()->forget(self::SESSION_KEY_SEARCH);
+        } elseif ($request->isMethod('post')) {
+            // 検索実施時
+            session()->put(self::SESSION_KEY_SEARCH_PARAMS, $request->all());
+            session()->forget(self::SESSION_KEY_SEARCH_PAGE);
+        } elseif($request->page) {
+            // GET送信でアクセス時
+            session()->put(self::SESSION_KEY_SEARCH_PAGE, $request->page);
+        }
+
+        $page = session()->get(self::SESSION_KEY_SEARCH_PAGE, 1);
+        $searchParams = session()->get(self::SESSION_KEY_SEARCH_PARAMS, []);
+
+        $date = Arr::get($searchParams, 'date');
+        $keyword = Arr::get($searchParams, 'keyword');
+        $typeId = Arr::get($searchParams, 'type_id');
+
+        $query = Tournament::query();
+
+        // 開催日で検索
+        if($date !== null){
+            $query->where('tournaments.date', $date);
+        }
+
+        // キーワードで種目名、場所名検索
+        if($keyword !== null){
+            $query->where(function($query) use ($keyword) {
+                $query->whereHas('event', function ($query) use ($keyword) {
+                    $query->where('events.name', 'like', "%{$keyword}%");
+                })->orWhereHas('place', function ($query) use ($keyword) {
+                    $query->where('places.name', 'like', "%{$keyword}%");
+                });
+            });
+        }
+
+        // 種目IDで検索
+        if($typeId !== null){
+            $query->whereHas('event', function ($query) use ($typeId) {
+                $query->where('events.type_id', $typeId);
+            });
+        }
+
+        // 更新日時の降順
+        $tournaments = $query->orderby('tournaments.updated_at', 'desc')->paginate(10, ['*'], 'page', $page);
+        return view('admin.pages.tournament.list', compact('tournaments', 'searchParams'));
     }
 
     /**

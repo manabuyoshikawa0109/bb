@@ -35,6 +35,9 @@ form-inlineで囲んだ要素を自動改行しない
     .w-100-px {
         width: 100px;
     }
+    .w-50-px {
+        width: 50px;
+    }
 }
 
 /*

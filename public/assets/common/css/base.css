@@ -44,3 +44,45 @@ sweetalert2の黒背景の重なり調整
 .popover-header {
     margin: 0 !important;
 }
+
+/*
+ホバー時の背景色、枠線、文字色の変更
+*/
+.hover-dark:hover {
+    background-color: #4B5F71;
+    border-color: #364B5F;
+    color: #fff;
+}
+
+.hover-primary:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+.hover-success:hover {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+}
+
+.hover-danger:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+/*
+横スクロール用のクラス
+*/
+.overflow-x-scroll {
+    overflow-x: scroll;
+}
+
+/*
+bootstrapのデフォルトのボタン色を変更
+*/
+.btn-success {
+    background: #28a745 !important;
+    border: 1px solid #28a745 !important;
+}
