@@ -22,4 +22,4 @@
 @endsection
 
 {{-- アラート表示 --}}
-@include('admin.commons.components.js.sweetalert')
+@include('admin.commons.components.js.success_alert')
