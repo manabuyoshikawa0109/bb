@@ -11,7 +11,9 @@
         <!-- /top navigation -->
         <!-- page content -->
         <div class="right_col" role="main">
-            @yield('content')
+            <div class="row">
+                @yield('content')
+            </div>
         </div>
         <!-- /page content -->
         <!-- footer content -->
