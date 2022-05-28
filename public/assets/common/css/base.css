@@ -86,3 +86,12 @@ bootstrapのデフォルトのボタン色を変更
     background: #28a745 !important;
     border: 1px solid #28a745 !important;
 }
+
+/*
+スマホ時のグレー背景の幅調整
+※右マージンを0にすると画面レイアウトが崩れてしまう
+*/
+.right_col > .row {
+    margin-left: 0 !important;
+    margin-right: -1px !important;
+}
