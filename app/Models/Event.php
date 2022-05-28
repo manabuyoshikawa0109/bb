@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\ModelItems\Event\Type;
 
 class Event extends Model
 {
@@ -51,5 +52,23 @@ class Event extends Model
         }
         list($startHour, $startMinutes) = explode(':', $this->start_time);
         return $startMinutes;
+    }
+
+    /**
+    * 種別名を返す
+    * @return string
+    */
+    public function typeName()
+    {
+        return Type::name($this->type_id);
+    }
+
+    /**
+    * 種別毎の色に関するクラス名を返す
+    * @return string
+    */
+    public function typeColorClass()
+    {
+        return Type::colorClass($this->type_id);
     }
 }
