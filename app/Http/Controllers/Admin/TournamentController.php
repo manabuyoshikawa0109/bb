@@ -125,7 +125,9 @@ class TournamentController extends Controller
     public function edit(Request $request, Tournament $tournament)
     {
         $events = Event::all();
-        $places = Place::all();
+        $places = Place::all()->mapWithKeys(function ($place, $key) {
+            return [$place->id => $place->name];
+        });
         return view('admin.pages.tournament.edit', compact('tournament', 'events', 'places'));
     }
 

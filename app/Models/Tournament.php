@@ -115,10 +115,19 @@ class Tournament extends Model
     */
     public function formatApplicants()
     {
-        $unit = null;
+        return number_format($this->applicants) . $this->applicantsUnit();
+    }
+
+    /**
+    * 募集数の単位を返す
+    * @return string|null
+    */
+    public function applicantsUnit()
+    {
+        $unit = '　';
         if($this->event) {
             $unit = Type::unit($this->event->type_id);
         }
-        return number_format($this->applicants) . $unit;
+        return $unit;
     }
 }
