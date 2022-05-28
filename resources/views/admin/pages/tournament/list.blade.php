@@ -129,7 +129,7 @@
                             <td>
                                 <a href="{{ route('admin.tournament.detail', $tournament->id)}}" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="詳細"><i class="fas fa-file-alt"></i></a>
                                 <a href="{{ route('admin.tournament.edit', $tournament->id)}}" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="編集"><i class="fas fa-edit"></i></a>
-                                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="削除"><i class="fas fa-trash-alt"></i></a>
+                                <a href="{{ route('admin.tournament.delete', $tournament->id) }}" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="削除" onclick="return confirm('大会を削除しますか？')"><i class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
                         @endforeach
@@ -161,7 +161,7 @@ $(function(){
         var typeId = $(this).attr('data-type-id');
         $('input[name="type_id"]').val(typeId);
         $(this).closest('form').submit();
-    })
+    });
 });
 </script>
 @endpush

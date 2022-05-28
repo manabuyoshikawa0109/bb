@@ -144,4 +144,18 @@ class TournamentController extends Controller
         session()->flash('message', '大会情報を更新しました。');
         return redirect()->route('admin.tournament.detail', $tournament->id);
     }
+
+    /**
+     * 大会情報削除
+     * @param  Request $request
+     * @param  Tournament $tournament
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Request $request, Tournament $tournament)
+    {
+        $tournament->delete();
+        // 完了メッセージをセット
+        session()->flash('message', '大会情報を削除しました。');
+        return redirect()->route('admin.tournament.list');
+    }
 }

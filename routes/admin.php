@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth:admin'], function() {
         Route::get  ('{tournament}/detail',  'TournamentController@detail')->name('admin.tournament.detail');
         Route::get  ('{tournament}/edit',  'TournamentController@edit')->name('admin.tournament.edit');
         Route::post ('{tournament}/update',  'TournamentController@update')->name('admin.tournament.update');
+        Route::get  ('{tournament}/delete',  'TournamentController@delete')->name('admin.tournament.delete');
     });
 
     // 種目マスタ
