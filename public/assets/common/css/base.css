@@ -95,3 +95,9 @@ bootstrapのデフォルトのボタン色を変更
     margin-left: 0 !important;
     margin-right: -1px !important;
 }
+
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
