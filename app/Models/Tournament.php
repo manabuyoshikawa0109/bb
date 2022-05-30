@@ -91,6 +91,15 @@ class Tournament extends Model
     }
 
     /**
+    * 状態名を返す
+    * @return string|null
+    */
+    public function statusName()
+    {
+        return Status::name($this->status_id);
+    }
+
+    /**
     * 開催日をフォーマットして返す
     * @param string format
     * @return string
