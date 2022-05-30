@@ -13,7 +13,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <h2>大会一覧</h2>
                 <div class="d-block d-lg-none">
-                    <a href="{{ route('admin.tournament.add') }}" class="btn btn-sm btn-dark mx-0"><i class="fas fa-plus-circle mr-1"></i>新規登録</a>
+                    <a href="{{ route('admin.tournament.add') }}" class="btn btn-dark mx-0"><i class="fas fa-plus-circle mr-1"></i>新規登録</a>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -60,7 +60,7 @@
                     {{ $tournaments->links('admin.commons.components.html.pagination') }}
                 </div>
                 <div class="d-none d-lg-block">
-                    <a href="{{ route('admin.tournament.add') }}" class="btn btn-sm btn-dark mx-0"><i class="fas fa-plus-circle mr-1"></i>新規登録</a>
+                    <a href="{{ route('admin.tournament.add') }}" class="btn btn-dark mx-0"><i class="fas fa-plus-circle mr-1"></i>新規登録</a>
                 </div>
             </div>
             <div class="table-responsive">

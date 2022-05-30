@@ -13,7 +13,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <h2>種目マスタ</h2>
                 <div class="d-block d-lg-none">
-                    <button type="button" class="add-row-btn btn btn-sm btn-dark mx-0"><i class="fas fa-plus-circle mr-1"></i>行を追加</button>
+                    <button type="button" class="add-row-btn btn btn-dark mx-0"><i class="fas fa-plus-circle mr-1"></i>行を追加</button>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -25,7 +25,7 @@
                 <div class="d-flex justify-content-between align-items-center mb-1">
                     <div>種目名・削除以外の項目は<code>「大会管理 > 新規登録」</code>で種目選択時にデフォルトで反映される設定値です。</div>
                     <div class="d-none d-lg-block">
-                        <button type="button" class="add-row-btn btn btn-sm btn-dark mx-0"><i class="fas fa-plus-circle mr-1"></i>行を追加</button>
+                        <button type="button" class="add-row-btn btn btn-dark mx-0"><i class="fas fa-plus-circle mr-1"></i>行を追加</button>
                     </div>
                 </div>
                 <div class="table-responsive mb-sm-2 mb-4">

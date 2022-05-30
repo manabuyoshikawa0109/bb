@@ -96,8 +96,14 @@ bootstrapのデフォルトのボタン色を変更
     margin-right: -1px !important;
 }
 
+/* 文字が長くなった時にはみ出た部分を点線表示にして省略 */
 .ellipsis {
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ボタンの文字を折り返さない */
+.btn {
     white-space: nowrap;
 }
