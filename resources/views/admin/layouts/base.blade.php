@@ -34,7 +34,7 @@
 
     <!-- Custom Theme Style -->
     <link href="/assets/common/css/custom.min.css" rel="stylesheet">
-    <link href="/assets/common/css/base.css?{{ now()->format('YmdHis') }}" rel="stylesheet">
+    <link href="/assets/admin/css/base.css?{{ now()->format('YmdHis') }}" rel="stylesheet">
     @stack('links')
 </head>
 
