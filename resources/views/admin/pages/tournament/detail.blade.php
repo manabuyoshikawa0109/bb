@@ -59,7 +59,7 @@
                                     </li>
                                     <li class="clearfix">
                                         <div class="panel-label">開催日時</div>
-                                        <div class="panel-value">{{ $tournament->formatDate() }} {{ $tournament->start_time }}</div>
+                                        <div class="panel-value">{{ optional($tournament->date)->isoFormat('YYYY年M月D日(ddd)') }} {{ $tournament->start_time }}</div>
                                     </li>
                                     <li class="clearfix">
                                         <div class="panel-label">募集数</div>

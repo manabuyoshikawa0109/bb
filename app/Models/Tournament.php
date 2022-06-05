@@ -31,6 +31,15 @@ class Tournament extends Model
     ];
 
     /**
+     * キャストする必要のある属性
+     *
+     * @var array
+     */
+    protected $casts = [
+        'date' => 'date', // Carbonインスタンス(時間・分・秒は0になる)に変換
+    ];
+
+    /**
     * 種目マスタ
     */
     public function event()
@@ -97,16 +106,6 @@ class Tournament extends Model
     public function statusName()
     {
         return Status::name($this->status_id);
-    }
-
-    /**
-    * 開催日をフォーマットして返す
-    * @param string format
-    * @return string
-    */
-    public function formatDate(string $format = 'YYYY年M月D日(ddd)')
-    {
-        return (new Carbon($this->date))->isoFormat($format);
     }
 
     /**

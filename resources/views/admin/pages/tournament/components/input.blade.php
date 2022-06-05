@@ -33,7 +33,7 @@ for($minute = 0; $minute <= 45; $minute+=15){
 
 <div class="form-group mb-3 mb-sm-4">
     <label class="col-form-label">開催日@required()</label>
-    @include('admin.commons.components.html.date', ['fieldName' => 'date', 'default' => $tournament->date, 'min' => today()->format('Y-m-d')])
+    @include('admin.commons.components.html.date', ['fieldName' => 'date', 'default' => optional($tournament->date)->format('Y-m-d'), 'min' => today()->format('Y-m-d')])
 </div>
 <div class="form-group mb-3 mb-sm-4">
     <label class="col-form-label">開始時間@required()</label>

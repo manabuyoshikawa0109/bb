@@ -110,7 +110,7 @@
                                 {{ optional($tournament->place)->name }}
                             </td>
                             <td>
-                                {{ $tournament->formatDate() }} {{ $tournament->start_time }}
+                                {{ optional($tournament->date)->isoFormat('YYYY年M月D日(ddd)') }} {{ $tournament->start_time }}
                             </td>
                             <td>
                                 {{ $tournament->formatApplicants() }}
