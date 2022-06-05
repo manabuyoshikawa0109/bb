@@ -23,9 +23,9 @@
             <form action="{{ route('admin.tournament.list') }}" method="post">
                 @csrf
                 <input type="hidden" name="type_id" value="{{ $searchParams['type_id'] ?? null }}">
-                <div id="types" class="d-flex align-items-center text-nowrap overflow-x-scroll">
+                <div class="d-flex align-items-center text-nowrap overflow-x-scroll btn-search">
                     <span class="mr-2 font-weight-bold">種目種別：</span>
-                    <button type="button" class="btn btn-sm rounded-pill @if(isset($searchParams['type_id']) === false) btn-dark @else btn-light hover-dark @endif" data-type-id="">すべて</button>
+                    <button type="button" class="btn btn-sm rounded-pill @if(empty($searchParams['type_id'])) btn-dark @else btn-light hover-dark @endif" data-type-id="">すべて</button>
                     @foreach($type::$items as $typeId => $typeName)
                     <button type="button" class="btn btn-sm rounded-pill @if(isset($searchParams['type_id']) && $searchParams['type_id'] === (string)$typeId) btn-{{ $type::colorClass($typeId) }} @else btn-light hover-{{ $type::colorClass($typeId) }} @endif" data-type-id="{{ $typeId }}">{{ $typeName }}</button>
                     @endforeach
@@ -39,7 +39,7 @@
                     </div>
                     <div class="col-sm-4 pl-sm-2 px-0">
                         <div class="form-group">
-                            <label class="col-form-label d-">フリーワード検索</label>
+                            <label class="col-form-label">フリーワード検索</label>
                             @include('admin.commons.components.html.text', ['fieldName' => 'keyword', 'default' => $searchParams['keyword'] ?? '', 'placeholder' => '種目名、場所'])
                         </div>
                     </div>
@@ -157,7 +157,7 @@
 @push('scripts')
 <script type="text/javascript">
 $(function(){
-    $('#types button').click(function() {
+    $('.btn-search button').click(function() {
         var typeId = $(this).attr('data-type-id');
         $('input[name="type_id"]').val(typeId);
         $(this).closest('form').submit();
