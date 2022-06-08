@@ -58,23 +58,17 @@
                     <li class="@if(request()->route()->named('admin.place.*')) active @endif">
                         <a href="{{ route('admin.place.input') }}"><i class="fas fa-map-marker-alt"></i>場所マスタ</a>
                     </li>
-                    <li class="@if(request()->route()->named('admin.organizer.*')) active @endif">
-                        <a href="#"><i class="fas fa-user-clock"></i>運営者マスタ</a>
-                    </li>
                 </ul>
             </div>
             <div class="menu_section">
                 <h3>設定</h3>
                 <ul class="nav side-menu">
                     <li class="@if(request()->route()->named('admin.admin.*')) active @endif">
-                        <a><i class="fa-solid fa-user-gear"></i>管理者情報<span class="fa fa-chevron-down"></span></a>
+                        <a><i class="fa-solid fa-user-gear"></i>管理者管理<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="#">一覧</a></li>
                             <li><a href="#">新規追加</a></li>
                         </ul>
-                    </li>
-                    <li class="@if(request()->route()->named('admin.password.*')) active @endif">
-                        <a href="#"><i class="fa-solid fa-unlock-keyhole"></i>パスワード変更</a>
                     </li>
                     <li>
                         <a href="{{ route('admin.logout') }}"><i class="fa fa-sign-out"></i>ログアウト</a>
