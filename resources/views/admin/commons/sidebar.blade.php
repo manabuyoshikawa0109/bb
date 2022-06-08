@@ -44,8 +44,12 @@
                     <li class="@if(request()->route()->named('admin.contact.*')) active @endif">
                         <a href="#"><i class="fas fa-envelope"></i>問い合わせ管理</a>
                     </li>
-                    <li class="@if(request()->route()->named('admin.notification.*')) active @endif">
-                        <a href="#"><i class="fas fa-info-circle"></i>お知らせ管理</a>
+                    <li class="@if(request()->route()->named('admin.information.*')) active @endif">
+                        <a><i class="fas fa-info-circle"></i>お知らせ管理<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('admin.information.list') }}">一覧</a></li>
+                            <li><a href="{{ route('admin.information.add') }}">新規登録</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>

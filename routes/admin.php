@@ -37,6 +37,17 @@ Route::group(['middleware' => 'auth:admin'], function() {
         Route::get  ('{tournament}/delete',  'TournamentController@delete')->name('admin.tournament.delete');
     });
 
+    // お知らせ管理
+    Route::group(['prefix' => 'information'], function() {
+        Route::any  ('list', 'InformationController@list')->name('admin.information.list');
+        Route::get  ('add',  'InformationController@add')->name('admin.information.add');
+        Route::post ('create',  'InformationController@create')->name('admin.information.create');
+        Route::get  ('{information}/detail',  'InformationController@detail')->name('admin.information.detail');
+        Route::get  ('{information}/edit',  'InformationController@edit')->name('admin.information.edit');
+        Route::post ('{information}/update',  'InformationController@update')->name('admin.information.update');
+        Route::get  ('{information}/delete',  'InformationController@delete')->name('admin.information.delete');
+    });
+
     // 種目マスタ
     Route::group(['prefix' => 'event'], function() {
         Route::get  ('input', 'EventController@input')->name('admin.event.input');
