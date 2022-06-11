@@ -33,7 +33,7 @@ class RegisterTournamentRequest extends FormRequest
          return [
              'event_id'      => ['required', 'exists:events,id'],
              'place_id'      => ['required', 'exists:places,id'],
-             'date'          => ['required', 'date', 'after_or_equal:today'], // 今日か、それ以降の日付
+             'date'          => ['required', 'date'],
              'applicants'    => ['required', 'integer'],
              'entry_fee'     => ['required', 'digits_between:1,5'],
              'start_hour'    => ['required', 'between:0,23'],
@@ -69,14 +69,12 @@ class RegisterTournamentRequest extends FormRequest
      public function messages()
      {
          return [
-             'required'            => ':attributeは必須です',
-             'exists'              => ':attributeの形式が不正です',
-             'date'                => ':attributeの形式が不正です',
-             'integer'             => ':attributeの形式が不正です',
-             'in'                  => ':attributeの形式が不正です',
-             'between'             => ':attributeの形式が不正です',
-             // 参考：https://zenn.dev/shimotaroo/articles/297f683d7497b8
-             'date.after_or_equal' => '開催日には、今日以降の日付を指定してください。',
+             'required' => ':attributeは必須です',
+             'exists'   => ':attributeの形式が不正です',
+             'date'     => ':attributeの形式が不正です',
+             'integer'  => ':attributeの形式が不正です',
+             'in'       => ':attributeの形式が不正です',
+             'between'  => ':attributeの形式が不正です',
          ];
      }
 }

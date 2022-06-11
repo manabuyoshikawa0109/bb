@@ -14,18 +14,18 @@ for($minute = 0; $minute <= 45; $minute+=15){
 @endphp
 <tr>
     <td>
-        @include('admin.commons.components.html.text', ['id' => null, 'fieldName' => "events[{$id}][name]", 'class' => 'event-name', 'default' => $event->name])
+        @include('admin.commons.components.html.text', ['id' => null, 'fieldName' => "events[{$id}][name]", 'class' => 'event-name', 'default' => $event->name, 'placeholder' => '例】初級男子シングルス'])
     </td>
     <td>
         @include('admin.commons.components.html.select', ['id' => null, 'fieldName' => "events[{$id}][type_id]", 'options' => $type::$items, 'default' => $event->type_id])
     </td>
     <td>
-        @include('admin.commons.components.html.number', ['id' => null, 'fieldName' => "events[{$id}][applicants]", 'default' => $event->applicants])
+        @include('admin.commons.components.html.number', ['id' => null, 'fieldName' => "events[{$id}][applicants]", 'default' => $event->applicants, 'placeholder' => '例】20'])
     </td>
     <td>
         <div class="d-flex align-items-center">
             <div>
-                @include('admin.commons.components.html.number', ['id' => null, 'fieldName' => "events[{$id}][entry_fee]", 'default' => $event->entry_fee])
+                @include('admin.commons.components.html.number', ['id' => null, 'fieldName' => "events[{$id}][entry_fee]", 'default' => $event->entry_fee, 'placeholder' => '例】5000'])
             </div>
             <span class="ml-1">円</span>
         </div>

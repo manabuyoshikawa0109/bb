@@ -33,7 +33,7 @@ for($minute = 0; $minute <= 45; $minute+=15){
 
 <div class="form-group mb-3 mb-sm-4">
     <label class="col-form-label">開催日@required()</label>
-    @include('admin.commons.components.html.date', ['fieldName' => 'date', 'default' => optional($tournament->date)->format('Y-m-d'), 'min' => today()->format('Y-m-d')])
+    @include('admin.commons.components.html.date', ['fieldName' => 'date', 'default' => optional($tournament->date)->format('Y-m-d')])
 </div>
 <div class="form-group mb-3 mb-sm-4">
     <label class="col-form-label">開始時間@required()</label>
@@ -51,7 +51,7 @@ for($minute = 0; $minute <= 45; $minute+=15){
     <label class="col-form-label">募集数@required()</label>
     <div class="d-flex align-items-center">
         <div class="col px-0">
-            @include('admin.commons.components.html.number', ['id' => 'applicants', 'fieldName' => 'applicants', 'default' => $tournament->applicants])
+            @include('admin.commons.components.html.number', ['id' => 'applicants', 'fieldName' => 'applicants', 'default' => $tournament->applicants, 'placeholder' => '例】20'])
         </div>
         <span id="applicants-unit" class="ml-2">{{ $tournament->applicantsUnit() }}</span>
     </div>
@@ -60,7 +60,7 @@ for($minute = 0; $minute <= 45; $minute+=15){
     <label class="col-form-label">参加費@required()</label>
     <div class="d-flex align-items-center">
         <div class="col px-0">
-            @include('admin.commons.components.html.number', ['id' => 'entry-fee', 'fieldName' => 'entry_fee', 'default' => $tournament->entry_fee])
+            @include('admin.commons.components.html.number', ['id' => 'entry-fee', 'fieldName' => 'entry_fee', 'default' => $tournament->entry_fee, 'placeholder' => '例】5000'])
         </div>
         <span class="ml-2">円</span>
     </div>
