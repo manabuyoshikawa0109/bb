@@ -1,22 +1,25 @@
 @extends('user.layouts.base')
 
-@section('body_class', 'nav-md')
-
 @section('inner_body')
-<div class="container body">
-    <div class="main_container">
-        @include('user.commons.sidebar')
-        <!-- top navigation -->
-        @include('user.commons.nav')
-        <!-- /top navigation -->
-        <!-- page content -->
-        <div class="right_col" role="main">
-            @yield('content')
-        </div>
-        <!-- /page content -->
-        <!-- footer content -->
-        @include('user.commons.footer')
-        <!-- /footer content -->
+
+<!-- Spinner Start -->
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
     </div>
 </div>
+<!-- Spinner End -->
+
+{{-- ヘッダー --}}
+@include('user.commons.header')
+
+{{-- ページコンテンツ --}}
+@yield('content')
+
+{{-- フッター --}}
+@include('user.commons.footer')
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
 @endsection
