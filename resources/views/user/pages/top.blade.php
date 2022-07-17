@@ -1,5 +1,9 @@
 @extends('user.layouts.app')
 
+@push('links')
+<link href="/assets/user/css/top.css" rel="stylesheet">
+@endpush
+
 @section('content')
 <!-- Carousel Start -->
 <div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="0.1s">
@@ -100,6 +104,90 @@
 </div>
 <!-- Feature Start -->
 
+<div class="container-xxl py-5 faq">
+    <div class="container px-1">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h6 class="text-primary">FAQs</h6>
+            <h1 class="mb-4">よくあるご質問</h1>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="accordion accordion-flush px-xl-5" id="faqlist">
+                    <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-1">
+                                <i class="bi bi-question-circle question-icon"></i>
+                                キャンセル代はいつ頃からかかりますか？
+                            </button>
+                        </h3>
+                        <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                            <div class="accordion-body">
+                                キャンセル代は試合当日3日前から発生します。前日まではダブルス3,300円・シングルス3,000円、当日キャンセルはダブルス5,000円・シングルス4,400円です。
+                            </div>
+                        </div>
+                    </div><!-- # Faq item-->
+
+                    <div class="accordion-item" data-aos="fade-up" data-aos-delay="300">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-2">
+                                <i class="bi bi-question-circle question-icon"></i>
+                                1日の試合で最大何種目出場できますか？
+                            </button>
+                        </h3>
+                        <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                            <div class="accordion-body">
+                                1日最大2種目出場できます。3種目以上の出場はできません。
+                            </div>
+                        </div>
+                    </div><!-- # Faq item-->
+
+                    <div class="accordion-item" data-aos="fade-up" data-aos-delay="400">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-3">
+                                <i class="bi bi-question-circle question-icon"></i>
+                                Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi?
+                            </button>
+                        </h3>
+                        <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                            <div class="accordion-body">
+                                Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
+                            </div>
+                        </div>
+                    </div><!-- # Faq item-->
+
+                    <div class="accordion-item" data-aos="fade-up" data-aos-delay="500">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-4">
+                                <i class="bi bi-question-circle question-icon"></i>
+                                Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?
+                            </button>
+                        </h3>
+                        <div id="faq-content-4" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                            <div class="accordion-body">
+                                <i class="bi bi-question-circle question-icon"></i>
+                                Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                            </div>
+                        </div>
+                    </div><!-- # Faq item-->
+
+                    <div class="accordion-item" data-aos="fade-up" data-aos-delay="600">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-5">
+                                <i class="bi bi-question-circle question-icon"></i>
+                                Tempus quam pellentesque nec nam aliquam sem et tortor consequat?
+                            </button>
+                        </h3>
+                        <div id="faq-content-5" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                            <div class="accordion-body">
+                                Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in
+                            </div>
+                        </div>
+                    </div><!-- # Faq item-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- About Start -->
 <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">

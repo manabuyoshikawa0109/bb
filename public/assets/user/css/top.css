@@ -1,0 +1,47 @@
+/*--------------------------------------------------------------
+# よくあるご質問箇所
+--------------------------------------------------------------*/
+.faq .accordion-item {
+    border: 0;
+    margin-top: 15px;
+    box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.06);
+}
+.faq .accordion-collapse {
+    border: 0;
+}
+.faq .accordion-button {
+    padding: 15px 40px 20px 60px;
+    font-weight: 600;
+    border: 0;
+    font-size: 18px;
+    color: #1a1f24;
+    text-align: left;
+    background: #ffffff;
+    box-shadow: none;
+    border-radius: 5px;
+}
+.faq .accordion-button:not(.collapsed) {
+    color: #32C36C;
+    border-bottom: 0;
+    box-shadow: none;
+}
+.faq .question-icon {
+    position: absolute;
+    top: 14px;
+    left: 25px;
+    font-size: 20px;
+    color: #32C36C;
+}
+.faq .accordion-button:after {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    color: #0ea2bd;
+}
+.faq .accordion-body {
+    padding: 0 30px 25px 60px;
+    border: 0;
+    border-radius: 5px;
+    background: #ffffff;
+    box-shadow: none;
+}
