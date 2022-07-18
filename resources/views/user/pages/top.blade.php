@@ -1,7 +1,7 @@
 @extends('user.layouts.app')
 
 @push('links')
-<link href="/assets/user/css/top.css" rel="stylesheet">
+<link href="/assets/user/css/top.css?{{ now()->format('YmdHis') }}" rel="stylesheet">
 @endpush
 
 @section('content')
@@ -104,6 +104,57 @@
 </div>
 <!-- Feature Start -->
 
+<div class="container-fluid bg-light py-5">
+    <div class="container px-1">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h6 class="text-primary">NEWS</h6>
+            <h1 class="mb-4">お知らせ</h1>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-12 col-lg-8 offset-lg-2 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="list-group">
+                    <a href="javascript:void(0)" class="list-group-item">
+                        <div class="d-flex flex-wrap w-100">
+                            <div class="d-flex w-100">
+                                <div class="d-flex align-items-center flex-wrap w-100">
+                                    <span class="me-3">2022.7.17</span>
+                                    <span class="me-3 bg-primary text-white px-3 border-radius-5">お知らせ</span>
+                                    <span class="flex-grow-1 d-block d-sm-inline-block mt-2 mt-sm-0">夏季休暇について</span>
+                                </div>
+                                <span class="my-auto"><i class="fas fa-chevron-right opacity-80"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="javascript:void(0)" class="list-group-item">
+                        <div class="d-flex flex-wrap w-100">
+                            <div class="d-flex w-100">
+                                <div class="d-flex align-items-center flex-wrap w-100">
+                                    <span class="me-3">2022.7.17</span>
+                                    <span class="me-3 bg-primary text-white px-3 border-radius-5">お知らせ</span>
+                                    <span class="flex-grow-1 d-block d-sm-inline-block mt-2 mt-sm-0">夏季休暇について</span>
+                                </div>
+                                <span class="my-auto"><i class="fas fa-chevron-right opacity-80"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="javascript:void(0)" class="list-group-item">
+                        <div class="d-flex flex-wrap w-100">
+                            <div class="d-flex w-100">
+                                <div class="d-flex align-items-center flex-wrap w-100">
+                                    <span class="me-3">2022.7.17</span>
+                                    <span class="me-3 bg-primary text-white px-3 border-radius-5">お知らせ</span>
+                                    <span class="flex-grow-1 d-block d-sm-inline-block mt-2 mt-sm-0">夏季休暇について</span>
+                                </div>
+                                <span class="my-auto"><i class="fas fa-chevron-right opacity-80"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container-xxl py-5 faq">
     <div class="container px-1">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
@@ -111,7 +162,7 @@
             <h1 class="mb-4">よくあるご質問</h1>
         </div>
         <div class="row g-4">
-            <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="col-md-12 col-lg-10 offset-lg-1 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="accordion accordion-flush px-xl-5" id="faqlist">
                     <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
                         <h3 class="accordion-header">
@@ -145,12 +196,12 @@
                         <h3 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-3">
                                 <i class="bi bi-question-circle question-icon"></i>
-                                Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi?
+                                雨が降った場合はどうなりますか？
                             </button>
                         </h3>
                         <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                             <div class="accordion-body">
-                                Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
+                                当日の朝7時までに試合の有無を登録していただいているLINE、もしくはメールアドレス宛てに連絡させていただきます。
                             </div>
                         </div>
                     </div><!-- # Faq item-->
@@ -159,13 +210,13 @@
                         <h3 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-4">
                                 <i class="bi bi-question-circle question-icon"></i>
-                                Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?
+                                コロナで政府より緊急事態宣言がでた場合はどうなりますか？
                             </button>
                         </h3>
                         <div id="faq-content-4" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                             <div class="accordion-body">
                                 <i class="bi bi-question-circle question-icon"></i>
-                                Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                                当大会は市営コートを利用して運営しておりますので、緊急事態宣言により市営コートが使用できなくなった場合は大会を中止することがあります。
                             </div>
                         </div>
                     </div><!-- # Faq item-->
@@ -174,12 +225,12 @@
                         <h3 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-5">
                                 <i class="bi bi-question-circle question-icon"></i>
-                                Tempus quam pellentesque nec nam aliquam sem et tortor consequat?
+                                会場の近くにコンビニはありますか？
                             </button>
                         </h3>
                         <div id="faq-content-5" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                             <div class="accordion-body">
-                                Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in
+                                会場によって近くにコンビニがないところもあります。また試合の進行状況によりコンビニに行く時間がないこともありますので、事前に買ってきていただくことをおすすめしております。
                             </div>
                         </div>
                     </div><!-- # Faq item-->
