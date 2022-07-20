@@ -7,7 +7,7 @@
 }
 
 /*--------------------------------------------------------------
-# よくあるご質問箇所
+# よくあるご質問
 --------------------------------------------------------------*/
 .faq .accordion-item {
     border: 0;
@@ -52,4 +52,31 @@
     border-radius: 5px;
     background: #ffffff;
     box-shadow: none;
+}
+
+/*--------------------------------------------------------------
+# 大会情報
+--------------------------------------------------------------*/
+.service-icon {
+    margin-bottom: 10px !important;
+}
+
+#isotope-flters {
+    white-space: nowrap;
+    overflow-x: scroll;
+}
+
+#isotope-flters li {
+    display: inline-block;
+    font-weight: 500;
+    color: #1A2A36;
+    cursor: pointer;
+    transition: .5s;
+    border-bottom: 2px solid transparent;
+}
+
+#isotope-flters li:hover,
+#isotope-flters li.active {
+    color: #32C36C;
+    border-color: #32C36C;
 }

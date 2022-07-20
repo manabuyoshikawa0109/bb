@@ -6,7 +6,7 @@
 
 @section('content')
 <!-- Carousel Start -->
-<div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="0.1s">
+<div class="container-fluid p-0 pb-0 wow fadeIn" data-wow-delay="0.1s">
     <div class="owl-carousel header-carousel position-relative">
         <div class="owl-carousel-item position-relative" data-dot="<img src='/assets/user/images/top-banner-1.png'>">
             <img class="img-fluid" src="/assets/user/images/top-banner-1.png" alt="">
@@ -56,7 +56,7 @@
 
 
 <!-- Feature Start -->
-<div class="container-xxl py-5">
+<!-- <div class="container-xxl py-5">
     <div class="container">
         <div class="row g-5">
             <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
@@ -101,13 +101,13 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Feature Start -->
 
 <div class="container-fluid bg-light py-5">
     <div class="container px-1">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h6 class="text-primary">NEWS</h6>
+            <h6 class="text-primary">News</h6>
             <h1 class="mb-4">お知らせ</h1>
         </div>
         <div class="row g-4">
@@ -154,6 +154,113 @@
         </div>
     </div>
 </div>
+
+<!-- Service Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h6 class="text-primary">Tournament</h6>
+            <h1 class="mb-4">大会情報</h1>
+        </div>
+        <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="col-12 text-center">
+                <ul class="list-inline mb-5" id="isotope-flters">
+                    <!-- <li class="mx-2 active" data-filter="*">すべて</li> -->
+                    <li class="mx-2 active" data-filter=".2022-07-31">2022年7月31日</li>
+                    <li class="mx-2" data-filter=".2022-08-28">2022年8月28日</li>
+                    <li class="mx-2" data-filter=".2022-09-11">2022年9月11日</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row g-4 isotope">
+            @for ($i = 1; $i <= 3; $i++)
+            <div class="col-md-6 col-lg-4 wow fadeInUp isotope-item 2022-07-31" data-wow-delay="0.1s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="/assets/user/images/neyagawa.jpeg" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <i class="fa fa-solar-panel fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">2022年7月31日(日）9:00〜<br>初級男子シングルス</h4>
+                        <p>場所：寝屋川公園　参加費：4,400円<br>募集人数：18人（残り5人）</p>
+                        <a class="small fw-medium" href="">エントリーする<i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            @endfor
+            @for ($i = 1; $i <= 3; $i++)
+            <div class="col-md-6 col-lg-4 wow fadeInUp isotope-item 2022-08-28" data-wow-delay="0.3s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="/assets/user/images/fukakita.jpeg" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <i class="fa fa-solar-panel fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">2022年8月28日(日）9:00〜<br>中級ミックスダブルス</h4>
+                        <p>場所：深北緑地　参加費：5,000円<br>募集人数：20組（残り15組）</p>
+                        <a class="small fw-medium" href="">エントリーする<i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            @endfor
+            @for ($i = 1; $i <= 3; $i++)
+            <div class="col-md-6 col-lg-4 wow fadeInUp isotope-item 2022-09-11" data-wow-delay="0.5s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="/assets/user/images/chuburyokuchi.jpeg" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <i class="fa fa-solar-panel fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">2022年9月11日(日）10:00〜<br>初級女子ダブルス</h4>
+                        <p>場所：中部緑地庭球場　参加費：5,000円<br>募集人数：18組（残り18組）</p>
+                        <a class="small fw-medium" href="">エントリーする<i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            @endfor
+            <!-- <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="/assets/user/images/img-600x400-4.jpg" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <i class="fa fa-solar-panel fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Solar Panels</h4>
+                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
+                        <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="/assets/user/images/img-600x400-5.jpg" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <i class="fa fa-wind fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Wind Turbines</h4>
+                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
+                        <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="/assets/user/images/img-600x400-6.jpg" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <i class="fa fa-lightbulb fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Hydropower Plants</h4>
+                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
+                        <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+<!-- Service End -->
 
 <div class="container-xxl py-5 faq">
     <div class="container px-1">
@@ -264,98 +371,6 @@
     </div>
 </div>
 <!-- About End -->
-
-
-<!-- Service Start -->
-<div class="container-xxl py-5">
-    <div class="container">
-        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h6 class="text-primary">Our Services</h6>
-            <h1 class="mb-4">We Are Pioneers In The World Of Renewable Energy</h1>
-        </div>
-        <div class="row g-4">
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="service-item rounded overflow-hidden">
-                    <img class="img-fluid" src="/assets/user/images/img-600x400-1.jpg" alt="">
-                    <div class="position-relative p-4 pt-0">
-                        <div class="service-icon">
-                            <i class="fa fa-solar-panel fa-3x"></i>
-                        </div>
-                        <h4 class="mb-3">Solar Panels</h4>
-                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                        <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="service-item rounded overflow-hidden">
-                    <img class="img-fluid" src="/assets/user/images/img-600x400-2.jpg" alt="">
-                    <div class="position-relative p-4 pt-0">
-                        <div class="service-icon">
-                            <i class="fa fa-wind fa-3x"></i>
-                        </div>
-                        <h4 class="mb-3">Wind Turbines</h4>
-                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                        <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="service-item rounded overflow-hidden">
-                    <img class="img-fluid" src="/assets/user/images/img-600x400-3.jpg" alt="">
-                    <div class="position-relative p-4 pt-0">
-                        <div class="service-icon">
-                            <i class="fa fa-lightbulb fa-3x"></i>
-                        </div>
-                        <h4 class="mb-3">Hydropower Plants</h4>
-                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                        <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="service-item rounded overflow-hidden">
-                    <img class="img-fluid" src="/assets/user/images/img-600x400-4.jpg" alt="">
-                    <div class="position-relative p-4 pt-0">
-                        <div class="service-icon">
-                            <i class="fa fa-solar-panel fa-3x"></i>
-                        </div>
-                        <h4 class="mb-3">Solar Panels</h4>
-                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                        <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="service-item rounded overflow-hidden">
-                    <img class="img-fluid" src="/assets/user/images/img-600x400-5.jpg" alt="">
-                    <div class="position-relative p-4 pt-0">
-                        <div class="service-icon">
-                            <i class="fa fa-wind fa-3x"></i>
-                        </div>
-                        <h4 class="mb-3">Wind Turbines</h4>
-                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                        <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="service-item rounded overflow-hidden">
-                    <img class="img-fluid" src="/assets/user/images/img-600x400-6.jpg" alt="">
-                    <div class="position-relative p-4 pt-0">
-                        <div class="service-icon">
-                            <i class="fa fa-lightbulb fa-3x"></i>
-                        </div>
-                        <h4 class="mb-3">Hydropower Plants</h4>
-                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                        <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Service End -->
 
 
 <!-- Feature Start -->
@@ -697,3 +712,25 @@
 </div>
 <!-- Testimonial End -->
 @endsection
+
+@push('scripts')
+<script type="text/javascript">
+$(function(){
+    // isotopeの初期化。
+    var isotope = $('.isotope').isotope({
+        itemSelector: '.isotope-item', // 絞り込みを行う項目（子要素)を指定
+        layoutMode: 'fitRows',
+    });
+
+    // 日付選択時に対象の大会に絞り込み
+    $('#isotope-flters li').on('click', function () {
+        $("#isotope-flters li").removeClass('active');
+        $(this).addClass('active');
+        // filterメソッドに絞り込みたい項目のセレクターを渡すだけ
+        isotope.isotope({filter: $(this).data('filter')});
+    });
+
+    isotope.isotope({filter: $('#isotope-flters .active').data('filter')});
+});
+</script>
+@endpush
