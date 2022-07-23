@@ -2,6 +2,7 @@
 
 @push('links')
 <link href="/assets/user/css/top.css?{{ now()->format('YmdHis') }}" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
 @endpush
 
 @section('content')
@@ -149,6 +150,14 @@
                             </div>
                         </div>
                     </a>
+
+                    <select class="form-select mt-5" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
                 </div>
             </div>
         </div>
@@ -714,6 +723,7 @@
 @endsection
 
 @push('scripts')
+<script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
 <script type="text/javascript">
 $(function(){
     // isotopeの初期化。
@@ -731,6 +741,12 @@ $(function(){
     });
 
     isotope.isotope({filter: $('#isotope-flters .active').data('filter')});
+
+    $('.form-select').multipleSelect({
+        onFocus: function () {
+            alert('onFocusが呼ばれました');
+        }
+    });
 });
 </script>
 @endpush
