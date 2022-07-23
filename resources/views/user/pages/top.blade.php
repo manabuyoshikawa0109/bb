@@ -107,12 +107,13 @@
 <div class="container-fluid bg-light py-5">
     <div class="container px-1">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h6 class="text-primary">News</h6>
+            <h6 class="text-primary">Information</h6>
             <h1 class="mb-4">お知らせ</h1>
         </div>
         <div class="row g-4">
             <div class="col-md-12 col-lg-8 offset-lg-2 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="list-group">
+                    @for ($i = 1; $i <= 3; $i++)
                     <a href="javascript:void(0)" class="list-group-item">
                         <div class="d-flex flex-wrap w-100">
                             <div class="d-flex w-100">
@@ -125,30 +126,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="javascript:void(0)" class="list-group-item">
-                        <div class="d-flex flex-wrap w-100">
-                            <div class="d-flex w-100">
-                                <div class="d-flex align-items-center flex-wrap w-100">
-                                    <span class="me-3">2022.7.17</span>
-                                    <span class="me-3 bg-primary text-white px-3 border-radius-5">お知らせ</span>
-                                    <span class="flex-grow-1 d-block d-sm-inline-block mt-2 mt-sm-0">夏季休暇について</span>
-                                </div>
-                                <span class="my-auto"><i class="fas fa-chevron-right opacity-80"></i></span>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="javascript:void(0)" class="list-group-item">
-                        <div class="d-flex flex-wrap w-100">
-                            <div class="d-flex w-100">
-                                <div class="d-flex align-items-center flex-wrap w-100">
-                                    <span class="me-3">2022.7.17</span>
-                                    <span class="me-3 bg-primary text-white px-3 border-radius-5">お知らせ</span>
-                                    <span class="flex-grow-1 d-block d-sm-inline-block mt-2 mt-sm-0">夏季休暇について</span>
-                                </div>
-                                <span class="my-auto"><i class="fas fa-chevron-right opacity-80"></i></span>
-                            </div>
-                        </div>
-                    </a>
+                    @endfor
                 </div>
             </div>
         </div>
@@ -262,7 +240,7 @@
 </div>
 <!-- Service End -->
 
-<div class="container-xxl py-5 faq">
+<div class="container-fluid bg-light py-5 faq">
     <div class="container px-1">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <h6 class="text-primary">FAQs</h6>
