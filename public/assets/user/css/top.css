@@ -73,10 +73,12 @@
     cursor: pointer;
     transition: .5s;
     border-bottom: 2px solid transparent;
+    padding: 13px 10px;
+    border-radius: 50%;
 }
 
 #isotope-flters li:hover,
 #isotope-flters li.active {
     color: #32C36C;
-    border-color: #32C36C;
+    border: 1px solid #32C36C;
 }

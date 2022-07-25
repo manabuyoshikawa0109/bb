@@ -4,23 +4,26 @@
         <div class="col-lg-7 px-5 text-start">
             <div class="h-100 d-inline-flex align-items-center me-4">
                 <small class="fa fa-map-marker-alt text-primary me-2"></small>
-                <small>123 Street, New York, USA</small>
+                <small>〒573-0084 大阪府枚方市香里ケ丘3丁目9番36号</small>
             </div>
             <div class="h-100 d-inline-flex align-items-center">
                 <small class="far fa-clock text-primary me-2"></small>
-                <small>Mon - Fri : 09.00 AM - 09.00 PM</small>
+                <small>18:30 〜 23:00（お電話でご連絡の場合）</small>
             </div>
         </div>
         <div class="col-lg-5 px-5 text-end">
             <div class="h-100 d-inline-flex align-items-center me-4">
                 <small class="fa fa-phone-alt text-primary me-2"></small>
-                <small>+012 345 6789</small>
+                <small class="me-3"><a class="text-grey" href="tel:0587-50-2005">0587-50-2005</a></small>
+                <small class="fa-solid fa-mobile-screen text-primary me-2"></small>
+                <small><a class="text-grey" href="tel:090-2357-6805">090-2357-6805</a></small>
             </div>
-            <div class="h-100 d-inline-flex align-items-center mx-n2">
-                <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary" href=""><i class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary" href=""><i class="fab fa-twitter"></i></a>
-                <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary" href=""><i class="fab fa-linkedin-in"></i></a>
-                <a class="btn btn-square btn-link rounded-0" href=""><i class="fab fa-instagram"></i></a>
+            {{-- このhtmlを消すとcontainer-fluidの高さが変わってしまうので、要素を見えなくして幅を0にする --}}
+            <div class="h-100 d-inline-flex align-items-center mx-n2 invisible w-0">
+                <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary w-0" href=""><i class="fab fa-facebook-f"></i></a>
+                <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary w-0" href=""><i class="fab fa-twitter"></i></a>
+                <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary w-0" href=""><i class="fab fa-linkedin-in"></i></a>
+                <a class="btn btn-square btn-link rounded-0 w-0" href=""><i class="fab fa-instagram"></i></a>
             </div>
         </div>
     </div>
@@ -38,23 +41,15 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="index.html" class="nav-item nav-link active">Home</a>
-            <a href="about.html" class="nav-item nav-link">About</a>
-            <a href="service.html" class="nav-item nav-link">Service</a>
-            <a href="project.html" class="nav-item nav-link">Project</a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                <div class="dropdown-menu bg-light m-0">
-                    <a href="feature.html" class="dropdown-item">Feature</a>
-                    <a href="quote.html" class="dropdown-item">Free Quote</a>
-                    <a href="team.html" class="dropdown-item">Our Team</a>
-                    <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                    <a href="404.html" class="dropdown-item">404 Page</a>
-                </div>
-            </div>
-            <a href="contact.html" class="nav-item nav-link">Contact</a>
+            <!-- active -->
+            <a href="#information" class="nav-item nav-link">お知らせ</a>
+            <a href="#tournament" class="nav-item nav-link">大会情報</a>
+            <a href="#faq" class="nav-item nav-link">FAQ</a>
+            <a href="#" class="nav-item nav-link">お問い合わせ</a>
+            <a href="#" class="nav-item nav-link">ログイン</a>
+            <a href="#" class="nav-item nav-link d-block d-lg-none">会員登録</a>
         </div>
-        <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Get A Quote<i class="fa fa-arrow-right ms-3"></i></a>
+        <a href="#" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">会員登録<i class="fa fa-arrow-right ms-3"></i></a>
     </div>
 </nav>
 <!-- Navbar End -->

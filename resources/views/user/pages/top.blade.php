@@ -54,7 +54,7 @@
 </div>
 <!-- Carousel End -->
 
-<div class="container-fluid bg-light py-5">
+<div id="information" class="container-fluid bg-light py-5">
     <div class="container px-1">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <h6 class="text-primary">Information</h6>
@@ -84,7 +84,7 @@
 </div>
 
 <!-- Service Start -->
-<div class="container-xxl py-5">
+<div id="tournament" class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <h6 class="text-primary">Tournament</h6>
@@ -92,11 +92,11 @@
         </div>
         <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
             <div class="col-12 text-center">
-                <ul class="list-inline mb-5" id="isotope-flters">
+                <ul class="list-inline mb-3 mb-md-4" id="isotope-flters">
                     <!-- <li class="mx-2 active" data-filter="*">すべて</li> -->
-                    <li class="mx-2 active" data-filter=".2022-07-31">2022年7月31日</li>
-                    <li class="mx-2" data-filter=".2022-08-28">2022年8月28日</li>
-                    <li class="mx-2" data-filter=".2022-09-11">2022年9月11日</li>
+                    <li class="mx-2 active" data-filter=".2022-07-31">7/31</li>
+                    <li class="mx-2" data-filter=".2022-08-28">8/28</li>
+                    <li class="mx-2" data-filter=".2022-09-11">9/11</li>
                 </ul>
             </div>
         </div>
@@ -151,10 +151,10 @@
 </div>
 <!-- Service End -->
 
-<div class="container-fluid bg-light py-5 faq">
+<div id="faq" class="container-fluid bg-light py-5 faq">
     <div class="container px-1">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h6 class="text-primary">FAQs</h6>
+            <h6 class="text-primary">FAQ</h6>
             <h1 class="mb-4">よくあるご質問</h1>
         </div>
         <div class="row g-4 wow fadeInUp" data-wow-delay="0.1s">

@@ -23,6 +23,7 @@
     <link href="/assets/user/css/bootstrap.min.css" rel="stylesheet">
     <!-- Template Stylesheet -->
     <link href="/assets/user/css/style.css" rel="stylesheet">
+    <link href="/assets/user/css/base.css?{{ now()->format('YmdHis') }}" rel="stylesheet">
     @stack('links')
 </head>
 
