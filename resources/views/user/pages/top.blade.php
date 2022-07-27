@@ -107,7 +107,7 @@
                     <img class="img-fluid" src="/assets/user/images/neyagawa.jpeg" alt="">
                     <div class="position-relative p-4 pt-0">
                         <div class="service-icon">
-                            <i class="fa-solid fa-person fa-3x"></i>
+                            <i class="fa-solid fa-person" style="font-size:5rem;"></i>
                         </div>
                         <h4 class="mb-3">2022年7月31日(日）9:00〜<br>初級男子シングルス</h4>
                         <p>場所：寝屋川公園　参加費：4,400円<br>募集人数：18人（残り5人）</p>
@@ -122,7 +122,7 @@
                     <img class="img-fluid" src="/assets/user/images/fukakita.jpeg" alt="">
                     <div class="position-relative p-4 pt-0">
                         <div class="service-icon">
-                            <i class="fa-solid fa-children fa-3x"></i>
+                            <i class="fa-solid fa-children" style="font-size:4rem;"></i>
                         </div>
                         <h4 class="mb-3">2022年8月28日(日）9:00〜<br>中級ミックスダブルス</h4>
                         <p>場所：深北緑地　参加費：5,000円<br>募集人数：20組（残り15組）</p>
@@ -137,7 +137,7 @@
                     <img class="img-fluid" src="/assets/user/images/chuburyokuchi.jpeg" alt="">
                     <div class="position-relative p-4 pt-0">
                         <div class="service-icon">
-                            <i class="fa-solid fa-user-group fa-3x"></i>
+                            <i class="fa-solid fa-user-group" style="font-size:3.6rem;"></i>
                         </div>
                         <h4 class="mb-3">2022年9月11日(日）10:00〜<br>初級女子ダブルス</h4>
                         <p>場所：中部緑地庭球場　参加費：5,000円<br>募集人数：18組（残り18組）</p>
