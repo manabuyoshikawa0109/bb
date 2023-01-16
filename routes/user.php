@@ -2,29 +2,48 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\User\TopController;
+use App\Http\Controllers\User\Information;
+
 /*
 |--------------------------------------------------------------------------
 | 一般ユーザー用ルーティング
 |--------------------------------------------------------------------------
 */
 
-// ログアウト
-Route::any('logout', 'LoginController@destroy')->name('user.logout');
+Route::name('user.')->group(function () {
+    // ログアウト
+    Route::any('logout', 'LoginController@destroy')->name('logout');
 
-Route::get  ('/', 'TopController@index')->name('user.top');
+    // トップ
+    Route::controller(TopController::class)->group(function() {
 
-// 未ログイン時専用
-Route::group(['middleware' => 'guest:user'], function() {
+        Route::get  ('/', 'index')->name('top');
 
-    // ログイン情報入力
-    Route::get  ('login', 'LoginController@create')->name('user.login.create');
-    Route::post ('login', 'LoginController@store')->name('user.login.store');
-});
+    });
 
-// ログイン後専用
-Route::group(['middleware' => 'auth:user'], function() {
+    // お知らせ
+    Route::controller(InformationController::class)->prefix('information')->name('information.')->group(function() {
 
-    // ホーム画面
-    Route::get  ('home', 'HomeController@show')->name('user.home.show');
+        Route::get  ('/', 'detail')->name('detail');
+        // モデル結合
+        // Route::get  ('/{information}', 'detail')->name('detail');
 
+    });
+
+    // 未ログイン時専用
+    Route::group(['middleware' => 'guest:user'], function() {
+
+        // ログイン情報入力
+        Route::get  ('login', 'LoginController@create')->name('login.create');
+        Route::post ('login', 'LoginController@store')->name('login.store');
+    });
+
+    // ログイン後専用
+    Route::group(['middleware' => 'auth:user'], function() {
+
+        // ホーム画面
+        Route::get  ('home', 'HomeController@show')->name('home.show');
+
+    });
 });
