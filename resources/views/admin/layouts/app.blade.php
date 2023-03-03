@@ -1,5 +1,7 @@
 @extends('admin.layouts.base')
 
+@section('html-class', 'layout-menu-fixed')
+
 @section('inner_body')
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">

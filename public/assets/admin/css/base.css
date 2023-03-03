@@ -107,3 +107,11 @@ bootstrapのデフォルトのボタン色を変更
 .btn {
     white-space: nowrap;
 }
+
+/*
+ここからsneatテンプレートの調整
+管理画面にある「BBテニス」の文字を大文字にする
+*/
+.app-brand-text {
+    text-transform: uppercase !important;
+}

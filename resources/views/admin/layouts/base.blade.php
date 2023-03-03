@@ -14,7 +14,7 @@
 <!-- beautify ignore:start -->
 <html
 lang="ja"
-class="light-style layout-menu-fixed"
+class="light-style @yield('html-class')"
 dir="ltr"
 data-theme="theme-default"
 data-assets-path="../assets/"
@@ -28,7 +28,7 @@ data-template="vertical-menu-template-free"
         />
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+        <title>Dashboard - Analytics | BBテニストーナメント</title>
 
         <meta name="description" content="" />
 
