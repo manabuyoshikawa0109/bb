@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Enums\Tournament\Status;
+use Carbon\Carbon;
 
 class Tournament extends Model
 {
@@ -35,8 +35,9 @@ class Tournament extends Model
      * @var array
      */
     protected $casts = [
-        'status'  => Status::class,
-        'held_at' => 'datetime',
+        'release_start_date' => 'date',
+        'release_end_date'   => 'date',
+        'held_at'            => 'datetime',
     ];
 
     /**
@@ -61,6 +62,48 @@ class Tournament extends Model
     public function place()
     {
         return $this->belongsTo(Place::class);
+    }
+
+    /**
+    * 公開前の大会に限定するクエリスコープ
+    *
+    * @param \Illuminate\Database\Eloquent\Builder $query
+    * @return \Illuminate\Database\Eloquent\Builder
+    */
+    public function scopeHasNotReleasedYet($query)
+    {
+        $today = (Carbon::today())->format('Y-m-d');
+        return $query->where('tournaments.release_start_date', '>', $today);
+    }
+
+    /**
+    * 公開中の大会に限定するクエリスコープ
+    *
+    * @param \Illuminate\Database\Eloquent\Builder $query
+    * @return \Illuminate\Database\Eloquent\Builder
+    */
+    public function scopeReleasing($query)
+    {
+        $today = (Carbon::today())->format('Y-m-d');
+        return $query->where(function ($query) use ($today) {
+            $query->whereNull('tournaments.release_start_date')
+            ->orWhere('tournaments.release_start_date', '<=', $today);
+        })->where(function ($query) use ($today) {
+            $query->whereNull('tournaments.release_end_date')
+            ->orWhere('tournaments.release_end_date', '>=', $today);
+        });
+    }
+
+    /**
+    * 公開終了の大会に限定するクエリスコープ
+    *
+    * @param \Illuminate\Database\Eloquent\Builder $query
+    * @return \Illuminate\Database\Eloquent\Builder
+    */
+    public function scopeHasFinishedReleasing($query)
+    {
+        $today = (Carbon::today())->format('Y-m-d');
+        return $query->where('tournaments.release_end_date', '<', $today);
     }
 
     /**

@@ -16,7 +16,8 @@ return new class extends Migration
     {
         Schema::create('tournaments', function (Blueprint $table) {
             $table->id()->comment('大会ID');
-            $table->integer('status')->comment('状態');
+            $table->date('release_start_date')->nullable()->comment('公開開始日');
+            $table->date('release_end_date')->nullable()->comment('公開終了日');
             $table->bigInteger('event_id')->comment('種目ID');
             $table->bigInteger('place_id')->comment('場所ID');
             $table->timestamp('held_at')->comment('開催日時');

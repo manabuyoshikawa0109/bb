@@ -23,7 +23,8 @@ class TournamentsTableSeeder extends Seeder
         DB::table('tournaments')->insert(
             [
                 [
-                    'status' => 0,
+                    'release_start_date' => null,
+                    'release_end_date' => null,
                     'event_id' => 1,
                     'place_id' => 1,
                     'held_at' => Carbon::now(),
@@ -33,7 +34,8 @@ class TournamentsTableSeeder extends Seeder
                     'updated_at' => Carbon::now(),
                 ],
                 [
-                    'status' => 0,
+                    'release_start_date' => Carbon::now(),
+                    'release_end_date' => null,
                     'event_id' => 2,
                     'place_id' => 1,
                     'held_at' => Carbon::now(),
@@ -43,7 +45,8 @@ class TournamentsTableSeeder extends Seeder
                     'updated_at' => Carbon::now(),
                 ],
                 [
-                    'status' => 0,
+                    'release_start_date' => Carbon::now(),
+                    'release_end_date' => Carbon::now(),
                     'event_id' => 3,
                     'place_id' => 1,
                     'held_at' => Carbon::now(),
@@ -53,7 +56,8 @@ class TournamentsTableSeeder extends Seeder
                     'updated_at' => Carbon::now(),
                 ],
                 [
-                    'status' => 0,
+                    'release_start_date' => Carbon::now(),
+                    'release_end_date' => Carbon::now(),
                     'event_id' => 4,
                     'place_id' => 1,
                     'held_at' => Carbon::now(),
@@ -63,7 +67,8 @@ class TournamentsTableSeeder extends Seeder
                     'updated_at' => Carbon::now(),
                 ],
                 [
-                    'status' => 0,
+                    'release_start_date' => null,
+                    'release_end_date' => Carbon::now(),
                     'event_id' => 5,
                     'place_id' => 1,
                     'held_at' => Carbon::now(),
@@ -73,7 +78,8 @@ class TournamentsTableSeeder extends Seeder
                     'updated_at' => Carbon::now(),
                 ],
                 [
-                    'status' => 1,
+                    'release_start_date' => Carbon::now(),
+                    'release_end_date' => Carbon::now(),
                     'event_id' => 6,
                     'place_id' => 1,
                     'held_at' => Carbon::now(),
