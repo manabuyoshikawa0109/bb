@@ -27,7 +27,7 @@ class EventsTableSeeder extends Seeder
                     'entry_fee' => 5000,
                     'held_time' => '9:00',
                     'type' => 3,
-                    'applicable_gender' => 3,
+                    'applicable_sex' => 3,
                 ],
                 [
                     'name' => '初級チャレンジミックスダブルス',
@@ -35,7 +35,7 @@ class EventsTableSeeder extends Seeder
                     'entry_fee' => 5000,
                     'held_time' => '9:00',
                     'type' => 3,
-                    'applicable_gender' => 3,
+                    'applicable_sex' => 3,
                 ],
                 [
                     'name' => '中級男子ダブルス',
@@ -43,7 +43,7 @@ class EventsTableSeeder extends Seeder
                     'entry_fee' => 5000,
                     'held_time' => '9:00',
                     'type' => 2,
-                    'applicable_gender' => 1,
+                    'applicable_sex' => 1,
                 ],
                 [
                     'name' => '初級男子ダブルス',
@@ -51,7 +51,7 @@ class EventsTableSeeder extends Seeder
                     'entry_fee' => 5000,
                     'held_time' => '9:00',
                     'type' => 2,
-                    'applicable_gender' => 1,
+                    'applicable_sex' => 1,
                 ],
                 [
                     'name' => '中級男子シングルス',
@@ -59,7 +59,7 @@ class EventsTableSeeder extends Seeder
                     'entry_fee' => 4400,
                     'held_time' => '9:00',
                     'type' => 1,
-                    'applicable_gender' => 1,
+                    'applicable_sex' => 1,
                 ],
                 [
                     'name' => '初級男子シングルス',
@@ -67,7 +67,7 @@ class EventsTableSeeder extends Seeder
                     'entry_fee' => 4400,
                     'held_time' => '10:00',
                     'type' => 1,
-                    'applicable_gender' => 1,
+                    'applicable_sex' => 1,
                 ],
                 [
                     'name' => '初級女子ダブルス',
@@ -75,7 +75,7 @@ class EventsTableSeeder extends Seeder
                     'entry_fee' => 5000,
                     'held_time' => '10:00',
                     'type' => 2,
-                    'applicable_gender' => 2,
+                    'applicable_sex' => 2,
                 ],
             ]
         );

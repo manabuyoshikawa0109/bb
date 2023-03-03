@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id()->comment('種目ID');
             $table->string('name', 100)->comment('種目名');
             $table->integer('type')->comment('種別');
-            $table->integer('applicable_gender')->comment('申し込み可能な性別');
+            $table->integer('applicable_sex')->comment('申し込み可能な性別');
             $table->integer('applicants')->nullable()->comment('募集数');
             $table->decimal('entry_fee', 5, 0)->nullable()->comment('参加費');
             $table->string('held_time', 5)->nullable()->comment('開催時間');

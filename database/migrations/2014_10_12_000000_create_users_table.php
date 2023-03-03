@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('tel', 13)->comment('電話番号');
             $table->string('zip', 8)->nullable()->comment('郵便番号'); // nullableは消す
             $table->string('address', 250)->nullable()->comment('住所'); // nullableは消す
-            $table->integer('gender')->comment('性別');
+            $table->integer('sex')->comment('性別');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
