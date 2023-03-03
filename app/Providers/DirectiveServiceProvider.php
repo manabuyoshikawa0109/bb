@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 
-class BladeServiceProvider extends ServiceProvider
+class DirectiveServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -25,7 +25,7 @@ class BladeServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::directive('required', function ($class = '') {
-            return "<span class=\"badge badge-danger ml-1 {$class}\">必須</span>";
+            return "<span class=\"badge badge-danger ms-1 {$class}\">必須</span>";
         });
     }
 }

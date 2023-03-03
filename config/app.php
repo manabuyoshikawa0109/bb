@@ -182,7 +182,7 @@ return [
         App\Providers\AdminLoginServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
         App\Providers\VariableServiceProvider::class,
-        App\Providers\BladeServiceProvider::class,
+        App\Providers\DirectiveServiceProvider::class,
 
     ],
 
