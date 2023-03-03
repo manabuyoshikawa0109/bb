@@ -1,6 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\InformationController;
+use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\PlaceController;
+use App\Http\Controllers\Admin\TournamentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -8,56 +15,60 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-// ログアウト
-Route::any('logout', 'LoginController@destroy')->name('admin.logout');
+Route::name('admin.')->group(function () {
 
-// 未ログイン時専用
-Route::group(['middleware' => 'guest:admin'], function() {
+    Route::controller(LoginController::class)->group(function() {
+        // ログアウト
+        Route::any('logout', 'destroy')->name('logout');
 
-    // ログイン情報入力
-    Route::get  ('/', 'LoginController@create')->name('admin.login');
-    Route::get  ('login', 'LoginController@create')->name('admin.login.create');
-    Route::post ('login', 'LoginController@store')->name('admin.login.store');
-});
-
-// ログイン後専用
-Route::group(['middleware' => 'auth:admin'], function() {
-
-    // ホーム画面
-    Route::get  ('home', 'HomeController@index')->name('admin.home.index');
-
-    // 大会管理
-    Route::group(['prefix' => 'tournament'], function() {
-        Route::any  ('list', 'TournamentController@list')->name('admin.tournament.list');
-        Route::get  ('add',  'TournamentController@add')->name('admin.tournament.add');
-        Route::post ('create',  'TournamentController@create')->name('admin.tournament.create');
-        Route::get  ('{tournament}/detail',  'TournamentController@detail')->name('admin.tournament.detail');
-        Route::get  ('{tournament}/edit',  'TournamentController@edit')->name('admin.tournament.edit');
-        Route::post ('{tournament}/update',  'TournamentController@update')->name('admin.tournament.update');
-        Route::get  ('{tournament}/delete',  'TournamentController@delete')->name('admin.tournament.delete');
+        // 未ログイン時専用
+        Route::middleware(['guest:admin'])->group(function () {
+            // ログイン情報入力
+            Route::get  ('/',     'create')->name('login');
+            Route::get  ('login', 'create')->name('login.create');
+            Route::post ('login', 'store')->name('login.store');
+        });
     });
 
-    // お知らせ管理
-    Route::group(['prefix' => 'information'], function() {
-        Route::any  ('list', 'InformationController@list')->name('admin.information.list');
-        Route::get  ('add',  'InformationController@add')->name('admin.information.add');
-        Route::post ('create',  'InformationController@create')->name('admin.information.create');
-        Route::get  ('{information}/detail',  'InformationController@detail')->name('admin.information.detail');
-        Route::get  ('{information}/edit',  'InformationController@edit')->name('admin.information.edit');
-        Route::post ('{information}/update',  'InformationController@update')->name('admin.information.update');
-        Route::get  ('{information}/delete',  'InformationController@delete')->name('admin.information.delete');
-    });
+    // ログイン後専用
+    Route::middleware(['auth:admin'])->group(function () {
 
-    // 種目マスタ
-    Route::group(['prefix' => 'event'], function() {
-        Route::get  ('input', 'EventController@input')->name('admin.event.input');
-        Route::post ('register',  'EventController@register')->name('admin.event.register');
-    });
+        // ホーム画面
+        Route::get  ('home', [HomeController::class, 'index'])->name('home.index');
 
-    // 場所マスタ
-    Route::group(['prefix' => 'place'], function() {
-        Route::get  ('input', 'PlaceController@input')->name('admin.place.input');
-        Route::post ('register',  'PlaceController@register')->name('admin.place.register');
-    });
+        // 大会管理
+        Route::controller(TournamentController::class)->prefix('tournament')->name('tournament.')->group(function() {
+            Route::any  ('list',                 'list')->name('list');
+            Route::get  ('add',                  'add')->name('add');
+            Route::post ('create',               'create')->name('create');
+            Route::get  ('{tournament}/detail',  'detail')->name('detail');
+            Route::get  ('{tournament}/edit',    'edit')->name('edit');
+            Route::post ('{tournament}/update',  'update')->name('update');
+            Route::post ('{tournament}/delete',  'delete')->name('delete');
+        });
 
+        // お知らせ管理
+        Route::controller(InformationController::class)->prefix('information')->name('information.')->group(function() {
+            Route::any  ('list',                  'list')->name('list');
+            Route::get  ('add',                   'add')->name('add');
+            Route::post ('create',                'create')->name('create');
+            Route::get  ('{information}/detail',  'detail')->name('detail');
+            Route::get  ('{information}/edit',    'edit')->name('edit');
+            Route::post ('{information}/update',  'update')->name('update');
+            Route::post ('{information}/delete',  'delete')->name('delete');
+        });
+
+        // 種目マスタ
+        Route::controller(EventController::class)->prefix('event')->name('event.')->group(function() {
+            Route::get  ('input',    'input')->name('input');
+            Route::post ('register', 'register')->name('register');
+        });
+
+        // 場所マスタ
+        Route::controller(PlaceController::class)->prefix('place')->name('place.')->group(function() {
+            Route::get  ('input',    'input')->name('input');
+            Route::post ('register', 'register')->name('register');
+        });
+
+    });
 });
