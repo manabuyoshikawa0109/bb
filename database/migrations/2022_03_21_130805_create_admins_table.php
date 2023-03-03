@@ -18,14 +18,10 @@ return new class extends Migration
             $table->id()->comment('管理者ID');
             $table->string('last_name', 100)->comment('苗字');
             $table->string('first_name', 100)->comment('名前');
-            $table->string('email')->unique()->nullable()->comment('メールアドレス');
+            $table->string('email')->unique()->comment('メールアドレス');
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password', 255)->comment('パスワード');
-            $table->string('tel', 13)->comment('電話番号');
-            $table->string('zip', 8)->nullable()->comment('郵便番号');
-            $table->string('address', 255)->nullable()->comment('住所');
-            $table->integer('gender_id')->comment('性別ID');
-            $table->boolean('is_developer')->default(0)->comment('開発者フラグ');
+            $table->string('password', 250)->comment('パスワード');
+            $table->integer('role')->comment('権限');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
