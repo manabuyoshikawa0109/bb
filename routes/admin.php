@@ -24,7 +24,7 @@ Route::group(['middleware' => 'guest:admin'], function() {
 Route::group(['middleware' => 'auth:admin'], function() {
 
     // ホーム画面
-    Route::get  ('home', 'HomeController@show')->name('admin.home.show');
+    Route::get  ('home', 'HomeController@index')->name('admin.home.index');
 
     // 大会管理
     Route::group(['prefix' => 'tournament'], function() {
