@@ -4,20 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\ModelItems\Event\Type;
-use App\ModelItems\Tournament\Status;
-use Carbon\Carbon;
+use App\Enums\Tournament\Status;
 
 class Tournament extends Model
 {
     use HasFactory;
-
-    /**
-     * モデルに関連付けるテーブル
-     *
-     * @var string
-     */
-    protected $table = 'tournaments';
 
     /**
     * The attributes that are mass assignable.
@@ -31,12 +22,29 @@ class Tournament extends Model
     ];
 
     /**
-     * キャストする必要のある属性
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+    ];
+
+    /**
+     * The attributes that should be cast.
      *
      * @var array
      */
     protected $casts = [
-        'date' => 'date', // Carbonインスタンス(時間・分・秒は0になる)に変換
+        'status'  => Status::class,
+        'held_at' => 'datetime',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
     ];
 
     /**
@@ -53,59 +61,6 @@ class Tournament extends Model
     public function place()
     {
         return $this->belongsTo(Place::class);
-    }
-
-    /**
-    * 開始時間を取得
-    * @return string|null
-    */
-    public function getStartHourAttribute()
-    {
-        if($this->start_time === null){
-            return null;
-        }
-        list($startHour, $startMinutes) = explode(':', $this->start_time);
-        return $startHour;
-    }
-
-    /**
-    * 開始分を取得
-    * @return string|null
-    */
-    public function getStartMinutesAttribute()
-    {
-        if($this->start_time === null){
-            return null;
-        }
-        list($startHour, $startMinutes) = explode(':', $this->start_time);
-        return $startMinutes;
-    }
-
-    /**
-    * 大会が公開中か
-    * @return boolean
-    */
-    public function isOpen()
-    {
-        return $this->status_id === Status::OPEN;
-    }
-
-    /**
-    * 大会が非公開か
-    * @return boolean
-    */
-    public function isClosed()
-    {
-        return $this->status_id === Status::CLOSED;
-    }
-
-    /**
-    * 状態名を返す
-    * @return string|null
-    */
-    public function statusName()
-    {
-        return Status::name($this->status_id);
     }
 
     /**
@@ -132,10 +87,6 @@ class Tournament extends Model
     */
     public function applicantsUnit()
     {
-        $unit = '　';
-        if($this->event) {
-            $unit = Type::unit($this->event->type_id);
-        }
-        return $unit;
+        return $this->event->type->unit() ?? null;
     }
 }

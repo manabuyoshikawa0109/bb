@@ -10,13 +10,6 @@ class Place extends Model
     use HasFactory;
 
     /**
-     * モデルに関連付けるテーブル
-     *
-     * @var string
-     */
-    protected $table = 'places';
-
-    /**
     * The attributes that are mass assignable.
     *
     * @var string[]
@@ -25,5 +18,29 @@ class Place extends Model
         'id',
         'created_at',
         'updated_at',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
     ];
 }
