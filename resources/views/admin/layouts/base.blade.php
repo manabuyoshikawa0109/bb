@@ -1,91 +1,91 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="/assets/common/images/favicon.ico" type="image/ico" />
 
-    <title>Gentelella Alela! | </title>
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
 
-    <!-- Bootstrap -->
-    <link href="/assets/plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="/assets/plugins/font-awesome/css/all.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="/assets/plugins/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="/assets/plugins/iCheck/skins/flat/green.css" rel="stylesheet">
-    <link href="/assets/plugins/iCheck/skins/flat/blue.css" rel="stylesheet">
-    <link href="/assets/plugins/iCheck/skins/flat/red.css" rel="stylesheet">
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
 
-    <!-- bootstrap-progressbar -->
-    <link href="/assets/plugins/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <!-- JQVMap -->
-    <link href="/assets/plugins/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
-    <!-- bootstrap-daterangepicker -->
-    <link href="/assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html
+lang="ja"
+class="light-style layout-menu-fixed"
+dir="ltr"
+data-theme="theme-default"
+data-assets-path="../assets/"
+data-template="vertical-menu-template-free"
+>
+    <head>
+        <meta charset="utf-8" />
+        <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+        />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Switchery -->
-	<link href="/assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet">
+        <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
-    <!-- Custom Theme Style -->
-    <link href="/assets/common/css/custom.min.css" rel="stylesheet">
-    <link href="/assets/admin/css/base.css?{{ now()->format('YmdHis') }}" rel="stylesheet">
-    @stack('links')
-</head>
+        <meta name="description" content="" />
 
-<body class="@yield('body_class')">
+        <!-- Favicon -->
+        <link rel="icon" type="image/x-icon" href="/assets/admin/images/favicon.ico" />
 
-    @yield('inner_body')
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet"
+        />
 
-    <!-- jQuery -->
-    <script src="/assets/plugins/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="/assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- FastClick -->
-    <script src="/assets/plugins/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="/assets/plugins/nprogress/nprogress.js"></script>
-    <!-- Chart.js -->
-    <script src="/assets/plugins/Chart.js/dist/Chart.min.js"></script>
-    <!-- gauge.js -->
-    <script src="/assets/plugins/gauge.js/dist/gauge.min.js"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="/assets/plugins/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- iCheck -->
-    <script src="/assets/plugins/iCheck/icheck.min.js"></script>
-    <!-- Skycons -->
-    <script src="/assets/plugins/skycons/skycons.js"></script>
-    <!-- Flot -->
-    <script src="/assets/plugins/Flot/jquery.flot.js"></script>
-    <script src="/assets/plugins/Flot/jquery.flot.pie.js"></script>
-    <script src="/assets/plugins/Flot/jquery.flot.time.js"></script>
-    <script src="/assets/plugins/Flot/jquery.flot.stack.js"></script>
-    <script src="/assets/plugins/Flot/jquery.flot.resize.js"></script>
-    <!-- Flot plugins -->
-    <script src="/assets/plugins/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-    <script src="/assets/plugins/flot-spline/js/jquery.flot.spline.min.js"></script>
-    <script src="/assets/plugins/flot.curvedlines/curvedLines.js"></script>
-    <!-- DateJS -->
-    <script src="/assets/plugins/DateJS/build/date.js"></script>
-    <!-- JQVMap -->
-    <script src="/assets/plugins/jqvmap/dist/jquery.vmap.js"></script>
-    <script src="/assets/plugins/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-    <script src="/assets/plugins/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="/assets/plugins/moment/min/moment.min.js"></script>
-    <script src="/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <!-- Icons. Uncomment required icon fonts -->
+        <link rel="stylesheet" href="/assets/plugins/boxicons/boxicons.css" />
 
-    <!-- Switchery -->
-	<script src="/assets/plugins/switchery/dist/switchery.min.js"></script>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="/assets/plugins/font-awesome/css/all.min.css" >
 
-    <!-- Custom Theme Scripts -->
-    <script src="/assets/common/js/custom.js"></script>
-    @stack('scripts')
+        <!-- Core CSS -->
+        <link rel="stylesheet" href="/assets/admin/css/core.css" class="template-customizer-core-css" />
+        <link rel="stylesheet" href="/assets/admin/css/theme-default.css" class="template-customizer-theme-css" />
+        <link rel="stylesheet" href="/assets/admin/css/demo.css" />
 
-</body>
+        <!-- Vendors CSS -->
+        <link rel="stylesheet" href="/assets/plugins/perfect-scrollbar/perfect-scrollbar.css" />
+
+        <!-- Page CSS -->
+
+        <!-- Helpers -->
+        <script src="/assets/admin/js/helpers.js"></script>
+
+        <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+        <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+        <script src="/assets/admin/js/config.js"></script>
+        <link href="/assets/admin/css/base.css?{{ now()->format('YmdHis') }}" rel="stylesheet" >
+        @stack('links')
+    </head>
+
+    <body>
+        @yield('inner_body')
+
+        <!-- Core JS -->
+        <!-- build:js assets/vendor/js/core.js -->
+        <script src="/assets/plugins/jquery/jquery.js"></script>
+        <script src="/assets/plugins/popper/popper.js"></script>
+        <script src="/assets/admin/js/bootstrap.js"></script>
+        <script src="/assets/plugins/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+        <script src="/assets/admin/js/menu.js"></script>
+
+        <!-- Main JS -->
+        <script src="/assets/admin/js/main.js"></script>
+
+        <!-- Place this tag in your head or just before your close body tag. -->
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        @stack('scripts')
+    </body>
 </html>
