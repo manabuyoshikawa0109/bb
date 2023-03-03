@@ -65,7 +65,7 @@ data-template="vertical-menu-template-free"
         <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
         <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
         <script src="/assets/admin/js/config.js"></script>
-        <link href="/assets/admin/css/base.css?{{ now()->format('YmdHis') }}" rel="stylesheet" >
+        <link href="{{ addLastModifiedSuffix('/assets/admin/css/base.css') }}" rel="stylesheet" >
         @stack('links')
     </head>
 
