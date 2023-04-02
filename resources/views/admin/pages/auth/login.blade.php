@@ -3,7 +3,7 @@
 @section('html-class', 'customizer-hide')
 
 @push('links')
-<link rel="stylesheet" href="{{ addLastModifiedSuffix('/assets/admin/css/pages/page-auth.css') }}" />
+<link rel="stylesheet" href="{{ disableCacheWhenModified('/assets/admin/css/pages/page-auth.css') }}" />
 @endpush
 
 @section('inner_body')

@@ -23,7 +23,7 @@
     <link href="/assets/user/css/bootstrap.min.css" rel="stylesheet">
     <!-- Template Stylesheet -->
     <link href="/assets/user/css/style.css" rel="stylesheet">
-    <link href="{{ addLastModifiedSuffix('/assets/user/css/base.css') }}" rel="stylesheet">
+    <link href="{{ disableCacheWhenModified('/assets/user/css/base.css') }}" rel="stylesheet">
     @stack('links')
 </head>
 
