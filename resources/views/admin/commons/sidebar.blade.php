@@ -97,7 +97,7 @@
                 </li>
                 <li class="menu-item @if(request()->route()->named('admin.tournament.add')) active @endif">
                     <a href="{{ route('admin.tournament.add') }}" class="menu-link">
-                        <div data-i18n="Add Tournament">新規作成</div>
+                        <div data-i18n="Add Tournament">新規登録</div>
                     </a>
                 </li>
             </ul>
@@ -123,7 +123,7 @@
                 </li>
                 <li class="menu-item @if(request()->route()->named('admin.information.add')) active @endif">
                     <a href="{{ route('admin.information.add') }}" class="menu-link">
-                        <div data-i18n="Add Information">新規作成</div>
+                        <div data-i18n="Add Information">新規登録</div>
                     </a>
                 </li>
             </ul>
@@ -140,11 +140,23 @@
             </a>
         </li>
 
-        <li class="menu-item @if(request()->route()->named('admin.place.*')) active @endif">
-            <a href="{{ route('admin.place.input') }}" class="menu-link">
+        <li class="menu-item @if(request()->route()->named('admin.place.*')) active open @endif">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-location-plus"></i>
                 <div data-i18n="Place">場所マスタ</div>
             </a>
+            <ul class="menu-sub">
+                <li class="menu-item @if(request()->route()->named('admin.place.list')) active @endif">
+                    <a href="{{ route('admin.place.list') }}" class="menu-link">
+                        <div data-i18n="Place List">一覧</div>
+                    </a>
+                </li>
+                <li class="menu-item @if(request()->route()->named('admin.place.add')) active @endif">
+                    <a href="{{ route('admin.place.add') }}" class="menu-link">
+                        <div data-i18n="Add Place">新規登録</div>
+                    </a>
+                </li>
+            </ul>
         </li>
 
         <!-- Forms & Tables -->
@@ -165,7 +177,7 @@
                 </li>
                 <li class="menu-item @if(request()->route()->named('admin.admin.add')) active @endif">
                     <a href="#" class="menu-link">
-                        <div data-i18n="Add Admin">新規作成</div>
+                        <div data-i18n="Add Admin">新規登録</div>
                     </a>
                 </li>
             </ul>
