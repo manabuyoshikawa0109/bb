@@ -5,13 +5,13 @@
 
 <div class="row mb-5">
     @foreach($places as $place)
-    <div class="col-lg-6">
+    <div class="col-md-6">
         <div class="card mb-3">
             <div class="row g-0">
-                <div class="col-md-4">
+                <div class="col-lg-4">
                     <img class="card-img card-img-left h-100" src="{{ $place->imageUrl() }}" alt="{{ $place->name }}" />
                 </div>
-                <div class="col-md-8">
+                <div class="col-lg-8">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title">{{ $place->name }}</h5>
