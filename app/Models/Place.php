@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Place extends Model
 {
@@ -43,4 +44,19 @@ class Place extends Model
      */
     protected $appends = [
     ];
+
+    /**
+    * 画像URLを返す
+    * @return string
+    */
+    public function imageUrl()
+    {
+        if ($this->image_path) {
+            $storage = Storage::disk('public');
+            $url = $storage->url($this->image_path);
+            $timestamp = $storage->lastModified($this->image_path);
+            return "{$url}?{$timestamp}";
+        }
+        return config('admin.place.image.no_image_url');
+    }
 }

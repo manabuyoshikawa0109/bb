@@ -66,8 +66,12 @@ Route::name('admin.')->group(function () {
 
         // 場所マスタ
         Route::controller(PlaceController::class)->prefix('place')->name('place.')->group(function() {
-            Route::get  ('input',    'input')->name('input');
-            Route::post ('register', 'register')->name('register');
+            Route::get  ('list',           'list')->name('list');
+            Route::get  ('add',            'add')->name('add');
+            Route::post ('create',         'create')->name('create');
+            Route::get  ('{place}/edit',   'edit')->name('edit');
+            Route::post ('{place}/update', 'update')->name('update');
+            Route::post ('{place}/delete', 'delete')->name('delete');
         });
 
     });

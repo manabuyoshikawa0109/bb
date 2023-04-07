@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('places', function (Blueprint $table) {
             $table->id()->comment('場所ID');
             $table->string('name', 100)->comment('場所名');
-            $table->string('image_url', 250)->nullable()->comment('画像URL');
+            $table->string('image_path', 250)->nullable()->comment('画像パス');
             $table->string('official_site_url', 250)->nullable()->comment('公式サイトURL');
             $table->string('google_map_url', 250)->nullable()->comment('GoogleマップのURL');
             $table->timestamps();

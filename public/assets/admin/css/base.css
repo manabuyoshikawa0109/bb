@@ -115,3 +115,10 @@ bootstrapのデフォルトのボタン色を変更
 .app-brand-text {
     text-transform: uppercase !important;
 }
+
+/*
+ラベルを大文字にしない
+*/
+.form-label, .col-form-label {
+    text-transform: none !important;
+}

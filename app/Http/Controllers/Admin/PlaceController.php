@@ -3,54 +3,84 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\RegisterPlaceRequest;
+use App\Http\Requests\Admin\SavePlaceRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use App\Models\Place;
 
 class PlaceController extends Controller
 {
     /**
-     * 場所入力
-     * @param  Request $request
-     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
-     */
-    public function input(Request $request)
+    * 場所一覧
+    * @param  Request $request
+    * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+    */
+    public function list(Request $request)
     {
-        if(old('places')){
-            $newId = min(array_keys(old('places'))) -1;
-            $places = collect();
-            foreach (old('places') as $id => $input) {
-               $place = new Place($input);
-               $place->id = $id;
-               $places->push($place);
-            }
-        }else{
-            $newId = -1;
-            $places = Place::all();
-        }
-        $placeInstance = new Place();
-        return view('admin.pages.place.input', compact('places', 'placeInstance', 'newId'));
+        $places = Place::all();
+        return view('admin.pages.place.list', compact('places'));
     }
 
     /**
-     * 場所登録
-     * @param  RegisterPlaceRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function register(RegisterPlaceRequest $request)
+    * 場所新規追加
+    * @param  Request $request
+    * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+    */
+    public function add(Request $request)
     {
-        $inputs = Arr::get($request->validated(), 'places');
-        foreach ($inputs as $id => $input) {
-            $place = Place::firstOrNew(['id' => $id]);
-            if(isset($input['delete']) && $input['delete'] === '1'){
-                $place->delete();
-                continue;
-            }
-            $place->fill($input)->save();
-        }
+        $place = new Place();
+        return view('admin.pages.place.input', compact('place'));
+    }
+
+    /**
+    * 場所新規登録
+    * @param  SavePlaceRequest $request
+    * @return \Illuminate\Http\Response
+    */
+    public function create(SavePlaceRequest $request)
+    {
+        $place = new Place();
+        $place->fill($request->validated())->save();
         // 完了メッセージをセット
-        session()->flash('message', '場所情報を保存しました。');
-        return redirect()->route('admin.place.input');
+        session()->flash('message', '場所情報を登録しました。');
+        return redirect()->route('admin.place.list');
+    }
+
+    /**
+    * 場所編集
+    * @param  Request $request
+    * @param  Place   $place
+    * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+    */
+    public function edit(Request $request, Place $place)
+    {
+        return view('admin.pages.place.input', compact('place'));
+    }
+
+    /**
+    * 場所更新
+    * @param  SavePlaceRequest $request
+    * @param  Place   $place
+    * @return \Illuminate\Http\Response
+    */
+    public function update(SavePlaceRequest $request, Place $place)
+    {
+        $place->fill($request->validated())->save();
+        // 完了メッセージをセット
+        session()->flash('message', '場所情報を更新しました。');
+        return redirect()->route('admin.place.list');
+    }
+
+    /**
+    * 場所削除
+    * @param  Request $request
+    * @param  Place   $place
+    * @return \Illuminate\Http\Response
+    */
+    public function delete(Request $request, Place $place)
+    {
+        $place->delete();
+        // 完了メッセージをセット
+        session()->flash('message', '場所情報を削除しました。');
+        return redirect()->route('admin.place.list');
     }
 }
