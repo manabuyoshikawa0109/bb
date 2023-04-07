@@ -38,7 +38,24 @@
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
 <!-- / Layout wrapper -->
-@endsection
 
-{{-- アラート表示 --}}
-@include('admin.commons.components.js.success_alert')
+{{-- 処理完了後にトーストでアラートメッセージ表示 --}}
+@if(session('message'))
+<div class="bs-toast toast toast-placement-ex m-2 fade bg-primary top-0 end-0 hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+    <div class="toast-header">
+        <i class="bx bx-bell me-2"></i>
+        <div class="me-auto fw-semibold">通知</div>
+        <small>今</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">{{ session('message') }}</div>
+</div>
+@push('scripts')
+<script type="text/javascript">
+$(function(){
+    $('.toast').toast('show');
+});
+</script>
+@endpush
+@endif
+@endsection
