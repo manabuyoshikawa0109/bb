@@ -8,6 +8,7 @@
         "php": "^8.0.2",
         "archtechx/enums": "^0.3.2",
         "guzzlehttp/guzzle": "^7.2",
+        "intervention/image": "^2.7",
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^9.2",
         "laravel/jetstream": "^2.6",

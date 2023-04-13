@@ -1,5 +1,15 @@
 @extends('admin.layouts.app')
 
+@push('links')
+<link href="/assets/plugins/filepond/filepond.min.css" rel="stylesheet">
+<link href="/assets/plugins/filepond/filepond-plugin-image-preview.min.css" rel="stylesheet">
+<style>
+.filepond--root {
+    margin-bottom: 0 !important;
+}
+</style>
+@endpush
+
 @section('content')
 <h4 class="fw-bold py-3 mb-4">
     @if($place->exists)
@@ -11,43 +21,25 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="card mb-4">
-            <!-- Account -->
-            <div class="card-body">
-                <div class="d-flex align-items-start align-items-sm-center gap-4">
-                    <img
-                    src="{{ $place->imageUrl() }}"
-                    alt="user-avatar"
-                    class="d-block rounded"
-                    height="100"
-                    width="150"
-                    id="uploadedAvatar"
-                    />
-                    <div class="button-wrapper">
-                        <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                            <span class="d-none d-sm-block">Upload new photo</span>
-                            <i class="bx bx-upload d-block d-sm-none"></i>
-                            <input
-                            type="file"
-                            id="upload"
-                            class="account-file-input"
-                            hidden
-                            accept="image/png, image/jpeg"
-                            />
-                        </label>
-                        <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                            <i class="bx bx-reset d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Reset</span>
-                        </button>
-
-                        <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+        <form action="{{ $place->exists ? route('admin.place.update', $place->id) : route('admin.place.create') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="card mb-4">
+                <!-- Account -->
+                <div class="card-body">
+                    <div class="d-sm-flex align-items-center gap-4">
+                        <div class="col-md-3 col-lg-2">
+                            <input type="hidden" name="path" value="{{ $place->image_path }}">
+                            <input type="file" class="filepond" name="file">
+                        </div>
+                        <div class="mt-2 mt-sm-0">
+                            <p class="text-muted mb-1">※{{ str_replace(',', ', ', config('admin.place.image.allowed_extension')) }}のみ、ファイルサイズ{{ config('admin.place.image.max_sizes.gb') }}GBまで</p>
+                            <p class="text-muted mb-0">※画像は縦{{ config('admin.place.image.dimensions.height') }}px × 横{{ config('admin.place.image.dimensions.width') }}pxにリサイズされます</p>
+                        </div>
                     </div>
+                    @include('admin.commons.components.html.errors', ['fieldName' => 'file'])
                 </div>
-            </div>
-            <hr class="my-0" />
-            <div class="card-body">
-                <form action="{{ $place->exists ? route('admin.place.update', $place->id) : route('admin.place.create') }}" method="POST">
-                    @csrf
+                <hr class="my-0" />
+                <div class="card-body">
                     <div class="row">
                         <div class="mb-3 col-md-6">
                             <label for="name" class="form-label">場所名@required()</label>
@@ -66,10 +58,10 @@
                         <button type="submit" class="btn btn-primary me-2"><i class='bx bx-save me-1'></i>{{ $place->exists ? '更新する' : '登録する' }}</button>
                         <a href="{{ route('admin.place.list') }}" class="btn btn-outline-secondary"><i class='bx bx-list-ul me-1'></i>一覧に戻る</a>
                     </div>
-                </form>
+                </div>
+                <!-- /Account -->
             </div>
-            <!-- /Account -->
-        </div>
+        </form>
     </div>
 </div>
 
@@ -99,3 +91,35 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script src="/assets/plugins/filepond/filepond.min.js"></script>
+<script src="/assets/plugins/filepond/filepond.jquery.js"></script>
+<script src="/assets/plugins/filepond/filepond-plugin-image-preview.min.js"></script>
+<script type="text/javascript">
+$(function() {
+    $.fn.filepond.registerPlugin(
+        FilePondPluginImagePreview,
+    );
+
+    {{-- filepondの初期化 --}}
+    $('.filepond').filepond({
+        labelIdle: '<span class="filepond--label-action">画像をドラッグ&ドロップ、もしくは選択</span>', // ラベル名
+        credits: false, // 広告を消す
+        imagePreviewHeight: 150, // 画像プレビューの高さ(固定)
+        stylePanelLayout: 'compact', // レイアウトモード(compactはpaddingを消すモード)
+        storeAsFile: true, // ファイル情報をhiddenで持ってpost送信できるようにするか
+    });
+
+    {{-- 画像登録時はデフォルトで表示 --}}
+    @if($place->image_path && !$errors->has('file'))
+    $('.filepond').filepond('addFile', '{{ $place->imageUrl() }}');
+    @endif
+
+    {{-- 画像削除時のイベント --}}
+    $('.filepond').on('FilePond:removefile', function (e) {
+        $('input[name="path"]').val('');
+    });
+});
+</script>
+@endpush
