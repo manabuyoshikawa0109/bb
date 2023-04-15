@@ -1,5 +1,18 @@
 @extends('admin.layouts.app')
 
+@push('links')
+<style>
+@media (max-width: 991px){
+    .card-img-left {
+        border-top-left-radius: 0.5rem !important;
+        border-top-right-radius: 0.5rem !important;
+        border-bottom-right-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+    }
+}
+</style>
+@endpush
+
 @section('content')
 <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">場所マスタ /</span> 一覧画面</h4>
 
