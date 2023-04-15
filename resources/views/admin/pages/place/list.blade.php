@@ -14,7 +14,10 @@
 @endpush
 
 @section('content')
-<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">場所マスタ /</span> 一覧画面</h4>
+<h4 class="fw-bold py-3 mb-4 d-flex justify-content-between align-items-center">
+    <div><span class="text-muted fw-light">場所マスタ /</span> 一覧画面</div>
+    <a href="{{ route('admin.place.add') }}" class="btn btn-primary"><i class="bx bxs-plus-circle me-1"></i>新規登録</a>
+</h4>
 
 <div class="row mb-5">
     @foreach($places as $place)
