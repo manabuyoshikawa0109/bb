@@ -27,7 +27,7 @@
                 <!-- Account -->
                 <div class="card-body">
                     <div class="d-sm-flex align-items-center gap-4">
-                        <div class="col-md-3 col-lg-2">
+                        <div class="col-md-4 col-lg-3">
                             <input type="hidden" name="path" value="{{ $place->image_path }}">
                             <input type="file" class="filepond" name="file">
                         </div>
@@ -96,19 +96,38 @@
 <script src="/assets/plugins/filepond/filepond.min.js"></script>
 <script src="/assets/plugins/filepond/filepond.jquery.js"></script>
 <script src="/assets/plugins/filepond/filepond-plugin-image-preview.min.js"></script>
+<script src="/assets/plugins/filepond/filepond-plugin-file-validate-size.min.js"></script>
+<script src="/assets/plugins/filepond/filepond-plugin-file-validate-type.min.js"></script>
 <script type="text/javascript">
 $(function() {
     $.fn.filepond.registerPlugin(
         FilePondPluginImagePreview,
+        FilePondPluginFileValidateSize,
+        FilePondPluginFileValidateType,
     );
+
+    @php
+    // filepondで許容する拡張子を指定できるようデータ加工
+    function addImagePrefix(string $extension)
+    {
+        return "image/{$extension}";
+    }
+    $extensions = array_map('addImagePrefix', explode(",", config('admin.place.image.allowed_extension')));
+    @endphp
 
     {{-- filepondの初期化 --}}
     $('.filepond').filepond({
-        labelIdle: '<span class="filepond--label-action">画像をドラッグ&ドロップ、もしくは選択</span>', // ラベル名
+        labelIdle: '<span class="filepond--label-action">画像をドラッグ&ドロップ、<br>もしくは選択</span>', // ラベル名
         credits: false, // 広告を消す
         imagePreviewHeight: 150, // 画像プレビューの高さ(固定)
         stylePanelLayout: 'compact', // レイアウトモード(compactはpaddingを消すモード)
         storeAsFile: true, // ファイル情報をhiddenで持ってpost送信できるようにするか
+        maxFileSize: '{{ config('admin.place.image.max_sizes.kb') }}KB',
+        labelMaxFileSizeExceeded: '画像サイズが大きすぎます',
+        labelMaxFileSize: '最大ファイルサイズは{{ config('admin.place.image.max_sizes.gb') }}GBです',
+        acceptedFileTypes: @json($extensions),
+        labelFileTypeNotAllowed: '拡張子に不備があります',
+        fileValidateTypeLabelExpectedTypes: '{{ str_replace(',', ', ', config('admin.place.image.allowed_extension')) }}のみ使用可能',
     });
 
     {{-- 画像登録時はデフォルトで表示 --}}
