@@ -30,7 +30,7 @@
                 <div class="col-lg-8">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="card-title">{{ $place->name }}</h5>
+                            <h5 class="card-title">{{ $place->name }}@if($place->court_surface)<small class="text-muted">（{{ $place->court_surface }}）</small>@endif</h5>
                             <div class="card-title">
                                 @if($place->google_map_url)
                                 <a href="{{ $place->google_map_url }}" target="_blank" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="{{ $place->name }}のGoogleマップへ移動">

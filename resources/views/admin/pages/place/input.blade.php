@@ -46,6 +46,10 @@
                             @include('admin.commons.components.html.text', ['id' => 'name', 'fieldName' => "name", 'default' => $place->name, 'maxLength' => 100, 'placeholder' => '例】寝屋川公園'])
                         </div>
                         <div class="mb-3 col-md-6">
+                            <label for="court-surface" class="form-label">コートサーフェス</label>
+                            @include('admin.commons.components.html.text', ['id' => 'court-surface', 'fieldName' => "court_surface", 'default' => $place->court_surface, 'maxLength' => 100, 'placeholder' => '例】オムニコート'])
+                        </div>
+                        <div class="mb-3 col-md-6">
                             <label for="officialSiteUrl" class="form-label">公式サイトURL</label>
                             @include('admin.commons.components.html.text', ['id' => 'officialSiteUrl', 'fieldName' => "official_site_url", 'default' => $place->official_site_url, 'maxLength' => 250, 'placeholder' => '例】http://neyagawa.osaka-park.or.jp/'])
                         </div>

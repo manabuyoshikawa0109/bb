@@ -27,6 +27,7 @@ class SavePlaceRequest extends FormRequest
             'file'              => ['nullable', 'image', 'mimes:' . config('admin.place.image.allowed_extension'), 'max:' . config('admin.place.image.max_sizes.kb')],
             'path'              => ['nullable', 'string'],
             'name'              => ['required', 'string', 'max:100'],
+            'court_surface'     => ['nullable', 'string', 'max:100'],
             'official_site_url' => ['nullable', 'string', 'max:250', 'url'],
             'google_map_url'    => ['nullable', 'string', 'max:250', 'url'],
         ];
@@ -41,6 +42,7 @@ class SavePlaceRequest extends FormRequest
     {
         return [
             'file'              => '画像',
+            'court_surface'     => 'コートサーフェス',
             'name'              => '場所名',
             'official_site_url' => '公式サイトURL',
             'google_map_url'    => 'GoogleマップのURL',
