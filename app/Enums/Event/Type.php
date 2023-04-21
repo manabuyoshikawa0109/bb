@@ -49,8 +49,8 @@ enum Type: int
         return match($this)
         {
             self::SINGLES       => 'primary',
-            self::DOUBLES       => 'success',
-            self::MIXED_DOUBLES => 'danger',
+            self::DOUBLES       => 'danger',
+            self::MIXED_DOUBLES => 'success',
         };
     }
 }

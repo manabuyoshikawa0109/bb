@@ -47,4 +47,17 @@ class Event extends Model
      */
     protected $appends = [
     ];
+
+    /**
+     * 参加費をフォーマットして返す
+     *
+     * @return string|null
+     */
+    public function formatEntryFee()
+    {
+        if ($this->entry_fee) {
+            return number_format($this->entry_fee) . '円';
+        }
+        return null;
+    }
 }

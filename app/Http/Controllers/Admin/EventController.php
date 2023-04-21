@@ -3,60 +3,86 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\RegisterEventRequest;
+use App\Http\Requests\Admin\SaveEventRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use App\Models\Event;
 
 class EventController extends Controller
 {
     /**
-     * 種目入力
-     * @param  Request $request
-     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
-     */
-    public function input(Request $request)
+    * 種目一覧
+    * @param  Request $request
+    * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+    */
+    public function list(Request $request)
     {
-        if(old('events')){
-            $newId = min(array_keys(old('events'))) -1;
-            $events = collect();
-            foreach (old('events') as $id => $input) {
-               $event = new Event($input);
-               $event->id = $id;
-               $events->push($event);
-            }
-        }else{
-            $newId = -1;
-            $events = Event::all();
-        }
-        $eventInstance = new Event();
-        return view('admin.pages.event.input', compact('events', 'eventInstance', 'newId'));
+        // 更新日時の降順でソート
+        $events = Event::orderByDesc('updated_at')->get();
+        return view('admin.pages.event.list', compact('events'));
     }
 
     /**
-     * 種目登録
-     * @param  RegisterEventRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function register(RegisterEventRequest $request)
+    * 種目新規追加
+    * @param  Request $request
+    * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+    */
+    public function add(Request $request)
     {
-        $inputs = Arr::get($request->validated(), 'events');
-        foreach ($inputs as $id => $input) {
-            $event = Event::firstOrNew(['id' => $id]);
-            if(isset($input['delete']) && $input['delete'] === '1'){
-                $event->delete();
-                continue;
-            }
+        $event = new Event();
+        return view('admin.pages.event.input', compact('event'));
+    }
 
-            $event->fill($input);
-            $event->start_time = null;
-            if(isset($input['start_hour']) && isset($input['start_minutes'])){
-                $event->start_time = "{$input['start_hour']}:{$input['start_minutes']}";
-            }
-            $event->save();
-        }
+    /**
+    * 種目新規登録
+    * @param  SaveEventRequest $request
+    * @return \Illuminate\Http\Response
+    */
+    public function create(SaveEventRequest $request)
+    {
+        $event = new Event();
+        $event->fill($request->validated())->save();
+
         // 完了メッセージをセット
-        session()->flash('message', '種目情報を保存しました。');
-        return redirect()->route('admin.event.input');
+        session()->flash('message', '種目情報を登録しました。');
+        return redirect()->route('admin.event.list');
+    }
+
+    /**
+    * 種目編集
+    * @param  Request $request
+    * @param  Event   $event
+    * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+    */
+    public function edit(Request $request, Event $event)
+    {
+        return view('admin.pages.event.input', compact('event'));
+    }
+
+    /**
+    * 種目更新
+    * @param  SaveEventRequest $request
+    * @param  Event   $event
+    * @return \Illuminate\Http\Response
+    */
+    public function update(SaveEventRequest $request, Event $event)
+    {
+        $event->fill($request->validated())->save();
+        // 完了メッセージをセット
+        session()->flash('message', '種目情報を更新しました。');
+        return redirect()->route('admin.event.list');
+    }
+
+    /**
+    * 種目削除
+    * @param  Request $request
+    * @param  Event   $event
+    * @return \Illuminate\Http\Response
+    */
+    public function delete(Request $request, Event $event)
+    {
+        $event->delete();
+        // 完了メッセージをセット
+        session()->flash('message', '種目情報を削除しました。');
+        return redirect()->route('admin.event.list');
     }
 }

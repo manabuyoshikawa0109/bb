@@ -133,11 +133,23 @@
             <span class="menu-header-text">マスタ</span>
         </li>
         <!-- Cards -->
-        <li class="menu-item @if(request()->route()->named('admin.event.*')) active @endif">
-            <a href="{{ route('admin.event.input') }}" class="menu-link">
+        <li class="menu-item @if(request()->route()->named('admin.event.*')) active open @endif">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-category-alt"></i>
                 <div data-i18n="Event">種目マスタ</div>
             </a>
+            <ul class="menu-sub">
+                <li class="menu-item @if(request()->route()->named('admin.event.list')) active @endif">
+                    <a href="{{ route('admin.event.list') }}" class="menu-link">
+                        <div data-i18n="Event List">一覧</div>
+                    </a>
+                </li>
+                <li class="menu-item @if(request()->route()->named('admin.event.add')) active @endif">
+                    <a href="{{ route('admin.event.add') }}" class="menu-link">
+                        <div data-i18n="Add Event">新規登録</div>
+                    </a>
+                </li>
+            </ul>
         </li>
 
         <li class="menu-item @if(request()->route()->named('admin.place.*')) active open @endif">

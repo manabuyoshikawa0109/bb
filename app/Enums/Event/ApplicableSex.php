@@ -25,4 +25,18 @@ enum ApplicableSex: int
             self::BOTH   => '両方',
         };
     }
+
+    /**
+    * Bootstrapの色クラス
+    * @return string [description]
+    */
+    public function colorClass(): string
+    {
+        return match($this)
+        {
+            self::MALE   => 'info',
+            self::FEMALE => 'danger',
+            self::BOTH   => 'success',
+        };
+    }
 }

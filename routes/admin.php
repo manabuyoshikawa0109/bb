@@ -60,8 +60,12 @@ Route::name('admin.')->group(function () {
 
         // 種目マスタ
         Route::controller(EventController::class)->prefix('event')->name('event.')->group(function() {
-            Route::get  ('input',    'input')->name('input');
-            Route::post ('register', 'register')->name('register');
+            Route::any  ('list',           'list')->name('list');
+            Route::get  ('add',            'add')->name('add');
+            Route::post ('create',         'create')->name('create');
+            Route::get  ('{event}/edit',   'edit')->name('edit');
+            Route::post ('{event}/update', 'update')->name('update');
+            Route::post ('{event}/delete', 'delete')->name('delete');
         });
 
         // 場所マスタ
