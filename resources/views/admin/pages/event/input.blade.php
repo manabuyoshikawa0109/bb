@@ -1,82 +1,134 @@
 @extends('admin.layouts.app')
 
-@inject('type', 'App\ModelItems\Event\Type')
+@php
+use App\Enums\Event\Type;
+use App\Enums\Event\ApplicableSex;
+@endphp
 
 @push('links')
-<link rel="stylesheet" type="text/css" href="/assets/admin/css/table.css?{{ now()->format('YmdHis') }}">
 @endpush
 
 @section('content')
-<div class="col-md-12 col-sm-12 px-0">
-    <div class="x_panel px-1 px-sm-3">
-        <div class="x_title">
-            <div class="d-flex justify-content-between align-items-center">
-                <h2>種目マスタ</h2>
-                <div class="d-block d-lg-none">
-                    <button type="button" class="add-row-btn btn btn-dark mx-0"><i class="fas fa-plus-circle mr-1"></i>行を追加</button>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-        </div>
+<h4 class="fw-bold py-3 mb-4">
+    @if ($event->exists)
+    <span class="text-muted fw-light">種目マスタ / 一覧画面 /</span> 編集画面
+    @else
+    <span class="text-muted fw-light">種目マスタ / </span> 新規登録画面
+    @endif
+</h4>
 
-        <div class="x_content">
-            <form action="{{ route('admin.event.register') }}" method="post">
-                @csrf
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                    <div>種目名・削除以外の項目は<code>「大会管理 > 新規登録」</code>で種目選択時にデフォルトで反映される設定値です。</div>
-                    <div class="d-none d-lg-block">
-                        <button type="button" class="add-row-btn btn btn-dark mx-0"><i class="fas fa-plus-circle mr-1"></i>行を追加</button>
+<div class="row">
+    <div class="col-md-12">
+        <form action="{{ $event->exists ? route('admin.event.update', $event->id) : route('admin.event.create') }}" method="POST">
+            @csrf
+            <div class="card mb-4">
+                <h5 class="card-header">種目詳細設定</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">種目名@required()</label>
+                                @include('admin.commons.components.html.text', ['id' => 'name', 'fieldName' => "name", 'default' => $event->name, 'maxLength' => 100, 'placeholder' => '例】初級男子シングルス'])
+                            </div>
+                            <div class="mb-3 pt-2">
+                                <small class="d-block">種別@required()</small>
+                                @foreach (Type::cases() as $type)
+                                <div class="form-check form-check-inline mt-3">
+                                    <input class="form-check-input" type="radio" name="type" id="type-{{ $type->value }}" value="{{ $type->value }}" @if($type->value == optional($event->type)->value) checked @endif>
+                                    <label class="form-check-label" for="type-{{ $type->value }}">{{ $type->name() }}</label>
+                                </div>
+                                @endforeach
+                                @include('admin.commons.components.html.errors', ['fieldName' => 'type'])
+                            </div>
+                            <div class="mb-3 pt-2">
+                                <small class="d-block">申し込み可能な性別@required()</small>
+                                @foreach (ApplicableSex::cases() as $applicableSex)
+                                <div class="form-check form-check-inline mt-3">
+                                    <input class="form-check-input" type="radio" name="applicable_sex" id="applicable-sex-{{ $applicableSex->value }}" value="{{ $applicableSex->value }}" @if($applicableSex->value == optional($event->applicable_sex)->value) checked @endif>
+                                    <label class="form-check-label" for="applicable-sex-{{ $applicableSex->value }}">{{ $applicableSex->name() }}</label>
+                                </div>
+                                @endforeach
+                                @include('admin.commons.components.html.errors', ['fieldName' => 'applicable_sex'])
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="applicants" class="form-label">募集数
+                                    <i class="fa-regular fa-circle-question fa-lg ms-1"
+                                    data-bs-toggle="popover"
+                                    data-bs-offset="0,14"
+                                    data-bs-placement="top"
+                                    data-bs-html="true"
+                                    data-bs-content="<p>大会管理にて新規登録時、この種目名を選択するとここで登録した募集数が自動で反映されます。</p> <div class='d-flex justify-content-end'><button type='button' class='btn btn-sm btn-outline-secondary close-popover'>とじる</button></div>"
+                                    role="button">
+                                    </i>
+                                </label>
+                                <div class="input-group">
+                                    <input id="applicants" type="number" class="form-control" name="applicants" value="{{ old('applicants', $event->applicants) }}" maxlength="" placeholder="18">
+                                    <span id="applicants-unit" class="input-group-text">{!! optional($event->type)->unit() ?? '&emsp;' !!}</span>
+                                </div>
+                                @include('admin.commons.components.html.errors', ['fieldName' => 'applicants'])
+                            </div>
+                            <div class="mb-3">
+                                <label for="entry-fee" class="form-label">参加費
+                                    <i class="fa-regular fa-circle-question fa-lg ms-1"
+                                    data-bs-toggle="popover"
+                                    data-bs-offset="0,14"
+                                    data-bs-placement="top"
+                                    data-bs-html="true"
+                                    data-bs-content="<p>大会管理にて新規登録時、この種目名を選択するとここで登録した参加費が自動で反映されます。</p> <div class='d-flex justify-content-end'><button type='button' class='btn btn-sm btn-outline-secondary close-popover'>とじる</button></div>"
+                                    role="button">
+                                    </i>
+                                </label>
+                                <div class="input-group">
+                                    <input id="entry-fee" type="number" class="form-control" name="entry_fee" value="{{ old('entry_fee', $event->entry_fee) }}" maxlength="5" placeholder="5000">
+                                    <span class="input-group-text">円</span>
+                                </div>
+                                @include('admin.commons.components.html.errors', ['fieldName' => 'entry_fee'])
+                            </div>
+                            <div class="mb-3">
+                                <label for="held-time" class="form-label">開催時間
+                                    <i class="fa-regular fa-circle-question fa-lg ms-1"
+                                    data-bs-toggle="popover"
+                                    data-bs-offset="0,14"
+                                    data-bs-placement="top"
+                                    data-bs-html="true"
+                                    data-bs-content="<p>大会管理にて新規登録時、この種目名を選択するとここで登録した開催時間が自動で反映されます。</p> <div class='d-flex justify-content-end'><button type='button' class='btn btn-sm btn-outline-secondary close-popover'>とじる</button></div>"
+                                    role="button">
+                                    </i>
+                                </label>
+                                <input id="held-time" type="time" name="held_time" class="form-control" value="{{ $event->held_time }}">
+                                @include('admin.commons.components.html.errors', ['fieldName' => 'held_time'])
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <button type="submit" class="btn btn-primary me-2"><i class='bx bx-save me-1'></i>{{ $event->exists ? '更新する' : '登録する' }}</button>
+                        <a href="{{ route('admin.event.list') }}" class="btn btn-outline-secondary"><i class='bx bx-list-ul me-1'></i>一覧に戻る</a>
                     </div>
                 </div>
-                <div class="table-responsive mb-sm-2 mb-4">
-                    <table class="table table-striped jambo_table bulk_action">
-                        <thead>
-                            <tr class="headings @if($events->isEmpty()) d-none @endif">
-                                <th class="w-250-px">種目名@required()</th>
-                                <th class="w-150-px">種別@required()</th>
-                                <th class="w-100-px">募集数</th>
-                                <th class="w-150-px">参加費</th>
-                                <th class="w-150-px">開始時間</th>
-                                <th class="w-100-px">削除</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="items">
-                            @foreach ($events as $event)
-                                @include('admin.pages.event.row', ['event' => $event ])
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div id="form-submit-button-area" class="col-12 text-center @if($events->isEmpty()) d-none @endif">
-                    <button type="submit" class="btn btn-dark"><i class="fas fa-save mr-1"></i>登録する</button>
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>
 @endsection
 
 @php
-$row = view('admin.pages.event.row', ['event' => $eventInstance ])->render();
-// 改行を全て取り除く
-$row = str_replace(array("\r\n", "\r", "\n"), '', $row);
+$types = [];
+foreach (Type::cases() as $type) {
+    $types[$type->value] = $type->unit();
+}
 @endphp
-
-{{-- テーブル初期設定JS --}}
-@include('admin.commons.components.js.table', ['newId' => $newId, 'row' => $row ])
 
 @push('scripts')
 <script type="text/javascript">
-$(function(){
-    // TODO: enterでフォーム送信取り消し
-    var types = @json($type::$items);
-    console.log(types);
-    $('.event-name').keyup(function() {
-        var input = $(this).val();
-        console.log(input);
+$(function() {
+    $('input[name="type"]').change( function() {
+        var value = $(this).val();
+        var types = @json($types);
+        var unit = types[value];
+        $('#applicants-unit').text(unit);
     });
-
 });
 </script>
 @endpush
