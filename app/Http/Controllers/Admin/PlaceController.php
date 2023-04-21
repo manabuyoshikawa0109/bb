@@ -22,7 +22,8 @@ class PlaceController extends Controller
     */
     public function list(Request $request)
     {
-        $places = Place::all();
+        // 更新日時の降順でソート
+        $places = Place::orderByDesc('updated_at')->get();
         return view('admin.pages.place.list', compact('places'));
     }
 

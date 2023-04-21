@@ -46,12 +46,12 @@
                         </div>
 
                         <div class="d-flex align-items-center">
-                            <a href="{{ route('admin.place.edit', $place->id) }}" class="btn btn-outline-primary me-2">
+                            <a href="{{ route('admin.place.edit', $place->id) }}" class="btn btn-outline-success me-2">
                                 <i class="bx bx-edit-alt me-1"></i>編集する
                             </a>
                             <form action="{{ route('admin.place.delete', $place->id) }}" method="post">
                                 @csrf
-                                <button type="submit" class="btn btn-outline-danger delete-btn">
+                                <button type="submit" class="btn btn-outline-danger btn-delete">
                                     <i class="bx bx-trash me-1"></i>削除する
                                 </button>
                             </form>
@@ -65,14 +65,5 @@
 </div>
 @endsection
 
-@push('scripts')
-<script type="text/javascript">
-$(function() {
-    $('.delete-btn').click(function() {
-        if (!confirm("場所情報の削除\r\n削除後は復元することができませんがよろしいですか？")) {
-            return false;
-        }
-    });
-});
-</script>
-@endpush
+{{-- 削除時確認ダイアログ表示 --}}
+@include('admin.commons.components.js.delete_confirm', ['message' => '場所情報の削除\r\n削除後は復元することができませんがよろしいですか？'])

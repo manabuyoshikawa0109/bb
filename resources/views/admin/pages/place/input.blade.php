@@ -24,6 +24,7 @@
         <form action="{{ $place->exists ? route('admin.place.update', $place->id) : route('admin.place.create') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card mb-4">
+                <h5 class="card-header">場所詳細設定</h5>
                 <!-- Account -->
                 <div class="card-body">
                     <div class="d-sm-flex align-items-center gap-4">
