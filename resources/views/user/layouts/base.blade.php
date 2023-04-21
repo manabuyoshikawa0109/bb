@@ -42,6 +42,7 @@
     <script src="/assets/plugins/lightbox/js/lightbox.min.js"></script>
     <!-- Template Javascript -->
     <script src="/assets/user/js/main.js"></script>
+    <script src="{{ disableCacheWhenModified('/assets/common/js/base.js') }}"></script>
     @stack('scripts')
 </body>
 </html>
