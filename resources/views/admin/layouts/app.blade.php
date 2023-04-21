@@ -40,7 +40,6 @@
 <!-- / Layout wrapper -->
 
 {{-- 処理完了後にトーストでアラートメッセージ表示 --}}
-@if(session('message'))
 <div class="bs-toast toast toast-placement-ex m-2 fade bg-primary top-0 end-0 hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
     <div class="toast-header">
         <i class="bx bx-bell me-2"></i>
@@ -50,12 +49,15 @@
     </div>
     <div class="toast-body">{{ session('message') }}</div>
 </div>
+@endsection
+
 @push('scripts')
 <script type="text/javascript">
 $(function(){
+    @if(session('message'))
     $('.toast').toast('show');
+    @endif
 });
 </script>
 @endpush
-@endif
-@endsection
+
