@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div class="mt-2">
-                        <button type="submit" class="btn btn-primary me-2"><i class='bx bx-save me-1'></i>{{ $place->exists ? '更新する' : '登録する' }}</button>
+                        <button type="submit" class="btn btn-primary me-2"><i class="bx bx-save me-1"></i>{{ $place->exists ? '更新する' : '登録する' }}</button>
                         <a href="{{ route('admin.place.list') }}" class="btn btn-outline-secondary"><i class='bx bx-list-ul me-1'></i>一覧に戻る</a>
                     </div>
                 </div>
