@@ -9,7 +9,7 @@ use App\Models\Place;
 use Illuminate\Http\UploadedFile;
 use Storage;
 use Image;
-use Exception;
+use Throwable;
 use Log;
 use DB;
 
@@ -57,7 +57,7 @@ class PlaceController extends Controller
             }
 
             DB::commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             DB::rollback();
             Log::error($e);
             abort(500);
@@ -104,7 +104,7 @@ class PlaceController extends Controller
             $place->fill($request->validated())->save();
 
             DB::commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             DB::rollback();
             Log::error($e);
             abort(500);
@@ -128,7 +128,7 @@ class PlaceController extends Controller
             $place->delete();
 
             DB::commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             DB::rollback();
             Log::error($e);
             abort(500);
