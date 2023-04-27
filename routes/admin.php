@@ -58,6 +58,12 @@ Route::name('admin.')->group(function () {
             Route::post ('{information}/delete',  'delete')->name('delete');
         });
 
+        // FAQ管理
+        Route::controller(FaqController::class)->prefix('faq')->name('faq.')->group(function() {
+            Route::any  ('list', 'list')->name('list');
+            Route::post ('save', 'save')->name('save');
+        });
+
         // 種目マスタ
         Route::controller(EventController::class)->prefix('event')->name('event.')->group(function() {
             Route::any  ('list',           'list')->name('list');

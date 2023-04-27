@@ -128,6 +128,13 @@
                 </li>
             </ul>
         </li>
+        <li class="menu-item @if(request()->route()->named('admin.faq.*')) active @endif">
+            <a href="{{ route('admin.faq.list') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-question-mark"></i>
+                <div data-i18n="Faq">FAQ管理</div>
+            </a>
+        </li>
+
         <!-- Components -->
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">マスタ</span>
