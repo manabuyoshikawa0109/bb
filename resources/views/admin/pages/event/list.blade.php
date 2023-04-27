@@ -33,12 +33,12 @@
                         {{ $event->applicants ?? '' }}{{ $event->type->unit() }} ／ {{ $event->held_time ?? '-' }}<br>{{ $event->formatEntryFee() ?? '-円' }}
                     </td>
                     <td>
-                        <a href="{{ route('admin.event.edit', $event->id) }}" class="btn btn-sm btn-outline-success me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="編集する">
+                        <a href="{{ route('admin.event.edit', $event->id) }}" class="btn btn-outline-success btn-icon me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="編集する">
                             <i class="bx bx-edit-alt"></i>
                         </a>
                         <form action="{{ route('admin.event.delete', $event->id) }}" method="post" class="d-inline">
                             @csrf
-                            <button type="submit" class="btn btn-sm btn-outline-danger btn-delete" data-bs-toggle="tooltip" data-bs-placement="top" title="削除する">
+                            <button type="submit" class="btn btn-outline-danger btn-icon btn-delete" data-bs-toggle="tooltip" data-bs-placement="top" title="削除する">
                                 <i class="bx bx-trash"></i>
                             </button>
                         </form>
