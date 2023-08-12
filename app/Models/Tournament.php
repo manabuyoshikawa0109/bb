@@ -107,6 +107,21 @@ class Tournament extends Model
     }
 
     /**
+    * 公開期間をフォーマットして返す
+    * @return string
+    */
+    public function formatReleasePeriod()
+    {
+        $releaseStartDate = optional($this->release_start_date)->format('Y年n月j日');
+        $releaseEndDate = optional($this->release_end_date)->format('Y年n月j日');
+        if (!$releaseStartDate && !$releaseEndDate) {
+            return '-';
+        }
+        // 前後の空白を削除
+        return trim("{$releaseStartDate} 〜 {$releaseEndDate}");
+    }
+
+    /**
     * 参加費をフォーマットして返す
     * @return string
     */
@@ -121,15 +136,6 @@ class Tournament extends Model
     */
     public function formatApplicants()
     {
-        return number_format($this->applicants) . $this->applicantsUnit();
-    }
-
-    /**
-    * 募集数の単位を返す
-    * @return string|null
-    */
-    public function applicantsUnit()
-    {
-        return $this->event->type->unit() ?? null;
+        return number_format($this->applicants) . $this->event->type->unit();
     }
 }

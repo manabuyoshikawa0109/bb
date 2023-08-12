@@ -30,7 +30,7 @@
                         <span class="badge bg-{{ $event->applicable_sex->colorClass() }}">{{ $event->applicable_sex->name() }}</span>
                     </td>
                     <td>
-                        {{ $event->applicants ?? '' }}{{ $event->type->unit() }} ／ {{ $event->held_time ?? '-' }}<br>{{ $event->formatEntryFee() ?? '-円' }}
+                        {{ $event->formatApplicants("-{$event->type->unit()}") }} ／ {{ $event->held_time ?? '-' }}<br>{{ $event->formatEntryFee('-円') }}
                     </td>
                     <td>
                         <a href="{{ route('admin.event.edit', $event->id) }}" class="btn btn-outline-success btn-icon me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="編集する">

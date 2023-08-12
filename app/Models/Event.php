@@ -50,14 +50,27 @@ class Event extends Model
 
     /**
      * 参加費をフォーマットして返す
-     *
+     * @param  string|null $default
      * @return string|null
      */
-    public function formatEntryFee()
+    public function formatEntryFee(string $default = null)
     {
         if ($this->entry_fee) {
             return number_format($this->entry_fee) . '円';
         }
-        return null;
+        return $default;
+    }
+
+    /**
+    * 募集数をフォーマットして返す
+    * @param  string|null $default
+    * @return string
+    */
+    public function formatApplicants(string $default = null)
+    {
+        if ($this->applicants) {
+            return number_format($this->applicants) . $this->type->unit();
+        }
+        return $default;
     }
 }
