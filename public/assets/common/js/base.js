@@ -6,16 +6,4 @@ $(function(){
         }
         return true;
     });
-
-    // bootstrap5のpopover初期設定
-    $('[data-bs-toggle="popover"]').popover({
-        // popoverエリアにボタンを表示できるようオプション追加
-        html: true,
-        sanitize: false,
-    });
-
-    // ボタンクリックでpopoverを閉じる
-    $(document).on("click", ".popover .close-popover", function(){
-        $(this).closest(".popover").popover('hide');
-      });
 });

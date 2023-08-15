@@ -1,92 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="ja" class="@yield('html-class')">
 
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
+<head>
+	<title>Synadmin – Bootstrap5 Admin Template</title>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+	<!--favicon-->
+	<link rel="icon" href="/assets/admin/images/favicon-32x32.png" type="image/png" />
+	<!--plugins-->
+	<link href="/assets/admin/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+	<link href="/assets/admin/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+	<link href="/assets/admin/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<!-- loader-->
+	<link href="/assets/admin/css/pace.min.css" rel="stylesheet" />
+	<script src="/assets/admin/js/pace.min.js"></script>
+	<!-- Bootstrap CSS -->
+	<link href="/assets/admin/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/admin/css/bootstrap-extended.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+	<link href="/assets/admin/css/app.css" rel="stylesheet">
+	<link href="/assets/admin/css/icons.css" rel="stylesheet">
+	<!-- Theme Style CSS -->
+	<link rel="stylesheet" href="/assets/admin/css/dark-theme.css" />
+	<link rel="stylesheet" href="/assets/admin/css/semi-dark.css" />
+	<link rel="stylesheet" href="/assets/admin/css/header-colors.css" />
+    @stack('links')
+</head>
 
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
+<body>
+    @yield('inner-body')
+	<!-- Bootstrap JS -->
+	<script src="/assets/admin/js/bootstrap.bundle.min.js"></script>
+	<!--plugins-->
+	<script src="/assets/admin/js/jquery.min.js"></script>
+	<script src="/assets/admin/plugins/simplebar/js/simplebar.min.js"></script>
+	<script src="/assets/admin/plugins/metismenu/js/metisMenu.min.js"></script>
+	<script src="/assets/admin/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+	<!--app JS-->
+	<script src="/assets/admin/js/app.js"></script>
+    @stack('scripts')
+</body>
 
-=========================================================
--->
-<!-- beautify ignore:start -->
-<html
-lang="ja"
-class="light-style @yield('html-class')"
-dir="ltr"
-data-theme="theme-default"
-data-assets-path="../assets/"
-data-template="vertical-menu-template-free"
->
-    <head>
-        <meta charset="utf-8" />
-        <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-        />
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
-        <title>Dashboard - Analytics | BBテニストーナメント</title>
-
-        <meta name="description" content="" />
-
-        <!-- Favicon -->
-        <link rel="icon" type="image/x-icon" href="/assets/admin/images/favicon.ico" />
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet"
-        />
-
-        <!-- Icons. Uncomment required icon fonts -->
-        <link rel="stylesheet" href="/assets/plugins/boxicons/boxicons.css" />
-
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="/assets/plugins/font-awesome/css/all.min.css" >
-
-        <!-- Core CSS -->
-        <link rel="stylesheet" href="/assets/admin/css/core.css" class="template-customizer-core-css" />
-        <link rel="stylesheet" href="/assets/admin/css/theme-default.css" class="template-customizer-theme-css" />
-        <link rel="stylesheet" href="/assets/admin/css/demo.css" />
-
-        <!-- Vendors CSS -->
-        <link rel="stylesheet" href="/assets/plugins/perfect-scrollbar/perfect-scrollbar.css" />
-
-        <!-- Page CSS -->
-
-        <!-- Helpers -->
-        <script src="/assets/admin/js/helpers.js"></script>
-
-        <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-        <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-        <script src="/assets/admin/js/config.js"></script>
-        <link href="{{ disableCacheWhenModified('/assets/admin/css/base.css') }}" rel="stylesheet" >
-        @stack('links')
-    </head>
-
-    <body>
-        @yield('inner_body')
-
-        <!-- Core JS -->
-        <!-- build:js assets/vendor/js/core.js -->
-        <script src="/assets/plugins/jquery/jquery.js"></script>
-        <script src="/assets/plugins/popper/popper.js"></script>
-        <script src="/assets/admin/js/bootstrap.js"></script>
-        <script src="/assets/plugins/perfect-scrollbar/perfect-scrollbar.js"></script>
-
-        <script src="/assets/admin/js/menu.js"></script>
-
-        <!-- Main JS -->
-        <script src="/assets/admin/js/main.js"></script>
-
-        <!-- Place this tag in your head or just before your close body tag. -->
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
-        <script src="{{ disableCacheWhenModified('/assets/common/js/base.js') }}"></script>
-        @stack('scripts')
-    </body>
 </html>
