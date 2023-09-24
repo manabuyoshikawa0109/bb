@@ -7,9 +7,10 @@
 <script type="text/javascript">
 $(function(){
     $('.btn-delete').click(function() {
-        if (!confirm('{{ $message }}')) {
-            return false;
+        if (confirm('{{ $message }}')) {
+            return true;
         }
+        return false;
     });
 });
 </script>
