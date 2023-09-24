@@ -26,6 +26,7 @@
 	<link rel="stylesheet" href="/assets/admin/css/dark-theme.css" />
 	<link rel="stylesheet" href="/assets/admin/css/semi-dark.css" />
 	<link rel="stylesheet" href="/assets/admin/css/header-colors.css" />
+	<link href="{{ disableCacheWhenModified('/assets/admin/css/base.css') }}" rel="stylesheet">
     @stack('links')
 </head>
 

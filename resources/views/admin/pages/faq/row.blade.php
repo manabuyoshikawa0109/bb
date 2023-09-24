@@ -1,47 +1,33 @@
 @php
-$order = $loop->iteration ?? '@order@';
-$key = $key ?? null;
+use Illuminate\Support\Str;
+use App\Models\Faq;
+
+// 行新規追加時に変数を渡さなくて良いよう2項演算子を使用
+// 英数字ランダムの文字列は15文字でほぼ重複が発生しない
+// 参考：https://qiita.com/daikikatsuragawa/items/27688f01c9c525a8af01
+$order = $order ?? Str::random(15);
+$faq = $faq ?? new Faq();
+$id = old("ids.{$order}", $faq->id);
+$question = old("questions.{$order}", $faq->question);
+$answer = old("answers.{$order}", $faq->answer);
 @endphp
-<div class="card accordion-item">
-    <input type="hidden" name="ids[]" value="{{ $id ?? null }}">
-    <h2 class="accordion-header" id="faq-accordion-heading{{ $order }}">
-        <div class="accordion-button d-block d-sm-flex flex-row-reverse align-items-ceneter">
-            <div class="d-flex align-items-center ms-sm-2 mb-2 mb-sm-0">
-                <button type="button" class="btn btn-icon rounded-pill btn-outline-primary me-1"
-                data-bs-toggle="collapse" data-bs-target="#faq-accordion{{ $order }}" aria-expanded="true" aria-controls="faq-accordion{{ $order }}"
-                data-bs-html="true" data-bs-placement="top" title="このFAQの回答を<br>開く/閉じる">
-                    <i class="bx bx-folder-open"></i>
-                </button>
-                <button type="button" class="btn btn-icon rounded-pill btn-outline-danger me-1 delete-faq"
-                data-bs-html="true" data-bs-placement="top" title="このFAQを削除する">
-                    <i class="bx bx-trash"></i>
-                </button>
-                <button type="button" class="btn btn-icon rounded-pill btn-outline-secondary me-1 up-faq"
-                data-bs-html="true" data-bs-placement="top" title="このFAQの順番を<br>前にする">
-                    <i class="bx bx-up-arrow-alt"></i>
-                </button>
-                <button type="button" class="btn btn-icon rounded-pill btn-outline-secondary down-faq"
-                data-bs-html="true" data-bs-placement="top" title="このFAQの順番を<br>後ろにする">
-                    <i class="bx bx-down-arrow-alt"></i>
-                </button>
+<div class="accordion-item">
+    <input type="hidden" name="ids[]" value="{{ $id }}">
+    <h2 class="accordion-header" id="heading-{{ $order }}">
+        {{-- 質問・回答どちらもバリデーションエラーでない場合、青い選択状態とならないようにする --}}
+        <button class="accordion-button flex-wrap @if(!$errors->has("questions.{$order}") && !$errors->has("answers.{$order}")) collapsed @endif" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ $order }}" aria-expanded="@if($errors->has("answers.{$order}")) true @else false @endif" aria-controls="collapse-{{ $order }}">
+            <div class="col-12 d-flex align-items-center">
+                <input type="text" class="form-control me-2" name="questions[]" value="{{ $question }}" maxlength="100" placeholder="質問内容を入力">
+                <i class="lni lni-close"></i>
             </div>
-            <div class="w-100">
-                <div class="input-group">
-                    <span class="input-group-text d-none d-sm-block">質問 {{ $order }}</span>
-                    <textarea name="questions[]" class="form-control" placeholder="質問内容を入力" maxlength="100" rows="2">{{ $question ?? null }}</textarea>
-                </div>
-                @include('admin.commons.components.html.errors', ['fieldName' => "questions.{$key}"])
-            </div>
-        </div>
+            @include('admin.commons.components.html.errors', ['fieldName' => "questions.{$order}"])
+        </button>
     </h2>
-    {{-- エラー時showクラスを付与しアコーディオンを開いた状態とする --}}
-    <div id="faq-accordion{{ $order }}" class="accordion-collapse collapse @if($errors->has("answers.{$key}")) show @endif" data-bs-parent="#faq-accordions">
+    <div id="collapse-{{ $order }}" class="accordion-collapse collapse @if($errors->has("answers.{$order}")) show @endif" aria-labelledby="heading-{{ $order }}" data-bs-parent="#faq-accordions">
         <div class="accordion-body">
-            <div class="input-group">
-                <span class="input-group-text d-none d-sm-block">回答 {{ $order }}</span>
-                <textarea name="answers[]" class="form-control" placeholder="回答内容を入力" maxlength="500" rows="4">{{ $answer ?? null }}</textarea>
-            </div>
-            @include('admin.commons.components.html.errors', ['fieldName' => "answers.{$key}"])
+            {{-- スマホ時はデバイス幅が狭く見づらい為6行表示にする --}}
+            <textarea name="answers[]" class="form-control" placeholder="回答内容を入力" maxlength="500" rows="@if($agent->isMobile()) 6 @else 4 @endif">{{ $answer }}</textarea>
+            @include('admin.commons.components.html.errors', ['fieldName' => "answers.{$order}"])
         </div>
     </div>
 </div>

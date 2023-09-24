@@ -1,0 +1,14 @@
+@media screen and (max-width: 520px) {
+    /*
+    スマホ時コンテンツ部の左右paddingはできるだけ少なくする
+    */
+    .page-content {
+        padding: 1.5rem 0.5rem;
+    }
+    /*
+    スマホ時card-bodyの左右paddingはできるだけ少なくする
+    */
+    .card-body {
+        padding:1rem 0.5rem;
+    }
+}

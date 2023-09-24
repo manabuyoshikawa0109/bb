@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\Admin\SaveFaqRequest;
+use Illuminate\Http\Request;
 use App\Models\Faq;
 use Throwable;
 use Log;
@@ -32,21 +32,25 @@ class FaqController extends Controller
     {
         DB::beginTransaction();
         try {
-            $order = 1;
-            $ids = data_get($request->validated(), 'ids', []);
-            $questions = data_get($request->validated(), 'questions');
-            $answers = data_get($request->validated(), 'answers');
-            $faqIds = [];
+            $input = $request->validated();
+            $ids = data_get($input, 'ids', []);
+            $questions = data_get($input, 'questions');
+            $answers = data_get($input, 'answers');
+            $savedIds = [];
             foreach ($ids as $key => $id) {
+                $order = $key + 1;
                 $faq = Faq::findOrNew($id);
                 $faq->question = $questions[$key];
                 $faq->answer = $answers[$key];
                 $faq->order = $order;
                 $faq->save();
-                $faqIds[] = $faq->id;
-                $order++;
+
+                // 登録・更新したIDを配列に格納
+                array_push($savedIds, $faq->id);
             }
-            Faq::whereNotIn('id', $faqIds)->delete();
+
+            // 登録・更新されなかったFAQは削除する
+            Faq::whereNotIn('id', $savedIds)->delete();
 
             DB::commit();
         } catch (Throwable $e) {
