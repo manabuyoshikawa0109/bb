@@ -39,7 +39,9 @@ if ($errors->any()) {
         <div class="text-center">
             <h5 class="mb-0 text-uppercase d-flex justify-content-center align-items-center">
                 よくある質問 (FAQ)
-                <i class="lni lni-question-circle ms-1" role="button" data-bs-toggle="popover" title="FAQの順番を変更" data-bs-content="FAQをドラッグ&ドロップして順番を変更できます。"></i>
+                <small>
+                    <i class="lni lni-question-circle ms-1 align-middle" role="button" data-bs-toggle="popover" title="FAQの順番を変更" data-bs-content="FAQをドラッグ&ドロップして順番を変更できます。"></i>
+                </small>
             </h5>
             <hr/>
         </div>
