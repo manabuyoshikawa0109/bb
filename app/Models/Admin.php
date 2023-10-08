@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use App\Enums\Admin\Role;
+use Storage;
 
 class Admin extends Authenticatable
 {
@@ -63,5 +64,21 @@ class Admin extends Authenticatable
     public function fullName()
     {
         return "{$this->last_name} {$this->first_name}";
+    }
+
+    /**
+    * 画像URLを返す
+    * @return string
+    */
+    public function imageUrl()
+    {
+        $url = config('admin.admin.image.no_image_url');
+        if ($this->image_path) {
+            $storage = Storage::disk('public');
+            $url = $storage->url($this->image_path);
+            $timestamp = $storage->lastModified($this->image_path);
+            $url = "{$url}?{$timestamp}";
+        }
+        return $url;
     }
 }

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 250)->comment('パスワード');
             $table->integer('role')->comment('権限');
+            $table->string('image_path', 250)->nullable()->comment('画像パス');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

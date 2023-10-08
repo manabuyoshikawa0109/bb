@@ -374,7 +374,7 @@
             <div class="user-box dropdown px-3">
                 <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/assets/admin/images/avatars/avatar-2.png" class="user-img" alt="user avatar">
+                    <img src="{{ auth('admin')->user()->imageUrl() }}" class="user-img" alt="user avatar">
                     <div class="user-info ps-3">
                         <p class="user-name mb-0">{{ auth('admin')->user()->fullName() }}</p>
                         <p class="designattion mb-0">{{ auth('admin')->user()->role->name() }}</p>
@@ -394,7 +394,7 @@
                     <li>
                         <div class="dropdown-divider mb-0"></div>
                     </li>
-                    <li><a class="dropdown-item" href="{{ route('admin.logout') }}"><i class='bx bx-log-out-circle'></i><span>Logout</span></a>
+                    <li><a class="dropdown-item" href="{{ route('admin.logout') }}"><i class='bx bx-log-out-circle'></i><span>ログアウト</span></a>
                     </li>
                 </ul>
             </div>
