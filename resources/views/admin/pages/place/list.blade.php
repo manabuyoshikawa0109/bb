@@ -2,60 +2,70 @@
 
 @push('links')
 <style>
-@media (max-width: 991px){
-    .card-img-left {
-        border-top-left-radius: 0.5rem !important;
-        border-top-right-radius: 0.5rem !important;
-        border-bottom-right-radius: 0 !important;
-        border-bottom-left-radius: 0 !important;
-    }
+.bg-green {
+    background-color: green !important;
+}
+.py-18 {
+    padding-top: 18px;
+    padding-bottom: 18px;"
 }
 </style>
 @endpush
 
 @section('content')
-<h4 class="fw-bold py-3 mb-4 d-flex justify-content-between align-items-center">
-    <div><span class="text-muted fw-light">場所マスタ /</span> 一覧画面</div>
-    <a href="{{ route('admin.place.add') }}" class="btn btn-primary"><i class="bx bxs-plus-circle me-1"></i>新規登録</a>
-</h4>
-
-<div class="row mb-5">
-    @foreach($places as $place)
-    <div class="col-md-6">
-        <div class="card mb-3">
-            <div class="row g-0">
-                <div class="col-lg-4">
-                    <img class="card-img card-img-left h-100" src="{{ $place->imageUrl() }}" alt="{{ $place->name }}" />
-                </div>
-                <div class="col-lg-8">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="card-title">{{ $place->name }}@if($place->court_surface)<small class="text-muted">（{{ $place->court_surface }}）</small>@endif</h5>
-                            <div class="card-title">
-                                @if($place->google_map_url)
-                                <a href="{{ $place->google_map_url }}" target="_blank" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="{{ $place->name }}のGoogleマップへ移動">
-                                    <i class="bx bx-map bx-sm"></i>
-                                </a>
-                                @endif
-                                @if($place->official_site_url)
-                                <a href="{{ $place->official_site_url }}" target="_blank" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="{{ $place->name }}のホームページへ移動">
-                                    <i class="bx bx-home-circle bx-sm"></i>
-                                </a>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="d-flex align-items-center">
-                            <a href="{{ route('admin.place.edit', $place->id) }}" class="btn btn-outline-success me-2">
-                                <i class="bx bx-edit-alt me-1"></i>編集する
-                            </a>
-                            <form action="{{ route('admin.place.delete', $place->id) }}" method="post">
-                                @csrf
-                                <button type="submit" class="btn btn-outline-danger btn-delete">
-                                    <i class="bx bx-trash me-1"></i>削除する
-                                </button>
-                            </form>
-                        </div>
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">場所マスター</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('admin.home.index') }}"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">場所マスター</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="ms-auto">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary">Settings</button>
+            <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
+                <a class="dropdown-item" href="javascript:;">Another action</a>
+                <a class="dropdown-item" href="javascript:;">Something else here</a>
+                <div class="dropdown-divider"></div>	<a class="dropdown-item" href="javascript:;">Separated link</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end breadcrumb-->
+<h6 class="mb-0 text-uppercase">場所一覧</h6>
+<hr/>
+<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4">
+    @foreach ($places as $place)
+    <div class="col">
+        <div class="card radius-15">
+            <div class="card-body text-center">
+                <div class="p-4 border radius-15">
+                    <img src="{{ $place->imageUrl() }}" width="110" height="110" class="rounded-circle shadow" alt="">
+                    <h5 class="mb-0 mt-5">{{ $place->name }}</h5>
+                    <p class="mb-3">{{ $place->court_surface }}</p>
+                    {{-- ホームページURL、GoogleマップのURL両方がない時は高さが出なくなるので高さ調整 --}}
+                    <div class="list-inline contacts-social mt-3 mb-3 @if($place->official_site_url === null && $place->google_map_url === null) py-18 @endif">
+                        @if ($place->official_site_url)
+                        <a href="{{ $place->official_site_url }}" target="_blank" class="list-inline-item bg-google text-white border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $place->name }}のホームページを開く">
+                            <i class="lni lni-home"></i>
+                        </a>
+                        @endif
+                        @if ($place->google_map_url)
+                        <a href="{{ $place->google_map_url }}" target="_blank" class="list-inline-item bg-green text-white border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $place->name }}のGoogleマップを開く">
+                            <i class="lni lni-map-marker"></i>
+                        </a>
+                        @endif
+                    </div>
+                    <div class="d-grid">
+                        <a href="{{ route('admin.place.edit', $place->id) }}" class="btn btn-dark radius-15">編集する</a>
                     </div>
                 </div>
             </div>
@@ -63,7 +73,7 @@
     </div>
     @endforeach
 </div>
+<!--end row-->
 @endsection
 
-{{-- 削除時確認ダイアログ表示 --}}
-@include('admin.commons.components.js.delete_confirm', ['message' => '場所情報の削除\r\n削除後は復元することができませんがよろしいですか？'])
+@include('admin.commons.components.js.tooltip')
