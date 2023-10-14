@@ -63,7 +63,8 @@ function Dropify(element, options) {
         tpl: {
             wrap:            '<div class="dropify-wrapper"></div>',
             loader:          '<div class="dropify-loader"></div>',
-            message:         '<div class="dropify-message"><span class="file-icon" /> <p>{{ default }}</p></div>',
+            // 2023年10月14日吉川学修正：<span class="file-icon" />の終了タグがなく「Drag and drop a file here or click」の文字が異常に大きくなる為
+            message:         '<div class="dropify-message"><span class="file-icon" /></span> <p>{{ default }}</p></div>',
             preview:         '<div class="dropify-preview"><span class="dropify-render"></span><div class="dropify-infos"><div class="dropify-infos-inner"><p class="dropify-infos-message">{{ replace }}</p></div></div></div>',
             filename:        '<p class="dropify-filename"><span class="dropify-filename-inner"></span></p>',
             clearButton:     '<button type="button" class="dropify-clear">{{ remove }}</button>',
@@ -402,6 +403,11 @@ Dropify.prototype.isTouchDevice = function()
  */
 Dropify.prototype.getFileType = function()
 {
+    // 2023年10月14日吉川学追加：画像URLはキャッシュが効いて変更が反映されないことを防ぐ為、拡張子以降に「?2023101418000」のように画像の最終更新日時をつけている
+    // その為拡張子を取得するこのメソッドではまず?以降を削除するようにしている
+    if (this.file.name.indexOf("?") !== -1) {
+        return this.file.name.substring(0, this.file.name.indexOf("?")).split('.').pop().toLowerCase();
+    }
     return this.file.name.split('.').pop().toLowerCase();
 };
 
