@@ -25,7 +25,7 @@ class DirectiveServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::directive('required', function ($class = '') {
-            return "<span class=\"badge bg-label-danger ms-1 {$class}\">必須</span>";
+            return "<span class=\"badge bg-danger align-middle ms-1 {$class}\">必須</span>";
         });
     }
 }

@@ -60,4 +60,16 @@ class Place extends Model
         }
         return $url;
     }
+
+    /**
+    * 画像ファイル名を返す
+    * @return string|null
+    */
+    public function imageFileName()
+    {
+        if ($this->image_path) {
+            return basename($this->image_path);
+        }
+        return null;
+    }
 }

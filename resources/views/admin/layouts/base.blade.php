@@ -13,6 +13,8 @@
 	<link href="/assets/admin/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
 	<link href="/assets/admin/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
 	<link href="/assets/admin/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<!--font-awesome-->
+	<link href="/assets/common/plugins/font-awesome/css/all.min.css" rel="stylesheet">
 	<!-- loader-->
 	<link href="/assets/admin/css/pace.min.css" rel="stylesheet" />
 	<script src="/assets/admin/js/pace.min.js"></script>

@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SavePlaceRequest;
+use Illuminate\Http\UploadedFile;
+use App\Helpers\FileHelper;
 use Illuminate\Http\Request;
 use App\Models\Place;
-use Illuminate\Http\UploadedFile;
 use Storage;
 use Image;
 use Throwable;
@@ -45,11 +46,12 @@ class PlaceController extends Controller
     */
     public function create(SavePlaceRequest $request)
     {
-        $place = new Place();
-        $place->fill($request->validated())->save();
-
         DB::beginTransaction();
         try {
+            $place = new Place();
+            $place->fill($request->validated())->save();
+
+            // 新規登録時はまだid値がわからず画像パスを生成できない為、2回保存処理を行う
             if ($file = $request->file) {
                 $path = $this->_uploadImage($file, $place);
                 $place->image_path = $path;
@@ -89,18 +91,19 @@ class PlaceController extends Controller
     {
         DB::beginTransaction();
         try {
-            if ($file = $request->file) {
-                $path = $this->_uploadImage($file, $place);
-                $place->image_path = $path;
-            } elseif ($request->path == null) {
-                $this->_deleteImage($place->image_path);
+            // 画像削除フラグが立っている場合、既存画像を削除
+            if ($request->delete_image) {
+                FileHelper::delete($place->image_path);
                 $place->image_path = null;
             }
 
-            // 画像変更時拡張子が異なる可能性がある為、直近にアップロードされた画像を削除
-            if ($place->isDirty('image_path')) {
-                $this->_deleteImage($place->getOriginal('image_path'));
+            // 画像変更時拡張子が異なり直近の画像がサーバーに残ってしまう可能性がある為、直近にアップロードされた画像を削除
+            if ($file = $request->file) {
+                FileHelper::delete($place->image_path);
+                $path = $this->_uploadImage($file, $place);
+                $place->image_path = $path;
             }
+
             $place->fill($request->validated())->save();
 
             DB::commit();
@@ -124,7 +127,8 @@ class PlaceController extends Controller
     {
         DB::beginTransaction();
         try {
-            Storage::disk('public')->deleteDirectory("admin/places/{$place->id}");
+            // 画像を削除
+            FileHelper::delete($place->image_path);
             $place->delete();
 
             DB::commit();
@@ -147,29 +151,17 @@ class PlaceController extends Controller
      */
     private function _uploadImage(UploadedFile $file, Place $place)
     {
-        $extension = $file->getClientOriginalExtension();
-        // id指定でディレクトリ毎削除できるようなパスにする
-        $path = "admin/places/{$place->id}/image.{$extension}";
+        // 画像アップロード先のパスを取得
+        $path = FileHelper::getPath($place, $file);
 
-        $image = Image::make($file)->orientate();
-        $image->resize(config('admin.place.image.dimensions.width'), config('admin.place.image.dimensions.height'));
+        // 画像をリサイズ
+        // ※現状縦横比を維持しない
+        $dimensions = config('admin.place.image.dimensions');
+        $image = FileHelper::resizeImage($file, $dimensions['width'], $dimensions['height']);
+
+        // 画像アップロード先のパスに画像ファイルを保存
         Storage::disk('public')->put($path, (string)$image->encode());
 
         return $path;
-    }
-
-    /**
-     * 画像を削除
-     *
-     * @param string|null $path
-     * @return void
-     */
-    private function _deleteImage(string $path = null)
-    {
-        $storage = Storage::disk('public');
-        // $path変数がnullだとexistsメソッドでエラーとなる
-        if ($path && $storage->exists($path)){
-            $storage->delete($path);
-        }
     }
 }

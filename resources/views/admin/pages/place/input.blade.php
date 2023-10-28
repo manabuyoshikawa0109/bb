@@ -1,180 +1,174 @@
 @extends('admin.layouts.app')
 
-@push('links')
-<link href="/assets/plugins/filepond/filepond.min.css" rel="stylesheet">
-<link href="/assets/plugins/filepond/filepond-plugin-image-preview.min.css" rel="stylesheet">
-<style>
-.filepond--root {
-    margin-bottom: 0 !important;
+@php
+$url = route('admin.place.create');
+$pageTitle = '場所新規登録';
+$buttonText = '新規登録する';
+if ($place->exists) {
+    $url = route('admin.place.update', $place->id);
+    $pageTitle = '場所編集';
+    $buttonText = '更新する';
 }
-</style>
-@endpush
+@endphp
 
 @section('content')
-<h4 class="fw-bold py-3 mb-4">
-    @if($place->exists)
-    <span class="text-muted fw-light">場所マスタ / 一覧画面 /</span> 編集画面
-    @else
-    <span class="text-muted fw-light">場所マスタ / </span> 新規登録画面
-    @endif
-</h4>
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">場所マスター</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
 
-<div class="row">
-    <div class="col-md-12">
-        <form action="{{ $place->exists ? route('admin.place.update', $place->id) : route('admin.place.create') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="card mb-4">
-                <h5 class="card-header">場所詳細設定</h5>
-                <!-- Account -->
-                <div class="card-body">
-                    <div class="d-sm-flex align-items-center gap-4">
-                        <div class="col-md-4 col-lg-3">
-                            <input type="hidden" name="path" value="{{ $place->image_path }}">
-                            <input type="file" class="filepond" name="file">
-                        </div>
-                        <div class="mt-2 mt-sm-0">
-                            <p class="text-muted mb-1">※{{ str_replace(',', ', ', config('admin.place.image.allowed_extension')) }}のみ、ファイルサイズ{{ config('admin.place.image.max_sizes.gb') }}GBまで</p>
-                            <p class="text-muted mb-0">※画像は縦{{ config('admin.place.image.dimensions.height') }}px × 横{{ config('admin.place.image.dimensions.width') }}pxにリサイズされます</p>
+<div class="card">
+    <div class="card-body py-4 px-2 p-sm-4">
+        <h5 class="card-title">{{ $pageTitle }}</h5>
+        <hr />
+        <div class="form-body mt-4">
+            <form action="{{ $url }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="border border-3 p-3 p-sm-4 rounded">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">場所名@required()</label>
+                                @include('admin.commons.components.html.text', [
+                                    'id' => 'name',
+                                    'fieldName' => 'name',
+                                    'default' => $place->name,
+                                    'maxLength' => 100,
+                                    'placeholder' => '例】寝屋川公園',
+                                ])
+                            </div>
+                            <div class="mb-3">
+                                <label for="court-surface" class="form-label">コートサーフェス</label>
+                                @include('admin.commons.components.html.text', [
+                                    'id' => 'court-surface',
+                                    'fieldName' => 'court_surface',
+                                    'default' => $place->court_surface,
+                                    'maxLength' => 100,
+                                    'placeholder' => '例】オムニコート',
+                                ])
+                            </div>
+                            <div class="mb-3">
+                                <label for="official-site-url" class="form-label">ホームページURL</label>
+                                @include('admin.commons.components.html.text', [
+                                    'id' => 'official-site-url',
+                                    'fieldName' => 'official_site_url',
+                                    'default' => $place->official_site_url,
+                                    'maxLength' => 250,
+                                    'placeholder' => '例】http://neyagawa.osaka-park.or.jp/',
+                                ])
+                            </div>
+                            <div class="mb-3">
+                                <label for="google-map-url" class="form-label">
+                                    GoogleマップのURL
+                                    <i class="lni lni-question-circle align-middle" role="button" data-bs-toggle="modal" data-bs-target="#google-map-guide-modal"></i>
+                                </label>
+                                @include('admin.commons.components.html.text', [
+                                    'id' => 'google-map-url',
+                                    'fieldName' => 'google_map_url',
+                                    'default' => $place->google_map_url,
+                                    'maxLength' => 250,
+                                    'placeholder' => '例】https://goo.gl/maps/cGLxNvYxcpLikzFD7',
+                                ])
+                            </div>
                         </div>
                     </div>
-                    @include('admin.commons.components.html.errors', ['fieldName' => 'file'])
-                </div>
-                <hr class="my-0" />
-                <div class="card-body">
-                    <div class="row">
-                        <div class="mb-3 col-md-6">
-                            <label for="name" class="form-label">場所名@required()</label>
-                            @include('admin.commons.components.html.text', ['id' => 'name', 'fieldName' => "name", 'default' => $place->name, 'maxLength' => 100, 'placeholder' => '例】寝屋川公園'])
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="court-surface" class="form-label">コートサーフェス</label>
-                            @include('admin.commons.components.html.text', ['id' => 'court-surface', 'fieldName' => "court_surface", 'default' => $place->court_surface, 'maxLength' => 100, 'placeholder' => '例】オムニコート'])
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="officialSiteUrl" class="form-label">公式サイトURL</label>
-                            @include('admin.commons.components.html.text', ['id' => 'officialSiteUrl', 'fieldName' => "official_site_url", 'default' => $place->official_site_url, 'maxLength' => 250, 'placeholder' => '例】http://neyagawa.osaka-park.or.jp/'])
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="googleMapUrl" class="form-label">GoogleマップのURL<i class="fa-regular fa-circle-question fa-lg ms-1" data-bs-toggle="modal" data-bs-target="#googleMapGuideModal" role="button"></i></label>
-                            @include('admin.commons.components.html.text', ['id' => 'googleMapUrl', 'fieldName' => "google_map_url", 'default' => $place->google_map_url, 'maxLength' => 250, 'placeholder' => '例】https://goo.gl/maps/cGLxNvYxcpLikzFD7'])
+                    <div class="col-lg-4">
+                        <div class="border border-3 p-3 p-sm-4 rounded h-100">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <input type="hidden" name="delete_image" value="0">
+                                    <label for="file" class="form-label">画像</label>
+                                    <input id="file" type="file" class="dropify" name="file" data-default-file="@if($place->image_path){{ $place->imageUrl() }}@endif" data-max-file-size="{{ config('admin.place.image.max_sizes.gb') }}G" data-allowed-file-extensions="{{ str_replace(',', ' ', config('admin.place.image.allowed_extension')) }}">
+                                    <small class="text-muted">※{{ str_replace(',', ', ', config('admin.place.image.allowed_extension')) }}のみ、画像サイズ{{ config('admin.place.image.max_sizes.gb') }}GBまで</small><br>
+                                    <small class="text-muted">※画像は縦{{ config('admin.place.image.dimensions.height') }}px ×横{{ config('admin.place.image.dimensions.width') }}pxにリサイズされます</small>
+                                    @include('admin.commons.components.html.errors', ['fieldName' => 'file'])
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-dark">{{ $buttonText }}</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="mt-2">
-                        <button type="submit" class="btn btn-primary me-2"><i class="bx bx-save me-1"></i>{{ $place->exists ? '更新する' : '登録する' }}</button>
-                        <a href="{{ route('admin.place.list') }}" class="btn btn-outline-secondary"><i class='bx bx-list-ul me-1'></i>一覧に戻る</a>
-                    </div>
-                </div>
-                <!-- /Account -->
-            </div>
-        </form>
+                </div><!--end row-->
+            </form>
+        </div>
     </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="googleMapGuideModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="google-map-guide-modal" tabindex="-1" aria-labelledby="google-map-guide-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="googleMapGuideModalLabel">GoogleマップのURL取得方法</h5>
+                <h5 class="modal-title" id="google-map-guide-modal-label">GoogleマップのURL取得方法</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="mb-1"><a href="{{ config('admin.place.google_map_url') }}" target="_blank">Googleマップへ移動<i class="fa-solid fa-arrow-up-right-from-square ms-1"></i></a></div>
+                <div class="mb-1">
+                    <a href="{{ config('admin.place.google_map_url') }}" target="_blank">Googleマップへ移動<i class="fa-solid fa-arrow-up-right-from-square ms-1"></i></a>
+                </div>
                 <div class="mb-1">1. Googleマップで場所を検索する</div>
-                <img src="/assets/admin/images/place/google-map/guide1.png" class="w-100 border rounded mb-3" alt="">
+                <img src="/assets/admin/images/place/google-map/guide-1.png" class="w-100 border rounded mb-3" alt="">
                 <div class="mb-1">2.「共有」を選択</div>
-                <img src="/assets/admin/images/place/google-map/guide2.png" class="w-100 border rounded mb-3" alt="">
+                <img src="/assets/admin/images/place/google-map/guide-2.png" class="w-100 border rounded mb-3" alt="">
                 <div class="mb-1">3.「リンクをコピー」を選択</div>
-                <img src="/assets/admin/images/place/google-map/guide3.png" class="w-100 border rounded" alt="">
+                <img src="/assets/admin/images/place/google-map/guide-3.png" class="w-100 border rounded" alt="">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                    とじる
-                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">とじる</button>
             </div>
         </div>
     </div>
 </div>
 @endsection
 
+{{-- dropify初期化 --}}
+@include('admin.commons.components.js.dropify')
 @push('scripts')
-<script src="/assets/plugins/filepond/filepond.min.js"></script>
-<script src="/assets/plugins/filepond/filepond.jquery.js"></script>
-<script src="/assets/plugins/filepond/filepond-plugin-image-preview.min.js"></script>
-<script src="/assets/plugins/filepond/filepond-plugin-file-validate-size.min.js"></script>
-<script src="/assets/plugins/filepond/filepond-plugin-file-validate-type.min.js"></script>
 <script type="text/javascript">
 $(function() {
-    $.fn.filepond.registerPlugin(
-        FilePondPluginImagePreview,
-        FilePondPluginFileValidateSize,
-        FilePondPluginFileValidateType,
-    );
+    var fileName = null;
+    var currentFileName = '{{ $place->imageFileName() }}';
 
-    @php
-    // filepondで許容する拡張子を指定できるようデータ加工
-    function addImagePrefix(string $extension)
-    {
-        return "image/{$extension}";
-    }
-    $extensions = array_map('addImagePrefix', explode(",", config('admin.place.image.allowed_extension')));
-    @endphp
-
-    {{-- filepondの初期化 --}}
-    $('.filepond').filepond({
-        labelIdle: '<span class="filepond--label-action">画像をドラッグ&ドロップ、<br>もしくは選択</span>', // ラベル名
-        credits: false, // 広告を消す
-        imagePreviewHeight: 150, // 画像プレビューの高さ(固定)
-        stylePanelLayout: 'compact', // レイアウトモード(compactはpaddingを消すモード)
-        storeAsFile: true, // ファイル情報をhiddenで持ってpost送信できるようにするか
-        maxFileSize: '{{ config('admin.place.image.max_sizes.kb') }}KB',
-        labelMaxFileSizeExceeded: '画像サイズが大きすぎます',
-        labelMaxFileSize: '最大ファイルサイズは{{ config('admin.place.image.max_sizes.gb') }}GBです',
-        acceptedFileTypes: @json($extensions),
-        labelFileTypeNotAllowed: '拡張子に不備があります',
-        fileValidateTypeLabelExpectedTypes: '{{ str_replace(',', ', ', config('admin.place.image.allowed_extension')) }}のみ使用可能',
-        labelInvalidField: "アップロードできないファイルが含まれています",
-        labelFileWaitingForSize: "ファイルサイズを待っています",
-        labelFileSizeNotAvailable: "ファイルサイズがみつかりません",
-        labelFileLoading: "読込中...",
-        labelFileLoadError: "ロード中にエラーが発生",
-        labelFileProcessing: "読込中...",
-        labelFileProcessingComplete: "アップロード完了",
-        labelFileProcessingAborted: "アップロードがキャンセルしました",
-        labelFileProcessingError: "アップロード中にエラーが発生",
-        labelFileProcessingRevertError: "ロールバック中にエラーが発生",
-        labelFileRemoveError: "削除中にエラーが発生",
-        labelTapToCancel: "クリックしてキャンセル",
-        labelTapToRetry: "クリックしてもう一度お試し下さい",
-        labelTapToUndo: "元に戻すにはタップします",
-        labelButtonRemoveItem: "削除",
-        labelButtonAbortItemLoad: "中断",
-        labelButtonRetryItemLoad: "もう一度実行",
-        labelButtonAbortItemProcessing: "キャンセル",
-        labelButtonUndoItemProcessing: "元に戻す",
-        labelButtonRetryItemProcessing: "もう一度実行",
-        labelButtonProcessItem: "アップロード",
-        labelMaxTotalFileSizeExceeded: "最大合計サイズを超えました",
-        labelMaxTotalFileSize: "最大合計ファイルサイズは {filesize} です",
-        imageValidateSizeLabelFormatError: "サポートしていない画像です",
-        imageValidateSizeLabelImageSizeTooSmall: "画像が小さすぎます",
-        imageValidateSizeLabelImageSizeTooBig: "画像が大きすぎます",
-        imageValidateSizeLabelExpectedMinSize: "画像の最小サイズは{minWidth} × {minHeight}です",
-        imageValidateSizeLabelExpectedMaxSize: "画像の最大サイズは{maxWidth} × {maxHeight}です",
-        imageValidateSizeLabelImageResolutionTooLow: "画像の解像度が低すぎます",
-        imageValidateSizeLabelImageResolutionTooHigh: "画像の解像度が高すぎます",
-        imageValidateSizeLabelExpectedMinResolution: "画像の最小解像度は{minResolution}です",
-        imageValidateSizeLabelExpectedMaxResolution: "画像の最大解像度は{minResolution}です",
+    // 「削除」ボタンクリック時のイベント
+    var drEvent = $('.dropify').dropify();
+    // ※afterClearイベントではファイル名を取得できないので、beforeClearイベントでファイル名を変数に退避しておく
+    drEvent.on('dropify.beforeClear', function(event, element){
+        // 直近にセットされていたファイル名を取得
+        fileName = element.file.name;
+        // キャッシュ用パラメータがある場合、そのパラメータを除去
+        if (fileName.indexOf("?") !== -1) {
+            fileName = fileName.substring(0, fileName.indexOf("?"));
+        }
     });
 
-    {{-- 画像登録時はデフォルトで表示 --}}
-    @if($place->image_path && !$errors->has('file'))
-    $('.filepond').filepond('addFile', '{{ $place->imageUrl() }}');
-    @endif
+    // ※既存画像がある場合のみ
+    drEvent.on('dropify.afterClear', function(event, element){
+        if (!currentFileName) {
+            return;
+        }
 
-    {{-- 画像削除時のイベント --}}
-    $('.filepond').on('FilePond:removefile', function (e) {
-        $('input[name="path"]').val('');
+        if (currentFileName === fileName) {
+            // 既存画像プレビュー時に「削除」がクリックされた場合、削除フラグを立てる
+            $('input[name="delete_image"]').val(1);
+        } else {
+            // 新規画像プレビュー時に「削除」がクリックされた場合、既存画像をプレビューに再セット
+            var defaultFile = element.settings.defaultFile;
+            element.file.name = element.cleanFilename(defaultFile);
+            element.setPreview(element.isImage(), defaultFile);
+        }
     });
 });
 </script>

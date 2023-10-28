@@ -24,12 +24,13 @@ class SavePlaceRequest extends FormRequest
     public function rules()
     {
         return [
-            'file'              => ['nullable', 'image', 'mimes:' . config('admin.place.image.allowed_extension'), 'max:' . config('admin.place.image.max_sizes.kb')],
-            'path'              => ['nullable', 'string'],
             'name'              => ['required', 'string', 'max:100'],
             'court_surface'     => ['nullable', 'string', 'max:100'],
             'official_site_url' => ['nullable', 'string', 'max:250', 'url'],
             'google_map_url'    => ['nullable', 'string', 'max:250', 'url'],
+            // ファイルサイズのバリデーション単位はKB
+            'file'              => ['nullable', 'image', 'mimes:' . config('admin.place.image.allowed_extension'), 'max:' . config('admin.place.image.max_sizes.kb')],
+            'delete_image'      => ['required', 'boolean'],
         ];
     }
 
@@ -41,11 +42,11 @@ class SavePlaceRequest extends FormRequest
     public function attributes()
     {
         return [
-            'file'              => '画像',
-            'court_surface'     => 'コートサーフェス',
             'name'              => '場所名',
-            'official_site_url' => '公式サイトURL',
+            'court_surface'     => 'コートサーフェス',
+            'official_site_url' => 'ホームページURL',
             'google_map_url'    => 'GoogleマップのURL',
+            'file'              => '画像',
         ];
     }
 
@@ -57,6 +58,7 @@ class SavePlaceRequest extends FormRequest
     public function messages()
     {
         return [
+            // ファイルサイズのバリデーションメッセージはGB単位で出力
             'file.max' => ':attributeには、' . config('admin.place.image.max_sizes.gb') . 'GB以下のファイルを指定してください。',
         ];
     }
