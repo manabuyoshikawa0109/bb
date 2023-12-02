@@ -28,7 +28,7 @@ class SaveTournamentRequest extends FormRequest
             'release_end_date'   => ['nullable', 'date_format:Y-m-d', 'after_or_equal:release_start_date'],
             'event_id'           => ['required', 'exists:events,id'],
             'place_id'           => ['required', 'exists:places,id'],
-            'held_at'            => ['required', 'date_format:Y-m-d h:i:s'],
+            'started_at'         => ['required', 'date_format:Y-m-d h:i:s'],
             'applicants'         => ['required', 'integer', 'min:0'],
             'entry_fee'          => ['required', 'integer', 'min:0', 'digits_between:1,5'],
         ];
@@ -46,7 +46,7 @@ class SaveTournamentRequest extends FormRequest
             'release_end_date'   => '公開終了日',
             'event_id'           => '種目',
             'place_id'           => '場所',
-            'held_at'            => '開催日時',
+            'started_at'         => '開催日時',
             'applicants'         => '募集数',
             'entry_fee'          => '参加費',
         ];

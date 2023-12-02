@@ -30,7 +30,7 @@
                         <span class="badge bg-{{ $event->applicable_sex->colorClass() }}">{{ $event->applicable_sex->name() }}</span>
                     </td>
                     <td>
-                        {{ $event->formatApplicants("-{$event->type->unit()}") }} ／ {{ $event->held_time ?? '-' }}<br>{{ $event->formatEntryFee('-円') }}
+                        {{ $event->formatApplicants("-{$event->type->unit()}") }} ／ {{ $event->start_time ?? '-' }}<br>{{ $event->formatEntryFee('-円') }}
                     </td>
                     <td>
                         <a href="{{ route('admin.event.edit', $event->id) }}" class="btn btn-outline-success btn-icon me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="編集する">
@@ -53,4 +53,4 @@
 @endsection
 
 {{-- 削除時確認ダイアログ表示 --}}
-@include('admin.commons.components.js.delete_confirm', ['message' => '種目情報の削除\r\n削除後は復元することができませんがよろしいですか？'])
+@include('admin.commons.components.js.delete_confirmation', ['message' => '種目情報の削除\r\n削除後は復元することができませんがよろしいですか？'])

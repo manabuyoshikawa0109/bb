@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('applicable_sex')->comment('申し込み可能な性別');
             $table->integer('applicants')->nullable()->comment('募集数');
             $table->decimal('entry_fee', 5, 0)->nullable()->comment('参加費');
-            $table->string('held_time', 5)->nullable()->comment('開催時間');
+            $table->string('start_time', 5)->nullable()->comment('開催時間');
             $table->timestamps();
         });
 

@@ -52,8 +52,8 @@ class TournamentController extends Controller
         }
 
         // 開催日で検索
-        if ($heldDate = data_get($searchParameters, 'held_date')) {
-            $query->whereDate('held_at', $heldDate);
+        if ($startDate = data_get($searchParameters, 'start_date')) {
+            $query->whereDate('started_at', $startDate);
         }
 
         // 種目で検索
@@ -67,7 +67,7 @@ class TournamentController extends Controller
         }
 
         // 開催日時の降順
-        $tournaments = $query->latest('held_at')->paginate(10, ['*'], 'page', $page);
+        $tournaments = $query->latest('started_at')->paginate(10, ['*'], 'page', $page);
         return view('admin.pages.tournament.list', compact('tournaments', 'searchParameters'));
     }
 

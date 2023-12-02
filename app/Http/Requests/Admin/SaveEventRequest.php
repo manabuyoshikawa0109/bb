@@ -33,7 +33,7 @@ class SaveEventRequest extends FormRequest
             'applicable_sex' => ['required', Rule::in(ApplicableSex::values())],
             'applicants'     => ['nullable', 'integer', 'min:0'],
             'entry_fee'      => ['nullable', 'integer', 'min:0', 'digits_between:1,5'],
-            'held_time'      => ['nullable', 'date_format:h:i'],
+            'start_time'     => ['nullable', 'date_format:h:i'],
         ];
     }
 
@@ -50,7 +50,7 @@ class SaveEventRequest extends FormRequest
             'applicable_sex' => '申し込み可能な性別',
             'applicants'     => '募集数',
             'entry_fee'      => '参加費',
-            'held_time'      => '開催時間',
+            'start_time'     => '開催時間',
         ];
     }
 

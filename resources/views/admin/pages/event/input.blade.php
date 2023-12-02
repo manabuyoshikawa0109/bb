@@ -87,7 +87,7 @@ use App\Enums\Event\ApplicableSex;
                                 @include('admin.commons.components.html.errors', ['fieldName' => 'entry_fee'])
                             </div>
                             <div class="mb-3">
-                                <label for="held-time" class="form-label">開催時間
+                                <label for="start-time" class="form-label">開催時間
                                     <i class="fa-regular fa-circle-question fa-lg ms-1"
                                     data-bs-toggle="popover"
                                     data-bs-offset="0,14"
@@ -97,8 +97,8 @@ use App\Enums\Event\ApplicableSex;
                                     role="button">
                                     </i>
                                 </label>
-                                <input id="held-time" type="time" name="held_time" class="form-control" value="{{ $event->held_time }}">
-                                @include('admin.commons.components.html.errors', ['fieldName' => 'held_time'])
+                                <input id="start-time" type="time" name="start_time" class="form-control" value="{{ $event->start_time }}">
+                                @include('admin.commons.components.html.errors', ['fieldName' => 'start_time'])
                             </div>
                         </div>
                     </div>

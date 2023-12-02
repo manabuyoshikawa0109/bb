@@ -37,7 +37,7 @@ class Tournament extends Model
     protected $casts = [
         'release_start_date' => 'date',
         'release_end_date'   => 'date',
-        'held_at'            => 'datetime',
+        'started_at'         => 'datetime',
     ];
 
     /**
