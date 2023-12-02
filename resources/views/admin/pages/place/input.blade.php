@@ -58,11 +58,11 @@ if ($place->exists) {
                                 ])
                             </div>
                             <div class="mb-3">
-                                <label for="official-site-url" class="form-label">ホームページURL</label>
+                                <label for="website-url" class="form-label">ホームページURL</label>
                                 @include('admin.commons.components.html.text', [
-                                    'id' => 'official-site-url',
-                                    'fieldName' => 'official_site_url',
-                                    'default' => $place->official_site_url,
+                                    'id' => 'website-url',
+                                    'fieldName' => 'website_url',
+                                    'default' => $place->website_url,
                                     'maxLength' => 250,
                                     'placeholder' => '例】http://neyagawa.osaka-park.or.jp/',
                                 ])

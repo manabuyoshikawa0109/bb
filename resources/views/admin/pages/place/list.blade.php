@@ -43,9 +43,9 @@
                     <h5 class="text-truncate mb-0 mt-5">{{ $place->name }}</h5>
                     <p class="text-truncate mb-3">{{ $place->court_surface }}</p>
                     {{-- ホームページURL、GoogleマップのURL両方がない時は高さが出なくなるので高さ調整 --}}
-                    <div class="list-inline contacts-social mt-3 mb-3 @if($place->official_site_url === null && $place->google_map_url === null) py-18 @endif">
-                        @if ($place->official_site_url)
-                        <a href="{{ $place->official_site_url }}" target="_blank" class="list-inline-item bg-google text-white border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $place->name }}のホームページを開く">
+                    <div class="list-inline contacts-social mt-3 mb-3 @if($place->website_url === null && $place->google_map_url === null) py-18 @endif">
+                        @if ($place->website_url)
+                        <a href="{{ $place->website_url }}" target="_blank" class="list-inline-item bg-google text-white border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $place->name }}のホームページを開く">
                             <i class="lni lni-home"></i>
                         </a>
                         @endif

@@ -45,9 +45,9 @@
                                     <li class="clearfix">
                                         <div class="panel-label">場所</div>
                                         <div class="panel-value">
-                                            {{-- 公式サイトのURLが登録されている場合 --}}
-                                            @if(optional($tournament->place)->official_site_url)
-                                                <a target="_blank" href="{{ optional($tournament->place)->official_site_url }}" data-toggle="tooltip" data-placement="top" title="クリックして公式サイトに移動">{{ optional($tournament->place)->name }}</a>
+                                            {{-- ホームページのURLが登録されている場合 --}}
+                                            @if(optional($tournament->place)->website_url)
+                                                <a target="_blank" href="{{ optional($tournament->place)->website_url }}" data-toggle="tooltip" data-placement="top" title="クリックしてホームページに移動">{{ optional($tournament->place)->name }}</a>
                                             @else
                                                 {{ optional($tournament->place)->name }}
                                             @endif
