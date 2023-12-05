@@ -8,9 +8,12 @@ enum Type: int
 {
     use Values;
 
-    case SINGLES       = 1;
-    case DOUBLES       = 2;
-    case MIXED_DOUBLES = 3;
+    // 0はif文判定でfalseとなるので1から使用
+    case MENS_SINGLES   = 1;
+    case MENS_DOUBLES   = 2;
+    case WOMENS_SINGLES = 3;
+    case WOMENS_DOUBLES = 4;
+    case MIXED_DOUBLES  = 5;
 
     /**
     * 名称
@@ -20,9 +23,11 @@ enum Type: int
     {
         return match($this)
         {
-            self::SINGLES       => 'シングルス',
-            self::DOUBLES       => 'ダブルス',
-            self::MIXED_DOUBLES => 'ミックスダブルス',
+            self::MENS_SINGLES   => '男子シングルス',
+            self::MENS_DOUBLES   => '男子ダブルス',
+            self::WOMENS_SINGLES => '女子シングルス',
+            self::WOMENS_DOUBLES => '女子ダブルス',
+            self::MIXED_DOUBLES  => 'ミックスダブルス',
         };
     }
 
@@ -34,9 +39,11 @@ enum Type: int
     {
         return match($this)
         {
-            self::SINGLES       => '人',
-            self::DOUBLES       => '組',
-            self::MIXED_DOUBLES => '組',
+            self::MENS_SINGLES   => '人',
+            self::MENS_DOUBLES   => '組',
+            self::WOMENS_SINGLES => '人',
+            self::WOMENS_DOUBLES => '組',
+            self::MIXED_DOUBLES  => '組',
         };
     }
 
@@ -48,9 +55,11 @@ enum Type: int
     {
         return match($this)
         {
-            self::SINGLES       => 'primary',
-            self::DOUBLES       => 'danger',
-            self::MIXED_DOUBLES => 'success',
+            self::MENS_SINGLES   => '',
+            self::MENS_DOUBLES   => '',
+            self::WOMENS_SINGLES => '',
+            self::WOMENS_DOUBLES => '',
+            self::MIXED_DOUBLES  => '',
         };
     }
 }

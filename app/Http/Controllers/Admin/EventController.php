@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SaveEventRequest;
 use Illuminate\Http\Request;
 use App\Models\Event;
+use Throwable;
+use Log;
+use DB;
 
 class EventController extends Controller
 {
@@ -16,73 +19,45 @@ class EventController extends Controller
     */
     public function list(Request $request)
     {
-        // 更新日時の降順でソート
-        $events = Event::orderByDesc('updated_at')->get();
+        $events = Event::orderBy('id')->get()->toArray();
         return view('admin.pages.event.list', compact('events'));
     }
 
     /**
-    * 種目新規追加
-    * @param  Request $request
-    * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
-    */
-    public function add(Request $request)
-    {
-        $event = new Event();
-        return view('admin.pages.event.input', compact('event'));
-    }
-
-    /**
-    * 種目新規登録
+    * 種目保存
     * @param  SaveEventRequest $request
     * @return \Illuminate\Http\Response
     */
-    public function create(SaveEventRequest $request)
+    public function save(SaveEventRequest $request)
     {
-        $event = new Event();
-        $event->fill($request->validated())->save();
+        DB::beginTransaction();
+        try {
+            $rows = data_get($request->validated(), "events");
+            $savedIds = [];
+            foreach ($rows as $row) {
+                $event = Event::findOrNew(data_get($row, "id"));
+                $event->name = data_get($row, "name");
+                $event->type = data_get($row, "type");
+                $event->capacity = data_get($row, "capacity");
+                $event->participation_fee = data_get($row, "participation_fee");
+                $event->start_time = data_get($row, "start_time");
+                $event->save();
 
+                // 登録・更新したIDを配列に格納
+                array_push($savedIds, $event->id);
+            }
+
+            // 登録・更新されなかった種目は削除する
+            Event::whereNotIn('id', $savedIds)->delete();
+
+            DB::commit();
+        } catch (Throwable $e) {
+            DB::rollback();
+            Log::error($e);
+            abort(500);
+        }
         // 完了メッセージをセット
-        session()->flash('message', '種目情報を登録しました。');
-        return redirect()->route('admin.event.list');
-    }
-
-    /**
-    * 種目編集
-    * @param  Request $request
-    * @param  Event   $event
-    * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
-    */
-    public function edit(Request $request, Event $event)
-    {
-        return view('admin.pages.event.input', compact('event'));
-    }
-
-    /**
-    * 種目更新
-    * @param  SaveEventRequest $request
-    * @param  Event   $event
-    * @return \Illuminate\Http\Response
-    */
-    public function update(SaveEventRequest $request, Event $event)
-    {
-        $event->fill($request->validated())->save();
-        // 完了メッセージをセット
-        session()->flash('message', '種目情報を更新しました。');
-        return redirect()->route('admin.event.list');
-    }
-
-    /**
-    * 種目削除
-    * @param  Request $request
-    * @param  Event   $event
-    * @return \Illuminate\Http\Response
-    */
-    public function delete(Request $request, Event $event)
-    {
-        $event->delete();
-        // 完了メッセージをセット
-        session()->flash('message', '種目情報を削除しました。');
+        session()->flash('message', '種目情報を保存しました。');
         return redirect()->route('admin.event.list');
     }
 }

@@ -63,11 +63,11 @@
                                     </li>
                                     <li class="clearfix">
                                         <div class="panel-label">募集数</div>
-                                        <div class="panel-value">{{ $tournament->formatApplicants() }}</div>
+                                        <div class="panel-value">{{ $tournament->formatCapacity() }}</div>
                                     </li>
                                     <li class="clearfix">
                                         <div class="panel-label">参加費</div>
-                                        <div class="panel-value">{{ $tournament->formatEntryFee() }}</div>
+                                        <div class="panel-value">{{ $tournament->formatParticipationFee() }}</div>
                                     </li>
                                     <li class="clearfix">
                                         <div class="panel-label">状態</div>

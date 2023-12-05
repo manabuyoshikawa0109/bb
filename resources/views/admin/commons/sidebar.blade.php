@@ -85,20 +85,12 @@
         <li class="menu-label">マスター</li>
 
         <li class="@if (request()->route()->named('admin.event.*')) mm-active @endif">
-            <a href="javascript:;" class="has-arrow">
+            <a href="{{ route('admin.event.list') }}">
                 <div class="parent-icon">
                     <i class='bx bx-category-alt'></i>
                 </div>
                 <div class="menu-title">種目マスター</div>
             </a>
-            <ul class="@if (request()->route()->named('admin.event.*')) mm-show @endif">
-                <li class="@if (request()->route()->named('admin.event.list')) mm-active @endif">
-                    <a href="{{ route('admin.event.list') }}"><i class="bx bx-right-arrow-alt"></i>一覧</a>
-                </li>
-                <li class="@if (request()->route()->named('admin.event.add')) mm-active @endif">
-                    <a href="{{ route('admin.event.add') }}"><i class="bx bx-right-arrow-alt"></i>新規登録</a>
-                </li>
-            </ul>
         </li>
 
         <li class="@if (request()->route()->named('admin.place.*')) mm-active @endif">

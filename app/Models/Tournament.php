@@ -125,17 +125,17 @@ class Tournament extends Model
     * 参加費をフォーマットして返す
     * @return string
     */
-    public function formatEntryFee()
+    public function formatParticipationFee()
     {
-        return number_format($this->entry_fee) . '円';
+        return number_format($this->participation_fee) . '円';
     }
 
     /**
     * 募集数をフォーマットして返す
     * @return string
     */
-    public function formatApplicants()
+    public function formatCapacity()
     {
-        return number_format($this->applicants) . $this->event->type->unit();
+        return number_format($this->capacity) . $this->event->type->unit();
     }
 }

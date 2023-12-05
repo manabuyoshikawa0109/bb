@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\Event\Type;
-use App\Enums\Event\ApplicableSex;
 
 class Event extends Model
 {
@@ -36,8 +35,7 @@ class Event extends Model
      * @var array
      */
     protected $casts = [
-        'type'           => Type::class,
-        'applicable_sex' => ApplicableSex::class,
+        'type' => Type::class,
     ];
 
     /**
@@ -53,23 +51,23 @@ class Event extends Model
      * @param  string|null $default
      * @return string|null
      */
-    public function formatEntryFee(string $default = null)
+    public function formatParticipationFee(string $default = null)
     {
-        if ($this->entry_fee) {
-            return number_format($this->entry_fee) . '円';
+        if ($this->participation_fee) {
+            return number_format($this->participation_fee) . '円';
         }
         return $default;
     }
 
     /**
-    * 募集数をフォーマットして返す
-    * @param  string|null $default
-    * @return string
-    */
-    public function formatApplicants(string $default = null)
+     * 募集数をフォーマットして返す
+     * @param  string|null $default
+     * @return string|null
+     */
+    public function formatCapacity(string $default = null)
     {
-        if ($this->applicants) {
-            return number_format($this->applicants) . $this->type->unit();
+        if ($this->capacity) {
+            return number_format($this->capacity) . $this->type->unit();
         }
         return $default;
     }

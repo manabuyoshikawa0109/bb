@@ -21,8 +21,8 @@ return new class extends Migration
             $table->bigInteger('event_id')->comment('種目ID');
             $table->bigInteger('place_id')->comment('場所ID');
             $table->timestamp('started_at')->comment('開催日時');
-            $table->integer('applicants')->comment('募集数');
-            $table->decimal('entry_fee', 5, 0)->comment('参加費');
+            $table->integer('capacity')->comment('募集数');
+            $table->decimal('participation_fee', 5, 0)->comment('参加費');
             $table->softDeletes();
             $table->timestamps();
         });

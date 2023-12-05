@@ -4,7 +4,6 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use App\Enums\Event\ApplicableSex;
 use App\Enums\Event\Type;
 
 class SaveEventRequest extends FormRequest
@@ -28,12 +27,11 @@ class SaveEventRequest extends FormRequest
     {
         // integerは整数かどうかをチェック。「-1」を通すので注意
         return [
-            'name'           => ['required', 'string', 'max:100'],
-            'type'           => ['required', Rule::in(Type::values())],
-            'applicable_sex' => ['required', Rule::in(ApplicableSex::values())],
-            'applicants'     => ['nullable', 'integer', 'min:0'],
-            'entry_fee'      => ['nullable', 'integer', 'min:0', 'digits_between:1,5'],
-            'start_time'     => ['nullable', 'date_format:h:i'],
+            'events.*.type'              => ['required', Rule::in(Type::values())],
+            'events.*.name'              => ['required', 'string', 'max:100'],
+            'events.*.capacity'          => ['nullable', 'integer', 'min:0'],
+            'events.*.participation_fee' => ['nullable', 'integer', 'min:0', 'digits_between:1,5'],
+            'events.*.start_time'        => ['nullable', 'date_format:h:i'],
         ];
     }
 
@@ -45,12 +43,11 @@ class SaveEventRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name'           => '種目名',
-            'type'           => '種別',
-            'applicable_sex' => '申し込み可能な性別',
-            'applicants'     => '募集数',
-            'entry_fee'      => '参加費',
-            'start_time'     => '開催時間',
+            'events.*.type'              => '種別',
+            'events.*.name'              => '種目名',
+            'events.*.capacity'          => '募集数',
+            'events.*.participation_fee' => '参加費',
+            'events.*.start_time'        => '開催時間',
         ];
     }
 

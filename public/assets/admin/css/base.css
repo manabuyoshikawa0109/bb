@@ -12,3 +12,10 @@
         padding:1rem 0.5rem;
     }
 }
+
+/*
+テーブルの列幅を固定する為にtableタグに付与するセレクター
+*/
+.table-layout-fixed {
+    table-layout: fixed;
+}

@@ -15,9 +15,9 @@ for($minute = 0; $minute <= 45; $minute+=15){
 <div class="form-group mb-3 mb-sm-4">
     <label class="col-form-label" for="event-id">種目名@required()</label>
     <select id="event-id" class="custom-select" name="event_id">
-        <option value="" data-type-id="" data-applicants="" data-entry-fee="" data-start-hour="" data-start-minutes="" @if(old('event_id', $tournament->event_id) === null) selected @endif>選択してください</option>
+        <option value="" data-type-id="" data-capacity="" data-participation-fee="" data-start-hour="" data-start-minutes="" @if(old('event_id', $tournament->event_id) === null) selected @endif>選択してください</option>
         @foreach ($events as $event)
-        <option value="{{ $event->id }}" data-type-id="{{ $event->type_id }}" data-applicants="{{ $event->applicants }}" data-entry-fee="{{ $event->entry_fee }}" data-start-hour="{{ $event->start_hour }}" data-start-minutes="{{ $event->start_minutes }}" @if((string)old('event_id', $tournament->event_id) === (string)$event->id)) selected @endif>{{ $event->name }}</option>
+        <option value="{{ $event->id }}" data-type-id="{{ $event->type_id }}" data-capacity="{{ $event->capacity }}" data-participation-fee="{{ $event->participation_fee }}" data-start-hour="{{ $event->start_hour }}" data-start-minutes="{{ $event->start_minutes }}" @if((string)old('event_id', $tournament->event_id) === (string)$event->id)) selected @endif>{{ $event->name }}</option>
         @endforeach
     </select>
     @include('admin.commons.components.html.errors', ['fieldName' => 'event_id'])
@@ -51,16 +51,16 @@ for($minute = 0; $minute <= 45; $minute+=15){
     <label class="col-form-label">募集数@required()</label>
     <div class="d-flex align-items-center">
         <div class="col px-0">
-            @include('admin.commons.components.html.number', ['id' => 'applicants', 'fieldName' => 'applicants', 'default' => $tournament->applicants, 'placeholder' => '例】20'])
+            @include('admin.commons.components.html.number', ['id' => 'capacity', 'fieldName' => 'capacity', 'default' => $tournament->capacity, 'placeholder' => '例】20'])
         </div>
-        <span id="applicants-unit" class="ml-2">{{ $tournament->applicantsUnit() }}</span>
+        <span id="capacity-unit" class="ml-2">{{ $tournament->capacityUnit() }}</span>
     </div>
 </div>
 <div class="form-group mb-3 mb-sm-4">
     <label class="col-form-label">参加費@required()</label>
     <div class="d-flex align-items-center">
         <div class="col px-0">
-            @include('admin.commons.components.html.number', ['id' => 'entry-fee', 'fieldName' => 'entry_fee', 'default' => $tournament->entry_fee, 'placeholder' => '例】5000'])
+            @include('admin.commons.components.html.number', ['id' => 'participation-fee', 'fieldName' => 'participation_fee', 'default' => $tournament->participation_fee, 'placeholder' => '例】5000'])
         </div>
         <span class="ml-2">円</span>
     </div>
@@ -87,7 +87,7 @@ $(function(){
         if(units[value]) {
             unit = units[value];
         }
-        $('#applicants-unit').text(unit);
+        $('#capacity-unit').text(unit);
     });
 });
 </script>

@@ -30,10 +30,7 @@
                         <span class="badge bg-label-{{ $event->type->colorClass() }}">{{ $event->type->name() }}</span>
                     </td>
                     <td>
-                        <span class="badge bg-{{ $event->applicable_sex->colorClass() }}">{{ $event->applicable_sex->name() }}</span>
-                    </td>
-                    <td>
-                        {{ $event->formatApplicants("-{$event->type->unit()}") }} ／ {{ $event->start_time ?? '-' }}<br>{{ $event->formatEntryFee('-円') }}
+                        {{ $event->formatCapacity("-{$event->type->unit()}") }} ／ {{ $event->start_time ?? '-' }}<br>{{ $event->formatParticipationFee('-円') }}
                     </td>
                     <td>
                         <a href="{{ route('admin.event.edit', $event->id) }}" class="btn btn-outline-success btn-icon me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="編集する">
@@ -56,8 +53,8 @@
 <a href="{{ route('admin.tournament.detail', $tournament->id)}}" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="詳細"><i class="fas fa-file-alt"></i></a>
 <a href="{{ route('admin.tournament.edit', $tournament->id)}}" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="編集"><i class="fas fa-edit"></i></a>
 <a href="{{ route('admin.tournament.delete', $tournament->id) }}" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="削除" onclick="return confirm('大会情報を削除しますか？')"><i class="fas fa-trash-alt"></i></a>
-{{ $tournament->formatEntryFee() }}
-{{ $tournament->formatApplicants() }}
+{{ $tournament->formatParticipationFee() }}
+{{ $tournament->formatCapacity() }}
 {{ $tournaments->links('admin.commons.components.html.pagination') }}
 isoFormat('YYYY年M月D日(ddd)
 @endsection
