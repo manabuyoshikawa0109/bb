@@ -37,27 +37,22 @@
     @foreach ($places as $place)
     <div class="col">
         <div class="card radius-15">
+            <img src="{{ $place->imageUrl() }}" class="card-img-top" alt="{{ $place->name }}">
             <div class="card-body text-center">
-                <div class="py-4 px-2 border radius-15">
-                    <img src="{{ $place->imageUrl() }}" width="110" height="110" class="rounded-circle shadow" alt="">
-                    <h5 class="text-truncate mb-0 mt-5">{{ $place->name }}</h5>
-                    <p class="text-truncate mb-3">{{ $place->court_surface }}</p>
-                    {{-- ホームページURL、GoogleマップのURL両方がない時は高さが出なくなるので高さ調整 --}}
-                    <div class="list-inline contacts-social mt-3 mb-3 @if($place->website_url === null && $place->google_map_url === null) py-18 @endif">
-                        @if ($place->website_url)
-                        <a href="{{ $place->website_url }}" target="_blank" class="list-inline-item bg-google text-white border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $place->name }}のホームページを開く">
-                            <i class="lni lni-home"></i>
-                        </a>
-                        @endif
-                        @if ($place->google_map_url)
-                        <a href="{{ $place->google_map_url }}" target="_blank" class="list-inline-item bg-green text-white border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $place->name }}のGoogleマップを開く">
-                            <i class="lni lni-map-marker"></i>
-                        </a>
-                        @endif
-                    </div>
-                    <div class="d-grid px-4">
-                        <a href="{{ route('admin.place.edit', $place->id) }}" class="btn btn-dark radius-15">編集する</a>
-                    </div>
+                <h5 class="card-title text-truncate mb-0 mt-3"><a href="{{ route('admin.place.edit', $place->id) }}">{{ $place->name }}</a></h5>
+                <p class="text-truncate mb-3">{{ $place->court_surface }}</p>
+                {{-- ホームページURL、GoogleマップのURL両方がない時は高さが出なくなるので高さ調整 --}}
+                <div class="list-inline contacts-social mt-3 mb-3 @if($place->website_url === null && $place->google_map_url === null) py-18 @endif">
+                    @if ($place->website_url)
+                    <a href="{{ $place->website_url }}" target="_blank" class="list-inline-item bg-google text-white border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $place->name }}のホームページを開く">
+                        <i class="lni lni-home"></i>
+                    </a>
+                    @endif
+                    @if ($place->google_map_url)
+                    <a href="{{ $place->google_map_url }}" target="_blank" class="list-inline-item bg-green text-white border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $place->name }}のGoogleマップを開く">
+                        <i class="lni lni-map-marker"></i>
+                    </a>
+                    @endif
                 </div>
             </div>
         </div>
