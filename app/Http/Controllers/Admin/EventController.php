@@ -32,7 +32,7 @@ class EventController extends Controller
     {
         DB::beginTransaction();
         try {
-            $rows = data_get($request->validated(), "events");
+            $rows = data_get($request->validated(), "events", []);
             $savedIds = [];
             foreach ($rows as $row) {
                 $event = Event::findOrNew(data_get($row, "id"));
