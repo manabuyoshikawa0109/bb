@@ -33,7 +33,7 @@
     <a href="{{ route('admin.place.add') }}" class="btn btn-dark radius-30"><i class="bx bx-plus-circle"></i>新規登録</a>
 </div>
 <hr/>
-<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4">
+<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4 product-grid">
     @foreach ($places as $place)
     <div class="col">
         <div class="card radius-15">
