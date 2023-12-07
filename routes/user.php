@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\User\TopController;
-use App\Http\Controllers\User\Information;
+use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\LoginController;
+use App\Http\Controllers\User\InformationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,37 +15,29 @@ use App\Http\Controllers\User\Information;
 
 Route::name('user.')->group(function () {
     // ログアウト
-    Route::any('logout', 'LoginController@destroy')->name('logout');
+    Route::any ('logout', [LoginController::class, 'destroy'])->name('logout');
 
     // トップ
-    Route::controller(TopController::class)->group(function() {
-
-        Route::get  ('/', 'index')->name('top');
-
-    });
+    Route::get ('/', [TopController::class, 'index'])->name('top');
 
     // お知らせ
     Route::controller(InformationController::class)->prefix('information')->name('information.')->group(function() {
-
-        Route::get  ('/', 'detail')->name('detail');
-        // モデル結合
-        // Route::get  ('/{information}', 'detail')->name('detail');
-
+        Route::any ('list',                 'list')->name('list');
+        Route::get ('{information}/detail', 'detail')->name('detail');
     });
 
     // 未ログイン時専用
-    Route::group(['middleware' => 'guest:user'], function() {
-
+    Route::middleware(['guest:user'])->group(function () {
         // ログイン情報入力
-        Route::get  ('login', 'LoginController@create')->name('login.create');
-        Route::post ('login', 'LoginController@store')->name('login.store');
+        Route::controller(LoginController::class)->prefix('login')->name('login.')->group(function() {
+            Route::get  ('/', 'create')->name('create');
+            Route::post ('/', 'store')->name('store');
+        });
     });
 
     // ログイン後専用
-    Route::group(['middleware' => 'auth:user'], function() {
-
+    Route::middleware(['auth:user'])->group(function () {
         // ホーム画面
-        Route::get  ('home', 'HomeController@show')->name('home.show');
-
+        Route::get ('home', [HomeController::class, 'index'])->name('home.index');
     });
 });

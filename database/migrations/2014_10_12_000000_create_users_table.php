@@ -18,13 +18,13 @@ return new class extends Migration
             $table->id()->comment('ユーザーID');
             $table->string('last_name', 100)->comment('苗字');
             $table->string('first_name', 100)->comment('名前');
-            $table->string('email')->unique()->nullable()->comment('メールアドレス');
+            $table->string('email', 250)->unique()->nullable()->comment('メールアドレス'); // nullableは消す
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password', 255)->comment('パスワード');
+            $table->string('password', 250)->comment('パスワード');
             $table->string('tel', 13)->comment('電話番号');
-            $table->string('zip', 8)->nullable()->comment('郵便番号');
-            $table->string('address', 255)->nullable()->comment('住所');
-            $table->integer('gender_id')->comment('性別ID');
+            $table->string('zip', 8)->nullable()->comment('郵便番号'); // nullableは消す
+            $table->string('address', 250)->nullable()->comment('住所'); // nullableは消す
+            $table->integer('sex')->comment('性別');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

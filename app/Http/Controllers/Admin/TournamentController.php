@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\RegisterTournamentRequest;
+use App\Http\Requests\Admin\SaveTournamentRequest;
 use Illuminate\Http\Request;
 use App\Models\Tournament;
 use App\Models\Event;
 use App\Models\Place;
-use Illuminate\Support\Arr;
+use App\Enums\Status;
 
 class TournamentController extends Controller
 {
     // 検索系のセッション情報のキー
-    const SESSION_KEY_SEARCH        = 'admin.tournaments.search';
-    const SESSION_KEY_SEARCH_PARAMS = 'admin.tournaments.search.params';
-    const SESSION_KEY_SEARCH_PAGE   = 'admin.tournaments.search.page';
+    const SESSION_KEY_SEARCH            = 'admin.tournaments.search';
+    const SESSION_KEY_SEARCH_PARAMETERS = 'admin.tournaments.search.parameters';
+    const SESSION_KEY_SEARCH_PAGE       = 'admin.tournaments.search.page';
     /**
      * 大会情報一覧
      * @param  Request $request
@@ -29,48 +29,46 @@ class TournamentController extends Controller
             session()->forget(self::SESSION_KEY_SEARCH);
         } elseif ($request->isMethod('post')) {
             // 検索実施時
-            session()->put(self::SESSION_KEY_SEARCH_PARAMS, $request->all());
+            session()->put(self::SESSION_KEY_SEARCH_PARAMETERS, $request->all());
             session()->forget(self::SESSION_KEY_SEARCH_PAGE);
-        } elseif($request->page) {
+        } elseif ($request->page) {
             // GET送信でアクセス時
             session()->put(self::SESSION_KEY_SEARCH_PAGE, $request->page);
         }
 
         $page = session()->get(self::SESSION_KEY_SEARCH_PAGE, 1);
-        $searchParams = session()->get(self::SESSION_KEY_SEARCH_PARAMS, []);
-
-        $date = Arr::get($searchParams, 'date');
-        $keyword = Arr::get($searchParams, 'keyword');
-        $typeId = Arr::get($searchParams, 'type_id');
+        $searchParameters = session()->get(self::SESSION_KEY_SEARCH_PARAMETERS, []);
 
         $query = Tournament::query();
 
+        // 公開前、公開中、公開終了で検索
+        $statusId = data_get($searchParameters, 'status_id');
+        if ($statusId == Status::HAS_NOT_RELEASED_YET->value) {
+            $query->hasNotReleasedYet();
+        } else if ($statusId == Status::RELEASING->value) {
+            $query->releasing();
+        } else if ($statusId == Status::HAS_FINISHED_RELEASING->value) {
+            $query->hasFinishedReleasing();
+        }
+
         // 開催日で検索
-        if($date !== null){
-            $query->where('tournaments.date', $date);
+        if ($startDate = data_get($searchParameters, 'start_date')) {
+            $query->whereDate('started_at', $startDate);
         }
 
-        // キーワードで種目名、場所名検索
-        if($keyword !== null){
-            $query->where(function($query) use ($keyword) {
-                $query->whereHas('event', function ($query) use ($keyword) {
-                    $query->where('events.name', 'like', "%{$keyword}%");
-                })->orWhereHas('place', function ($query) use ($keyword) {
-                    $query->where('places.name', 'like', "%{$keyword}%");
-                });
-            });
+        // 種目で検索
+        if ($eventId = data_get($searchParameters, 'event_id')) {
+            $query->where('event_id', $eventId);
         }
 
-        // 種目IDで検索
-        if($typeId !== null){
-            $query->whereHas('event', function ($query) use ($typeId) {
-                $query->where('events.type_id', $typeId);
-            });
+        // 場所で検索
+        if ($placeId = data_get($searchParameters, 'place_id')) {
+            $query->where('place_id', $placeId);
         }
 
-        // 更新日時の降順
-        $tournaments = $query->orderby('tournaments.updated_at', 'desc')->paginate(10, ['*'], 'page', $page);
-        return view('admin.pages.tournament.list', compact('tournaments', 'searchParams'));
+        // 開催日時の降順
+        $tournaments = $query->latest('started_at')->paginate(10, ['*'], 'page', $page);
+        return view('admin.pages.tournament.list', compact('tournaments', 'searchParameters'));
     }
 
     /**
@@ -81,24 +79,20 @@ class TournamentController extends Controller
     public function add(Request $request)
     {
         $events = Event::all();
-        $places = Place::all()->mapWithKeys(function ($place, $key) {
-            return [$place->id => $place->name];
-        });
+        $places = Place::all();
         $tournament = new Tournament();
-        return view('admin.pages.tournament.add', compact('tournament', 'events', 'places'));
+        return view('admin.pages.tournament.input', compact('tournament', 'events', 'places'));
     }
 
     /**
      * 大会情報新規登録
-     * @param  RegisterTournamentRequest $request
+     * @param  SaveTournamentRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function create(RegisterTournamentRequest $request)
+    public function create(SaveTournamentRequest $request)
     {
-        $input = $request->validated();
         $tournament = new Tournament();
-        $tournament->start_time = "{$input['start_hour']}:{$input['start_minutes']}";
-        $tournament->fill($input)->save();
+        $tournament->fill($request->validated())->save();
 
         // 完了メッセージをセット
         session()->flash('message', '大会情報を登録しました。');
@@ -125,23 +119,19 @@ class TournamentController extends Controller
     public function edit(Request $request, Tournament $tournament)
     {
         $events = Event::all();
-        $places = Place::all()->mapWithKeys(function ($place, $key) {
-            return [$place->id => $place->name];
-        });
-        return view('admin.pages.tournament.edit', compact('tournament', 'events', 'places'));
+        $places = Place::all();
+        return view('admin.pages.tournament.input', compact('tournament', 'events', 'places'));
     }
 
     /**
      * 大会情報更新
-     * @param  RegisterTournamentRequest $request
+     * @param  SaveTournamentRequest $request
      * @param  Tournament $tournament
      * @return \Illuminate\Http\Response
      */
-    public function update(RegisterTournamentRequest $request, Tournament $tournament)
+    public function update(SaveTournamentRequest $request, Tournament $tournament)
     {
-        $input = $request->validated();
-        $tournament->start_time = "{$input['start_hour']}:{$input['start_minutes']}";
-        $tournament->fill($input)->save();
+        $tournament->fill($request->validated())->save();
         // 完了メッセージをセット
         session()->flash('message', '大会情報を更新しました。');
         return redirect()->route('admin.tournament.detail', $tournament->id);

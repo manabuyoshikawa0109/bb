@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class TournamentsTableSeeder extends Seeder
 {
@@ -19,8 +20,75 @@ class TournamentsTableSeeder extends Seeder
 
         DB::table('tournaments')->truncate();
 
-        $path = 'database/sql/tournaments.sql';
-        $this->command->info("START：{$path}");
-        DB::unprepared(file_get_contents($path));
+        DB::table('tournaments')->insert(
+            [
+                [
+                    'release_start_date' => null,
+                    'release_end_date' => null,
+                    'event_id' => 1,
+                    'place_id' => 1,
+                    'started_at' => Carbon::now(),
+                    'capacity' => 18,
+                    'participation_fee' => 5000,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ],
+                [
+                    'release_start_date' => Carbon::now(),
+                    'release_end_date' => null,
+                    'event_id' => 2,
+                    'place_id' => 1,
+                    'started_at' => Carbon::now(),
+                    'capacity' => 18,
+                    'participation_fee' => 5000,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ],
+                [
+                    'release_start_date' => Carbon::now(),
+                    'release_end_date' => Carbon::now(),
+                    'event_id' => 3,
+                    'place_id' => 1,
+                    'started_at' => Carbon::now(),
+                    'capacity' => 18,
+                    'participation_fee' => 5000,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ],
+                [
+                    'release_start_date' => Carbon::now(),
+                    'release_end_date' => Carbon::now(),
+                    'event_id' => 4,
+                    'place_id' => 1,
+                    'started_at' => Carbon::now(),
+                    'capacity' => 18,
+                    'participation_fee' => 5000,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ],
+                [
+                    'release_start_date' => null,
+                    'release_end_date' => Carbon::now(),
+                    'event_id' => 5,
+                    'place_id' => 1,
+                    'started_at' => Carbon::now(),
+                    'capacity' => 18,
+                    'participation_fee' => 4400,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ],
+                [
+                    'release_start_date' => Carbon::now(),
+                    'release_end_date' => Carbon::now(),
+                    'event_id' => 6,
+                    'place_id' => 1,
+                    'started_at' => Carbon::now(),
+                    'capacity' => 18,
+                    'participation_fee' => 5000,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ],
+            ]
+        );
     }
 }

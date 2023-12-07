@@ -1,70 +1,175 @@
 @extends('admin.layouts.app')
 
-@push('links')
-<link rel="stylesheet" type="text/css" href="/assets/admin/css/table.css?{{ now()->format('YmdHis') }}">
-@endpush
+@php
+$url = route('admin.place.create');
+$pageTitle = '場所新規登録';
+$buttonText = '新規登録する';
+if ($place->exists) {
+    $url = route('admin.place.update', $place->id);
+    $pageTitle = '場所編集';
+    $buttonText = '更新する';
+}
+@endphp
 
 @section('content')
-<div class="col-md-12 col-sm-12 px-0">
-    <div class="x_panel px-1 px-sm-3">
-        <div class="x_title">
-            <div class="d-flex justify-content-between align-items-center">
-                <h2>場所マスタ</h2>
-                <div class="d-block d-lg-none">
-                    <button type="button" class="add-row-btn btn btn-dark mx-0"><i class="fas fa-plus-circle mr-1"></i>行を追加</button>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-        </div>
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">場所マスター</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
 
-        <div class="x_content">
-            <form action="{{ route('admin.place.register') }}" method="post">
+<div class="card">
+    <div class="card-body py-4 px-2 p-sm-4">
+        <h5 class="card-title">{{ $pageTitle }}</h5>
+        <hr />
+        <div class="form-body mt-4">
+            <form action="{{ $url }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                    <div></div>
-                    <div class="d-none d-lg-block">
-                        <button type="button" class="add-row-btn btn btn-dark mx-0"><i class="fas fa-plus-circle mr-1"></i>行を追加</button>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="border border-3 p-3 p-sm-4 rounded">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">場所名@required()</label>
+                                @include('admin.commons.components.html.text', [
+                                    'id' => 'name',
+                                    'fieldName' => 'name',
+                                    'default' => $place->name,
+                                    'maxLength' => 100,
+                                    'placeholder' => '例】寝屋川公園',
+                                ])
+                            </div>
+                            <div class="mb-3">
+                                <label for="court-surface" class="form-label">コートサーフェス</label>
+                                @include('admin.commons.components.html.text', [
+                                    'id' => 'court-surface',
+                                    'fieldName' => 'court_surface',
+                                    'default' => $place->court_surface,
+                                    'maxLength' => 100,
+                                    'placeholder' => '例】オムニコート',
+                                ])
+                            </div>
+                            <div class="mb-3">
+                                <label for="website-url" class="form-label">ホームページURL</label>
+                                @include('admin.commons.components.html.text', [
+                                    'id' => 'website-url',
+                                    'fieldName' => 'website_url',
+                                    'default' => $place->website_url,
+                                    'maxLength' => 250,
+                                    'placeholder' => '例】http://neyagawa.osaka-park.or.jp/',
+                                ])
+                            </div>
+                            <div class="mb-3">
+                                <label for="google-map-url" class="form-label">
+                                    GoogleマップのURL
+                                    <i class="lni lni-question-circle align-middle" role="button" data-bs-toggle="modal" data-bs-target="#google-map-guide-modal"></i>
+                                </label>
+                                @include('admin.commons.components.html.text', [
+                                    'id' => 'google-map-url',
+                                    'fieldName' => 'google_map_url',
+                                    'default' => $place->google_map_url,
+                                    'maxLength' => 250,
+                                    'placeholder' => '例】https://goo.gl/maps/cGLxNvYxcpLikzFD7',
+                                ])
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-striped jambo_table bulk_action">
-                        <thead>
-                            <tr class="headings @if($places->isEmpty()) d-none @endif">
-                                <th class="w-200-px">場所名@required()</th>
-                                <th class="w-350-px">公式サイトURL</th>
-                                <th class="w-350-px">GoogleマップのURL
-                                    <i class="ml-1 fas fa-question-circle"
-                                       data-toggle="popover"
-                                       data-html="true"
-                                       title="GoogleマップのURL"
-                                       data-content="GoogleマップのURLは下記より取得できます。<br><br>Googleマップで場所検索 > 「共有」 > 「リンクを送信する」 > 「共有リンク」をコピー<br><br><a target='_blank' href='{{ config('admin.setting.google_map.top_page_url') }}'>Googleマップへ移動<i class='fas fa-external-link ml-1'></i></a>">
-                                    </i>
-                                </th>
-                                <th class="w-100-px">削除</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="items">
-                            @foreach ($places as $place)
-                                @include('admin.pages.place.row', ['place' => $place ])
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div id="form-submit-button-area" class="col-12 text-center @if($places->isEmpty()) d-none @endif">
-                    <button type="submit" class="btn btn-dark"><i class="fas fa-save mr-1"></i>登録する</button>
-                </div>
+                    <div class="col-lg-4">
+                        <div class="border border-3 p-3 p-sm-4 rounded h-100">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <input type="hidden" name="delete_image" value="0">
+                                    <label for="file" class="form-label">画像</label>
+                                    <input id="file" type="file" class="dropify" name="file" data-default-file="@if($place->image_path){{ $place->imageUrl() }}@endif" data-max-file-size="{{ config('admin.place.image.max_sizes.gb') }}G" data-allowed-file-extensions="{{ str_replace(',', ' ', config('admin.place.image.allowed_extension')) }}">
+                                    <small class="text-muted">※{{ str_replace(',', ', ', config('admin.place.image.allowed_extension')) }}のみ、画像サイズ{{ config('admin.place.image.max_sizes.gb') }}GBまで</small><br>
+                                    <small class="text-muted">※画像は縦{{ config('admin.place.image.dimensions.height') }}px ×横{{ config('admin.place.image.dimensions.width') }}pxにリサイズされます</small>
+                                    @include('admin.commons.components.html.errors', ['fieldName' => 'file'])
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-dark">{{ $buttonText }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--end row-->
             </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="google-map-guide-modal" tabindex="-1" aria-labelledby="google-map-guide-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="google-map-guide-modal-label">GoogleマップのURL取得方法</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-1">
+                    <a href="{{ config('admin.place.google_map_url') }}" target="_blank">Googleマップへ移動<i class="fa-solid fa-arrow-up-right-from-square ms-1"></i></a>
+                </div>
+                <div class="mb-1">1. Googleマップで場所を検索する</div>
+                <img src="/assets/admin/images/place/google-map/guide-1.png" class="w-100 border rounded mb-3" alt="">
+                <div class="mb-1">2.「共有」を選択</div>
+                <img src="/assets/admin/images/place/google-map/guide-2.png" class="w-100 border rounded mb-3" alt="">
+                <div class="mb-1">3.「リンクをコピー」を選択</div>
+                <img src="/assets/admin/images/place/google-map/guide-3.png" class="w-100 border rounded" alt="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">とじる</button>
+            </div>
         </div>
     </div>
 </div>
 @endsection
 
-@php
-$row = view('admin.pages.place.row', ['place' => $placeInstance ])->render();
-// 改行を全て取り除く
-$row = str_replace(array("\r\n", "\r", "\n"), '', $row);
-@endphp
+{{-- dropify初期化 --}}
+@include('admin.commons.components.js.dropify')
+@push('scripts')
+<script type="text/javascript">
+$(function() {
+    var fileName = null;
+    var currentFileName = '{{ $place->imageFileName() }}';
 
-{{-- テーブル初期設定JS --}}
-@include('admin.commons.components.js.table', ['newId' => $newId, 'row' => $row ])
+    // 「削除」ボタンクリック時のイベント
+    var drEvent = $('.dropify').dropify();
+    // ※afterClearイベントではファイル名を取得できないので、beforeClearイベントでファイル名を変数に退避しておく
+    drEvent.on('dropify.beforeClear', function(event, element){
+        // 直近にセットされていたファイル名を取得
+        fileName = element.file.name;
+        // キャッシュ用パラメータがある場合、そのパラメータを除去
+        if (fileName.indexOf("?") !== -1) {
+            fileName = fileName.substring(0, fileName.indexOf("?"));
+        }
+    });
+
+    // ※既存画像がある場合のみ
+    drEvent.on('dropify.afterClear', function(event, element){
+        if (!currentFileName) {
+            return;
+        }
+
+        if (currentFileName === fileName) {
+            // 既存画像プレビュー時に「削除」がクリックされた場合、削除フラグを立てる
+            $('input[name="delete_image"]').val(1);
+        } else {
+            // 新規画像プレビュー時に「削除」がクリックされた場合、既存画像をプレビューに再セット
+            var defaultFile = element.settings.defaultFile;
+            element.file.name = element.cleanFilename(defaultFile);
+            element.setPreview(element.isImage(), defaultFile);
+        }
+    });
+});
+</script>
+@endpush

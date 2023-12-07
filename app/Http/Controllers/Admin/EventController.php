@@ -3,60 +3,61 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\RegisterEventRequest;
+use App\Http\Requests\Admin\SaveEventRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use App\Models\Event;
+use Throwable;
+use Log;
+use DB;
 
 class EventController extends Controller
 {
     /**
-     * 種目入力
-     * @param  Request $request
-     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
-     */
-    public function input(Request $request)
+    * 種目一覧
+    * @param  Request $request
+    * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+    */
+    public function list(Request $request)
     {
-        if(old('events')){
-            $newId = min(array_keys(old('events'))) -1;
-            $events = collect();
-            foreach (old('events') as $id => $input) {
-               $event = new Event($input);
-               $event->id = $id;
-               $events->push($event);
-            }
-        }else{
-            $newId = -1;
-            $events = Event::all();
-        }
-        $eventInstance = new Event();
-        return view('admin.pages.event.input', compact('events', 'eventInstance', 'newId'));
+        $events = Event::orderBy('id')->get()->toArray();
+        return view('admin.pages.event.list', compact('events'));
     }
 
     /**
-     * 種目登録
-     * @param  RegisterEventRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function register(RegisterEventRequest $request)
+    * 種目保存
+    * @param  SaveEventRequest $request
+    * @return \Illuminate\Http\Response
+    */
+    public function save(SaveEventRequest $request)
     {
-        $inputs = Arr::get($request->validated(), 'events');
-        foreach ($inputs as $id => $input) {
-            $event = Event::firstOrNew(['id' => $id]);
-            if(isset($input['delete']) && $input['delete'] === '1'){
-                $event->delete();
-                continue;
+        DB::beginTransaction();
+        try {
+            $rows = data_get($request->validated(), "events");
+            $savedIds = [];
+            foreach ($rows as $row) {
+                $event = Event::findOrNew(data_get($row, "id"));
+                $event->name = data_get($row, "name");
+                $event->type = data_get($row, "type");
+                $event->capacity = data_get($row, "capacity");
+                $event->participation_fee = data_get($row, "participation_fee");
+                $event->start_time = data_get($row, "start_time");
+                $event->save();
+
+                // 登録・更新したIDを配列に格納
+                array_push($savedIds, $event->id);
             }
 
-            $event->fill($input);
-            $event->start_time = null;
-            if(isset($input['start_hour']) && isset($input['start_minutes'])){
-                $event->start_time = "{$input['start_hour']}:{$input['start_minutes']}";
-            }
-            $event->save();
+            // 登録・更新されなかった種目は削除する
+            Event::whereNotIn('id', $savedIds)->delete();
+
+            DB::commit();
+        } catch (Throwable $e) {
+            DB::rollback();
+            Log::error($e);
+            abort(500);
         }
         // 完了メッセージをセット
         session()->flash('message', '種目情報を保存しました。');
-        return redirect()->route('admin.event.input');
+        return redirect()->route('admin.event.list');
     }
 }

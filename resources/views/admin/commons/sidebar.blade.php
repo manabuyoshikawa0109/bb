@@ -1,103 +1,161 @@
-<div class="col-md-3 left_col">
-    <div class="left_col scroll-view">
-        <div class="navbar nav_title" style="border: 0;">
-            <a href="{{ route('admin.home.show') }}" class="site_title">
-                <img class="logo" src="/assets/common/images/logo.png" alt="">
-                <span>BBテニス</span>
-            </a>
+<div class="sidebar-wrapper" data-simplebar="true">
+    <div class="sidebar-header">
+        <div>
+            <img src="/assets/admin/images/logo-icon.png" class="logo-icon" alt="logo icon">
         </div>
-
-        <div class="clearfix"></div>
-
-        <!-- menu profile quick info -->
-        <div class="profile clearfix">
-            <div class="profile_pic">
-                <img src="/assets/common/images/no-person.png" alt="..." class="img-circle profile_img">
-            </div>
-            <div class="profile_info">
-                <span>ようこそ</span>
-                <h2>{{ auth('admin')->user()->fullName() }}さん</h2>
-            </div>
+        <div>
+            <h4 class="logo-text">BBテニス</h4>
         </div>
-        <!-- /menu profile quick info -->
-
-        <br />
-
-        <!-- sidebar menu -->
-        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-            <div class="menu_section">
-                <h3>メニュー</h3>
-                <ul class="nav side-menu">
-                    <li class="@if(request()->route()->named('admin.home.*')) active @endif">
-                        <a href="{{ route('admin.home.show') }}"><i class="fa fa-home"></i>ホーム</a>
-                    </li>
-                    <li class="@if(request()->route()->named('admin.entry.*')) active @endif">
-                        <a href="#"><i class="fas fa-file-signature"></i>エントリー管理</a>
-                    </li>
-                    <li class="@if(request()->route()->named('admin.tournament.*')) active @endif">
-                        <a><i class="fa fa-trophy"></i>大会管理<span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{ route('admin.tournament.list') }}">一覧</a></li>
-                            <li><a href="{{ route('admin.tournament.add') }}">新規登録</a></li>
-                        </ul>
-                    </li>
-                    <li class="@if(request()->route()->named('admin.contact.*')) active @endif">
-                        <a href="#"><i class="fas fa-envelope"></i>問い合わせ管理</a>
-                    </li>
-                    <li class="@if(request()->route()->named('admin.information.*')) active @endif">
-                        <a><i class="fas fa-info-circle"></i>お知らせ管理<span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{ route('admin.information.list') }}">一覧</a></li>
-                            <li><a href="{{ route('admin.information.add') }}">新規登録</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="menu_section">
-                <h3>マスタ</h3>
-                <ul class="nav side-menu">
-                    <li class="@if(request()->route()->named('admin.event.*')) active @endif">
-                        <a href="{{ route('admin.event.input') }}"><i class="fa-solid fa-children"></i>種目マスタ</a>
-                    </li>
-                    <li class="@if(request()->route()->named('admin.place.*')) active @endif">
-                        <a href="{{ route('admin.place.input') }}"><i class="fas fa-map-marker-alt"></i>場所マスタ</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="menu_section">
-                <h3>設定</h3>
-                <ul class="nav side-menu">
-                    <li class="@if(request()->route()->named('admin.admin.*')) active @endif">
-                        <a><i class="fa-solid fa-user-gear"></i>管理者管理<span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="#">一覧</a></li>
-                            <li><a href="#">新規追加</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.logout') }}"><i class="fa fa-sign-out"></i>ログアウト</a>
-                    </li>
-                </ul>
-            </div>
-
+        <div class="toggle-icon ms-auto"><i class='bx bx-first-page'></i>
         </div>
-        <!-- /sidebar menu -->
-
-        <!-- /menu footer buttons -->
-        <div class="sidebar-footer hidden-small">
-            <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-            </a>
-            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-            </a>
-            <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-            </a>
-            <a data-toggle="tooltip" data-placement="top" title="Logout" href="{{ route('admin.logout') }}">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-            </a>
-        </div>
-        <!-- /menu footer buttons -->
     </div>
+    <!--navigation-->
+    <ul class="metismenu" id="menu">
+        <li class="@if (request()->route()->named('admin.home.*')) mm-active @endif">
+            <a href="{{ route('admin.home.index') }}">
+                <div class="parent-icon">
+                    <i class='bx bx-home'></i>
+                </div>
+                <div class="menu-title">ホーム</div>
+            </a>
+        </li>
+
+        <li class="menu-label">メニュー</li>
+        <li class="@if (request()->route()->named('admin.entry.*')) mm-active @endif">
+            <a href="#">
+                <div class="parent-icon">
+                    <i class='bx bx-file'></i>
+                </div>
+                <div class="menu-title">エントリー管理</div>
+            </a>
+        </li>
+
+        <li class="@if (request()->route()->named('admin.tournament.*')) mm-active @endif">
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <i class='bx bx-trophy'></i>
+                </div>
+                <div class="menu-title">大会管理</div>
+            </a>
+            <ul class="@if (request()->route()->named('admin.tournament.*')) mm-show @endif">
+                <li class="@if (request()->route()->named('admin.tournament.list')) mm-active @endif">
+                    <a href="{{ route('admin.tournament.list') }}"><i class="bx bx-right-arrow-alt"></i>一覧</a>
+                </li>
+                <li class="@if (request()->route()->named('admin.tournament.add')) mm-active @endif">
+                    <a href="{{ route('admin.tournament.add') }}"><i class="bx bx-right-arrow-alt"></i>新規登録</a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="@if (request()->route()->named('admin.contact.*')) mm-active @endif">
+            <a href="#">
+                <div class="parent-icon">
+                    <i class='bx bx-envelope'></i>
+                </div>
+                <div class="menu-title">お問い合わせ管理</div>
+            </a>
+        </li>
+
+        <li class="@if (request()->route()->named('admin.information.*')) mm-active @endif">
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <i class='bx bx-info-circle'></i>
+                </div>
+                <div class="menu-title">お知らせ管理</div>
+            </a>
+            <ul class="@if (request()->route()->named('admin.information.*')) mm-show @endif">
+                <li class="@if (request()->route()->named('admin.information.list')) mm-active @endif">
+                    <a href="{{ route('admin.information.list') }}"><i class="bx bx-right-arrow-alt"></i>一覧</a>
+                </li>
+                <li class="@if (request()->route()->named('admin.information.add')) mm-active @endif">
+                    <a href="{{ route('admin.information.add') }}"><i class="bx bx-right-arrow-alt"></i>新規登録</a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="@if (request()->route()->named('admin.faq.*')) mm-active @endif">
+            <a href="{{ route('admin.faq.list') }}">
+                <div class="parent-icon">
+                    <i class='bx bx-help-circle'></i>
+                </div>
+                <div class="menu-title">FAQ管理</div>
+            </a>
+        </li>
+
+        <li class="menu-label">マスター</li>
+
+        <li class="@if (request()->route()->named('admin.event.*')) mm-active @endif">
+            <a href="{{ route('admin.event.list') }}">
+                <div class="parent-icon">
+                    <i class='bx bx-category-alt'></i>
+                </div>
+                <div class="menu-title">種目マスター</div>
+            </a>
+        </li>
+
+        <li class="@if (request()->route()->named('admin.place.*')) mm-active @endif">
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <i class="bx bx-map-pin"></i>
+                </div>
+                <div class="menu-title">場所マスター</div>
+            </a>
+            <ul class="@if (request()->route()->named('admin.place.*')) mm-show @endif">
+                <li class="@if (request()->route()->named('admin.place.list')) mm-active @endif">
+                    <a href="{{ route('admin.place.list') }}"><i class="bx bx-right-arrow-alt"></i>一覧</a>
+                </li>
+                <li class="@if (request()->route()->named('admin.place.add')) mm-active @endif">
+                    <a href="{{ route('admin.place.add') }}"><i class="bx bx-right-arrow-alt"></i>新規登録</a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="menu-label">設定</li>
+
+        <li class="@if (request()->route()->named('admin.admin.*')) mm-active @endif">
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <i class='bx bx-user-check'></i>
+                </div>
+                <div class="menu-title">管理者管理</div>
+            </a>
+            <ul class="@if (request()->route()->named('admin.admin.*')) mm-show @endif">
+                <li class="@if (request()->route()->named('admin.admin.list')) mm-active @endif">
+                    <a href="#"><i class="bx bx-right-arrow-alt"></i>一覧</a>
+                </li>
+                <li class="@if (request()->route()->named('admin.admin.add')) mm-active @endif">
+                    <a href="#"><i class="bx bx-right-arrow-alt"></i>新規登録</a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="@if (request()->route()->named('admin.setting.*')) mm-active @endif">
+            <a href="#">
+                <div class="parent-icon">
+                    <i class='bx bx-cog'></i>
+                </div>
+                <div class="menu-title">設定</div>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ route('admin.logout') }}">
+                <div class="parent-icon">
+                    <i class="bx bx-power-off"></i>
+                </div>
+                <div class="menu-title">ログアウト</div>
+            </a>
+        </li>
+
+        <li class="menu-label">開発者ツール</li>
+        <li>
+            <a href="#" target="_blank">
+                <div class="parent-icon">
+                    <i class='bx bx-data'></i>
+                </div>
+                <div class="menu-title">データベース</div>
+            </a>
+        </li>
+    </ul>
+    <!--end navigation-->
 </div>

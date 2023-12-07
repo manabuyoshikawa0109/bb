@@ -1,71 +1,110 @@
 @extends('admin.layouts.base')
 
-@section('body_class', 'login')
-
 @push('links')
-<link rel="stylesheet" type="text/css" href="/assets/plugins/animate/animate.css">
-<link rel="stylesheet" type="text/css" href="/assets/plugins/css-hamburgers/hamburgers.min.css">
-<link rel="stylesheet" type="text/css" href="/assets/plugins/animsition/css/animsition.min.css">
-<!-- <link rel="stylesheet" type="text/css" href="/assets/plugins/select2/select2.min.css"> -->
-<link rel="stylesheet" type="text/css" href="/assets/plugins/linearicons/icon-font.min.css">
-<link rel="stylesheet" type="text/css" href="/assets/admin/css/login.css?{{ now()->format('YmdHis') }}">
+<style>
+.authentication-header {
+    background: #16181f !important;
+}
+/*
+スマホ時画面上側に空白ができてしまうので、その調整
+*/
+.wrapper {
+    position: static !important;
+}
+</style>
 @endpush
 
-@section('inner_body')
-<div class="limiter">
-    <div class="container-login100">
-        <div class="wrap-login100">
-            <div class="login100-form-title" style="background-image: url(/assets/admin/images/tennis.jpeg);">
-                <span class="login100-form-title-1">
-                    BBテニス<br>管理サイト
-                </span>
+@section('inner-body')
+<!--wrapper-->
+<div class="wrapper">
+    <div class="authentication-header"></div>
+    <div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
+                <div class="col mx-auto">
+                    <div class="mb-4 text-center">
+                        <img src="/assets/admin/images/logo-img.png" width="180" alt="" />
+                    </div>
+                    <div class="card rounded-4">
+                        <div class="card-body">
+                            <div class="p-sm-4 py-4 rounded">
+                                <div class="text-center">
+                                    <h3 class="">ログイン</h3>
+                                </div>
+                                <div class="d-grid">
+                                    <a class="btn my-4 shadow-sm btn-white" href="javascript:;">
+                                        <span class="d-flex justify-content-center align-items-center">
+                                            <img class="me-2" src="/assets/admin/images/icons/search.svg" width="16" alt="Image Description">
+                                            <span>Googleアカウントでログイン</span>
+                                        </span>
+                                    </a>
+                                    <a href="javascript:;" class="btn btn-facebook">
+                                        <i class="bx bxl-facebook"></i>Facebookアカウントでログイン
+                                    </a>
+                                </div>
+                                <div class="login-separater text-center mb-4">
+                                    <span>メールアドレスでログイン</span>
+                                    <hr/>
+                                </div>
+                                <div class="form-body">
+                                    <form class="row g-3" action="{{ route('admin.login.store') }}" method="POST">
+                                        @csrf
+                                        <div class="col-12">
+                                            <label for="inputEmailAddress" class="form-label">メールアドレス</label>
+                                            @include('admin.commons.components.html.email', ['id' => 'inputEmailAddress', 'fieldName' => "email"])
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="inputChoosePassword" class="form-label">パスワード</label>
+                                            <div class="input-group" id="show_hide_password">
+                                                <input type="password" class="form-control border-end-0" id="inputChoosePassword" name="password">
+                                                <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
+                                            </div>
+                                            @include('admin.commons.components.html.errors', ['fieldName' => 'password'])
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="remember" value="1" @if(old('remember') === '1') checked @endif>
+                                                <label class="form-check-label" for="flexSwitchCheckChecked">ログイン状態を<br>保持する</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 text-end">
+                                            <a href="#">パスワードを忘れた場合</a>
+                                        </div>
+                                        @include('admin.commons.components.html.errors', ['fieldName' => 'remember'])
+                                        <div class="col-12">
+                                            <div class="d-grid">
+                                                <button type="submit" class="btn btn-dark"><i class="bx bxs-lock-open"></i>ログイン</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <form class="login100-form validate-form" action="{{ route('admin.login.store') }}" method="post">
-                @csrf
-                <div class="m-b-26 w-100">
-                    <div class="wrap-input100 validate-input" data-validate="メールアドレスは必須です">
-                        <span class="label-input100">メールアドレス</span>
-                        <input class="input100" type="text" name="email" placeholder="" value="{{ old('email') }}">
-                        <span class="focus-input100"></span>
-                    </div>
-                    @include('admin.commons.components.html.errors', ['fieldName' => 'email'])
-                </div>
-
-                <div class="m-b-18 w-100">
-                    <div class="wrap-input100 validate-input" data-validate="パスワードは必須です">
-                        <span class="label-input100">パスワード</span>
-                        <input type="password" class="d-none">
-                        <input class="input100" type="password" name="password" placeholder="" autocomplete="new-password">
-                        <span class="focus-input100"></span>
-                    </div>
-                    @include('admin.commons.components.html.errors', ['fieldName' => 'password'])
-                </div>
-
-                <div class="flex-sb-m w-full p-b-30">
-                    <div class="contact100-form-checkbox">
-                        <input class="input-checkbox100" id="remember" type="checkbox" name="remember" value="1" @if(old('remember') === '1') checked @endif>
-                        <label class="label-checkbox100" for="remember">
-                            ログイン状態を保持する
-                        </label>
-                    </div>
-                </div>
-
-                <div class="container-login100-form-btn">
-                    <button type="submit" class="login100-form-btn">ログイン</button>
-                    <div class="mx-auto mt-3">
-                        <a href="#" class="txt1">パスワードをお忘れですか？</a>
-                    </div>
-                </div>
-            </form>
+            <!--end row-->
         </div>
     </div>
 </div>
+<!--end wrapper-->
 @endsection
 
 @push('scripts')
-<script src="/assets/plugins/animsition/js/animsition.min.js"></script>
-<!-- <script src="/assets/plugins/select2/select2.min.js"></script> -->
-<script src="/assets/plugins/countdowntime/countdowntime.js"></script>
-<script src="/assets/admin/js/login.js?{{ now()->format('YmdHis') }}"></script>
+<script type="text/javascript">
+$(function() {
+    $("#show_hide_password a").on('click', function (event) {
+        event.preventDefault();
+        if ($('#show_hide_password input').attr("type") == "text") {
+            $('#show_hide_password input').attr('type', 'password');
+            $('#show_hide_password i').addClass("bx-hide");
+            $('#show_hide_password i').removeClass("bx-show");
+        } else if ($('#show_hide_password input').attr("type") == "password") {
+            $('#show_hide_password input').attr('type', 'text');
+            $('#show_hide_password i').removeClass("bx-hide");
+            $('#show_hide_password i').addClass("bx-show");
+        }
+    });
+});
+</script>
 @endpush

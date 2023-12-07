@@ -182,7 +182,8 @@ return [
         App\Providers\AdminLoginServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
         App\Providers\VariableServiceProvider::class,
-        App\Providers\BladeServiceProvider::class,
+        App\Providers\DirectiveServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 
@@ -199,6 +200,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ])->toArray(),
 
 ];

@@ -36,8 +36,8 @@
 <script type="text/javascript">
 $(function(){
     var attributes = [
-        'applicants',
-        'entry-fee',
+        'capacity',
+        'participation-fee',
         'start-hour',
         'start-minutes',
     ];

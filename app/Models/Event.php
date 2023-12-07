@@ -4,18 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\ModelItems\Event\Type;
+use App\Enums\Event\Type;
 
 class Event extends Model
 {
     use HasFactory;
-
-    /**
-     * モデルに関連付けるテーブル
-     *
-     * @var string
-     */
-    protected $table = 'events';
 
     /**
     * The attributes that are mass assignable.
@@ -29,46 +22,53 @@ class Event extends Model
     ];
 
     /**
-    * 開始時間を取得
-    * @return string|null
-    */
-    public function getStartHourAttribute()
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'type' => Type::class,
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+    ];
+
+    /**
+     * 参加費をフォーマットして返す
+     * @param  string|null $default
+     * @return string|null
+     */
+    public function formatParticipationFee(string $default = null)
     {
-        if($this->start_time === null){
-            return null;
+        if ($this->participation_fee) {
+            return number_format($this->participation_fee) . '円';
         }
-        list($startHour, $startMinutes) = explode(':', $this->start_time);
-        return $startHour;
+        return $default;
     }
 
     /**
-    * 開始分を取得
-    * @return string|null
-    */
-    public function getStartMinutesAttribute()
+     * 募集数をフォーマットして返す
+     * @param  string|null $default
+     * @return string|null
+     */
+    public function formatCapacity(string $default = null)
     {
-        if($this->start_time === null){
-            return null;
+        if ($this->capacity) {
+            return number_format($this->capacity) . $this->type->unit();
         }
-        list($startHour, $startMinutes) = explode(':', $this->start_time);
-        return $startMinutes;
-    }
-
-    /**
-    * 種別名を返す
-    * @return string
-    */
-    public function typeName()
-    {
-        return Type::name($this->type_id);
-    }
-
-    /**
-    * 種別毎の色に関するクラス名を返す
-    * @return string
-    */
-    public function typeColorClass()
-    {
-        return Type::colorClass($this->type_id);
+        return $default;
     }
 }

@@ -12,13 +12,6 @@ class Information extends Model
     use HasFactory;
 
     /**
-    * モデルに関連付けるテーブル
-    *
-    * @var string
-    */
-    protected $table = 'information';
-
-    /**
     * The attributes that are mass assignable.
     *
     * @var string[]
@@ -27,6 +20,14 @@ class Information extends Model
         'id',
         'created_at',
         'updated_at',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
     ];
 
     /**
@@ -41,12 +42,20 @@ class Information extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+    ];
+
+    /**
     * 公開前のお知らせに限定するクエリスコープ
     *
     * @param \Illuminate\Database\Eloquent\Builder $query
     * @return \Illuminate\Database\Eloquent\Builder
     */
-    public function scopeBeforeRelease($query)
+    public function scopeHasNotReleasedYet($query)
     {
         $today = (Carbon::today())->format('Y-m-d');
         return $query->where('information.release_start_date', '>', $today);
@@ -61,8 +70,10 @@ class Information extends Model
     public function scopeReleasing($query)
     {
         $today = (Carbon::today())->format('Y-m-d');
-        return $query->where('information.release_start_date', '<=', $today)
-        ->where(function ($query) use ($today) {
+        return $query->where(function ($query) use ($today) {
+            $query->whereNull('information.release_start_date')
+            ->orWhere('information.release_start_date', '<=', $today);
+        })->where(function ($query) use ($today) {
             $query->whereNull('information.release_end_date')
             ->orWhere('information.release_end_date', '>=', $today);
         });
@@ -74,7 +85,7 @@ class Information extends Model
     * @param \Illuminate\Database\Eloquent\Builder $query
     * @return \Illuminate\Database\Eloquent\Builder
     */
-    public function scopeReleaseEnd($query)
+    public function scopeHasFinishedReleasing($query)
     {
         $today = (Carbon::today())->format('Y-m-d');
         return $query->where('information.release_end_date', '<', $today);

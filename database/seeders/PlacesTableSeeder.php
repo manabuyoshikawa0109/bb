@@ -23,17 +23,20 @@ class PlacesTableSeeder extends Seeder
             [
                 [
                     'name' => '寝屋川公園',
-                    'official_site_url' => 'http://neyagawa.osaka-park.or.jp/',
+                    'court_surface' => 'オムニコート',
+                    'website_url' => 'http://neyagawa.osaka-park.or.jp/',
                     'google_map_url' => 'https://goo.gl/maps/cGLxNvYxcpLikzFD7',
                 ],
                 [
                     'name' => '中部緑地庭球場',
-                    'official_site_url' => 'https://www.city.higashiosaka.lg.jp/0000003722.html',
+                    'court_surface' => 'オムニコート',
+                    'website_url' => 'https://www.city.higashiosaka.lg.jp/0000003722.html',
                     'google_map_url' => 'https://goo.gl/maps/PfgTUMyQWVcpcQYJA',
                 ],
                 [
                     'name' => '深北緑地',
-                    'official_site_url' => 'https://www.fukakitaryokuchi.jp/',
+                    'court_surface' => 'ハードコート',
+                    'website_url' => 'https://www.fukakitaryokuchi.jp/',
                     'google_map_url' => 'https://goo.gl/maps/8dfCL1EMJ4xcQnfq8',
                 ],
             ]

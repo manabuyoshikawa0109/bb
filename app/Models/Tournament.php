@@ -4,20 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\ModelItems\Event\Type;
-use App\ModelItems\Tournament\Status;
 use Carbon\Carbon;
 
 class Tournament extends Model
 {
     use HasFactory;
-
-    /**
-     * モデルに関連付けるテーブル
-     *
-     * @var string
-     */
-    protected $table = 'tournaments';
 
     /**
     * The attributes that are mass assignable.
@@ -31,12 +22,30 @@ class Tournament extends Model
     ];
 
     /**
-     * キャストする必要のある属性
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+    ];
+
+    /**
+     * The attributes that should be cast.
      *
      * @var array
      */
     protected $casts = [
-        'date' => 'date', // Carbonインスタンス(時間・分・秒は0になる)に変換
+        'release_start_date' => 'date',
+        'release_end_date'   => 'date',
+        'started_at'         => 'datetime',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
     ];
 
     /**
@@ -56,86 +65,77 @@ class Tournament extends Model
     }
 
     /**
-    * 開始時間を取得
-    * @return string|null
+    * 公開前の大会に限定するクエリスコープ
+    *
+    * @param \Illuminate\Database\Eloquent\Builder $query
+    * @return \Illuminate\Database\Eloquent\Builder
     */
-    public function getStartHourAttribute()
+    public function scopeHasNotReleasedYet($query)
     {
-        if($this->start_time === null){
-            return null;
+        $today = (Carbon::today())->format('Y-m-d');
+        return $query->where('tournaments.release_start_date', '>', $today);
+    }
+
+    /**
+    * 公開中の大会に限定するクエリスコープ
+    *
+    * @param \Illuminate\Database\Eloquent\Builder $query
+    * @return \Illuminate\Database\Eloquent\Builder
+    */
+    public function scopeReleasing($query)
+    {
+        $today = (Carbon::today())->format('Y-m-d');
+        return $query->where(function ($query) use ($today) {
+            $query->whereNull('tournaments.release_start_date')
+            ->orWhere('tournaments.release_start_date', '<=', $today);
+        })->where(function ($query) use ($today) {
+            $query->whereNull('tournaments.release_end_date')
+            ->orWhere('tournaments.release_end_date', '>=', $today);
+        });
+    }
+
+    /**
+    * 公開終了の大会に限定するクエリスコープ
+    *
+    * @param \Illuminate\Database\Eloquent\Builder $query
+    * @return \Illuminate\Database\Eloquent\Builder
+    */
+    public function scopeHasFinishedReleasing($query)
+    {
+        $today = (Carbon::today())->format('Y-m-d');
+        return $query->where('tournaments.release_end_date', '<', $today);
+    }
+
+    /**
+    * 公開期間をフォーマットして返す
+    * @return string
+    */
+    public function formatReleasePeriod()
+    {
+        $releaseStartDate = optional($this->release_start_date)->format('Y年n月j日');
+        $releaseEndDate = optional($this->release_end_date)->format('Y年n月j日');
+        if (!$releaseStartDate && !$releaseEndDate) {
+            return '-';
         }
-        list($startHour, $startMinutes) = explode(':', $this->start_time);
-        return $startHour;
-    }
-
-    /**
-    * 開始分を取得
-    * @return string|null
-    */
-    public function getStartMinutesAttribute()
-    {
-        if($this->start_time === null){
-            return null;
-        }
-        list($startHour, $startMinutes) = explode(':', $this->start_time);
-        return $startMinutes;
-    }
-
-    /**
-    * 大会が公開中か
-    * @return boolean
-    */
-    public function isOpen()
-    {
-        return $this->status_id === Status::OPEN;
-    }
-
-    /**
-    * 大会が非公開か
-    * @return boolean
-    */
-    public function isClosed()
-    {
-        return $this->status_id === Status::CLOSED;
-    }
-
-    /**
-    * 状態名を返す
-    * @return string|null
-    */
-    public function statusName()
-    {
-        return Status::name($this->status_id);
+        // 前後の空白を削除
+        return trim("{$releaseStartDate} 〜 {$releaseEndDate}");
     }
 
     /**
     * 参加費をフォーマットして返す
     * @return string
     */
-    public function formatEntryFee()
+    public function formatParticipationFee()
     {
-        return number_format($this->entry_fee) . '円';
+        return number_format($this->participation_fee) . '円';
     }
 
     /**
     * 募集数をフォーマットして返す
     * @return string
     */
-    public function formatApplicants()
+    public function formatCapacity()
     {
-        return number_format($this->applicants) . $this->applicantsUnit();
-    }
-
-    /**
-    * 募集数の単位を返す
-    * @return string|null
-    */
-    public function applicantsUnit()
-    {
-        $unit = '　';
-        if($this->event) {
-            $unit = Type::unit($this->event->type_id);
-        }
-        return $unit;
+        return number_format($this->capacity) . $this->event->type->unit();
     }
 }

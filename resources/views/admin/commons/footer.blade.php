@@ -1,6 +1,3 @@
-<footer>
-    <div class="pull-right">
-        Copyright © 2002 <a href="{{ route('admin.home.show') }}">BBテニストーナメント.</a> All rights reserved.
-    </div>
-    <div class="clearfix"></div>
+<footer class="page-footer">
+    <p class="mb-0">Copyright © {{ now()->format('Y') }}. All right reserved.</p>
 </footer>

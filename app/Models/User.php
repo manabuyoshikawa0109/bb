@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Enums\User\Sex;
 
 class User extends Authenticatable
 {
@@ -35,10 +36,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
     ];
 
     /**
@@ -47,6 +44,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
+        'sex'               => Sex::class,
         'email_verified_at' => 'datetime',
     ];
 
@@ -56,7 +54,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = [
-        'profile_photo_url',
     ];
 
     /**
