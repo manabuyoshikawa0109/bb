@@ -109,7 +109,7 @@ if ($place->exists) {
 
 <!-- Modal -->
 <div class="modal fade" id="google-map-guide-modal" tabindex="-1" aria-labelledby="google-map-guide-modal-label" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="google-map-guide-modal-label">GoogleマップのURL取得方法</h5>
