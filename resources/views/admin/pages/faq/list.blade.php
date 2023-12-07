@@ -28,7 +28,7 @@ if ($errors->any()) {
                 <li class="breadcrumb-item">
                     <a href="{{ route('admin.home.index') }}"><i class="bx bx-home-alt"></i></a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">FAQ管理</li>
+                <li class="breadcrumb-item active" aria-current="page">FAQ一覧</li>
             </ol>
         </nav>
     </div>
@@ -39,9 +39,7 @@ if ($errors->any()) {
         <div class="text-center">
             <h5 class="mb-0 text-uppercase d-flex justify-content-center align-items-center">
                 よくある質問 (FAQ)
-                <small>
-                    <i class="lni lni-question-circle ms-1 align-middle" role="button" data-bs-toggle="popover" title="FAQの順番を変更" data-bs-content="FAQをドラッグ&ドロップして順番を変更できます。"></i>
-                </small>
+                <i class="lni lni-question-circle ms-1 align-middle" style="font-size:14px;" role="button" data-bs-toggle="popover" title="FAQの順番を変更" data-bs-content="FAQをドラッグ&ドロップして順番を変更できます。"></i>
             </h5>
             <hr/>
         </div>
