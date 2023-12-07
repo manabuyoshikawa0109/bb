@@ -15,3 +15,19 @@ if (!function_exists('disableCacheWhenModified')) {
         return "{$path}?{$timestamp}";
     }
 }
+
+if (!function_exists('dotFieldName')) {
+    /**
+     * 配列形式のフィールド名をドット区切りに変換する
+     *
+     * @param string $fieldName フィールド名
+     * @return string
+     */
+    function dotFieldName(string $fieldName)
+    {
+        $fieldName = str_replace('[', '.', $fieldName);
+        $fieldName = str_replace(']', '', $fieldName);
+
+        return $fieldName;
+    }
+}
