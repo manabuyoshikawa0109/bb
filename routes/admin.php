@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\InformationController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\PlaceController;
 use App\Http\Controllers\Admin\TournamentController;
+use Aranyasen\LaravelAdminer\AdminerAutologinController;
 
 
 /*
@@ -80,5 +81,6 @@ Route::name('admin.')->group(function () {
             Route::post ('{place}/delete', 'delete')->name('delete');
         });
 
+        Route::any ('adminer', [AdminerAutologinController::class, 'index'])->name('adminer.auto_login');
     });
 });

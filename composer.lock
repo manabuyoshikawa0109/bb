@@ -4,8 +4,59 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7bd98c0acbdcf81be2a4993b2a640cef",
+    "content-hash": "b38e56e527b23386f0b54d004abdb4e2",
     "packages": [
+        {
+            "name": "aranyasen/laravel-adminer",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/senaranya/laravel-adminer.git",
+                "reference": "5bea90471f5baca3eb57ec3997040e7c11de3b37"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/senaranya/laravel-adminer/zipball/5bea90471f5baca3eb57ec3997040e7c11de3b37",
+                "reference": "5bea90471f5baca3eb57ec3997040e7c11de3b37",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/routing": ">=v9",
+                "illuminate/support": ">=v9",
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^v8.12.1",
+                "phpunit/phpunit": "^10.3.5",
+                "roave/security-advisories": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tests\\": "tests/",
+                    "Aranyasen\\LaravelAdminer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aranya Sen",
+                    "email": "sen.aranya@gmail.com"
+                }
+            ],
+            "description": "Adminer (by Jakub Vrana) wrapper for Laravel 9+",
+            "keywords": [
+                "adminer",
+                "database",
+                "explorer",
+                "laravel5",
+                "management"
+            ],
+            "time": "2023-10-03T07:12:28+00:00"
+        },
         {
             "name": "archtechx/enums",
             "version": "v0.3.2",

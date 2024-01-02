@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "aranyasen/laravel-adminer": "^3.0",
         "archtechx/enums": "^0.3.2",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",

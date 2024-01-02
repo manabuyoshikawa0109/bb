@@ -149,7 +149,7 @@
 
         <li class="menu-label">開発者ツール</li>
         <li>
-            <a href="#" target="_blank">
+            <a href="{{ route('admin.adminer.auto_login') }}" target="_blank">
                 <div class="parent-icon">
                     <i class='bx bx-data'></i>
                 </div>
