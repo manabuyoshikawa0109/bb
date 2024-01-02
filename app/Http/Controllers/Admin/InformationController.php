@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\RegisterInformationRequest;
+use App\Http\Requests\Admin\SaveInformationRequest;
 use Illuminate\Http\Request;
+use App\Enums\ReleaseStatus;
 use App\Models\Information;
-use Illuminate\Support\Arr;
 
 class InformationController extends Controller
 {
-    // 検索系のセッション情報のキー
-    const SESSION_KEY_SEARCH        = 'admin.informations.search';
-    const SESSION_KEY_SEARCH_PARAMS = 'admin.informations.search.params';
-    const SESSION_KEY_SEARCH_PAGE   = 'admin.informations.search.page';
+    // 検索のセッションキー情報
+    const SESSION_KEY_SEARCH        = 'admin.information.search';
+    const SESSION_KEY_SEARCH_PARAMS = 'admin.information.search.params';
+    const SESSION_KEY_SEARCH_PAGE   = 'admin.information.search.page';
     /**
     * お知らせ一覧
     * @param  Request $request
@@ -21,8 +21,7 @@ class InformationController extends Controller
     */
     public function list(Request $request)
     {
-        // TODO: 並び替え実装
-        if ($request->reset) {
+        if ($request->is_reset) {
             // 検索条件のリセット(検索条件・ページ数)
             session()->forget(self::SESSION_KEY_SEARCH);
         } elseif ($request->isMethod('post')) {
@@ -37,33 +36,30 @@ class InformationController extends Controller
         $page = session()->get(self::SESSION_KEY_SEARCH_PAGE, 1);
         $searchParams = session()->get(self::SESSION_KEY_SEARCH_PARAMS, []);
 
-        $date = Arr::get($searchParams, 'date');
-        $keyword = Arr::get($searchParams, 'keyword');
-        $statusScope = Arr::get($searchParams, 'status_scope');
+        // 変数を使用しやすいように配列からオブジェクトに変換
+        $searchParam = changeArrayToObject($searchParams);
 
+        // クエリ生成
         $query = Information::query();
 
-        // 日付で検索
-        if($date !== null){
-            $query->where('information.date', $date);
-        }
-
-        // キーワードで件名、本文検索
-        if($keyword !== null){
-            $query->where(function ($query) use ($keyword) {
-                $query->where('information.subject', 'like', "%{$keyword}%")
-                ->orWhere('information.body', 'like', "%{$keyword}%");
+        // キーワードで件名、本文を部分一致検索
+        if($searchParam->keyword){
+            $query->where(function ($query) use ($searchParam) {
+                $query->where('information.subject', 'like', "%{$searchParam->keyword}%")
+                    ->orWhere('information.body', 'like', "%{$searchParam->keyword}%");
             });
         }
 
-        // ステータスで検索
-        if($statusScope !== null){
-            $query->{ $statusScope }();
+        // 公開ステータスで検索
+        // 公開ステータスに紐づくスコープ名で絞り込み
+        $releaseStatus = ReleaseStatus::tryfrom($searchParam->release_status);
+        if ($releaseStatus && $releaseStatus->scopeMethodName()){
+            $query->{$releaseStatus->scopeMethodName()}();
         }
 
-        // 更新日時の降順
-        $informations = $query->orderby('information.updated_at', 'desc')->paginate(10, ['*'], 'page', $page);
-        return view('admin.pages.information.list', compact('informations', 'searchParams'));
+        // 更新日時の降順でソート
+        $data = $query->orderByDesc('information.updated_at')->paginate(10, ['*'], 'page', $page);
+        return view('admin.pages.information.list', compact('data', 'searchParam'));
     }
 
     /**
@@ -74,33 +70,22 @@ class InformationController extends Controller
     public function add(Request $request)
     {
         $information = new Information();
-        return view('admin.pages.information.add', compact('information'));
+        return view('admin.pages.information.input', compact('information'));
     }
 
     /**
     * お知らせ新規登録
-    * @param  RegisterInformationRequest $request
+    * @param  SaveInformationRequest $request
     * @return \Illuminate\Http\Response
     */
-    public function create(RegisterInformationRequest $request)
+    public function create(SaveInformationRequest $request)
     {
         $information = new Information();
         $information->fill($request->validated())->save();
 
         // 完了メッセージをセット
         session()->flash('message', 'お知らせを登録しました。');
-        return redirect()->route('admin.information.detail', $information->id);
-    }
-
-    /**
-    * お知らせ詳細
-    * @param  Request $request
-    * @param  Information $information
-    * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
-    */
-    public function detail(Request $request, Information $information)
-    {
-        return view('admin.pages.information.detail', compact('information'));
+        return redirect()->route('admin.information.list');
     }
 
     /**
@@ -111,21 +96,21 @@ class InformationController extends Controller
     */
     public function edit(Request $request, Information $information)
     {
-        return view('admin.pages.information.edit', compact('information'));
+        return view('admin.pages.information.input', compact('information'));
     }
 
     /**
     * お知らせ更新
-    * @param  RegisterInformationRequest $request
+    * @param  SaveInformationRequest $request
     * @param  Information $information
     * @return \Illuminate\Http\Response
     */
-    public function update(RegisterInformationRequest $request, Information $information)
+    public function update(SaveInformationRequest $request, Information $information)
     {
         $information->fill($request->validated())->save();
         // 完了メッセージをセット
         session()->flash('message', 'お知らせを更新しました。');
-        return redirect()->route('admin.information.detail', $information->id);
+        return redirect()->route('admin.information.list');
     }
 
     /**

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\ModelItems\Information\Status;
+use App\Enums\ReleaseStatus;
 use Carbon\Carbon;
 
 class Information extends Model
@@ -38,7 +38,6 @@ class Information extends Model
     protected $casts = [
         'release_start_date' => 'date',
         'release_end_date'   => 'date',
-        'date'               => 'date',
     ];
 
     /**
@@ -57,7 +56,7 @@ class Information extends Model
     */
     public function scopeHasNotReleasedYet($query)
     {
-        $today = (Carbon::today())->format('Y-m-d');
+        $today = Carbon::today()->format('Y-m-d');
         return $query->where('information.release_start_date', '>', $today);
     }
 
@@ -69,7 +68,7 @@ class Information extends Model
     */
     public function scopeReleasing($query)
     {
-        $today = (Carbon::today())->format('Y-m-d');
+        $today = Carbon::today()->format('Y-m-d');
         return $query->where(function ($query) use ($today) {
             $query->whereNull('information.release_start_date')
             ->orWhere('information.release_start_date', '<=', $today);
@@ -92,31 +91,56 @@ class Information extends Model
     }
 
     /**
-    * ステータス名を返す
+    * ステータス値を返す
     *
-    * @return string
+    * @return int
     */
-    public function statusName()
+    public function status()
     {
         $now = Carbon::now();
-        // 今の日時 < 公開開始日
-        if($now->lt($this->release_start_date)) {
-            return Status::BEFORE_RELEASE;
+        // 公開前(今の日時 < 公開開始日)
+        if($this->release_start_date && $now->lt($this->release_start_date)) {
+            return ReleaseStatus::HAS_NOT_RELEASED_YET->value;
         }
-        // 公開終了日 < 今の日時
+        // 公開終了(公開終了日 < 今の日時)
         if($this->release_end_date && $now->gt($this->release_end_date)) {
-            return Status::RELEASE_END;
+            return ReleaseStatus::HAS_FINISHED_RELEASING->value;
         }
-        return Status::RELEASING;
+        // 公開中
+        return ReleaseStatus::RELEASING->value;
     }
 
     /**
-    * 色に関するクラス名を返す
+    * ステータス名を返す
     *
-    * @return string
+    * @return string|null
+    */
+    public function statusName()
+    {
+        return ReleaseStatus::tryfrom($this->status())?->name();
+    }
+
+    /**
+    * ステータスの色に関するクラス名を返す
+    *
+    * @return string|null
     */
     public function statusColorClass()
     {
-        return Status::colorClass($this->statusName());
+        return ReleaseStatus::tryfrom($this->status())?->colorClass();
+    }
+
+    /**
+    * 公開期間を返す
+    *
+    * @return string
+    */
+    public function releasePeriod()
+    {
+        if (!$this->release_start_date && !$this->release_end_date) {
+            return '-';
+        }
+        // 片方どちらかがNULLの場合を考慮し、先頭と末尾の空白を除外
+        return trim("{$this->release_start_date?->format('Y年n月j日')} 〜 {$this->release_end_date?->format('Y年n月j日')}");
     }
 }

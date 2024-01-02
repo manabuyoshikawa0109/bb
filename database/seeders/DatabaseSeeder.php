@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             PlacesTableSeeder::class,
             TournamentsTableSeeder::class,
             FaqsTableSeeder::class,
+            InformationTableSeeder::class,
         ]);
     }
 }

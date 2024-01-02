@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Optional;
 
 if (!function_exists('disableCacheWhenModified')) {
     /**
@@ -29,5 +30,24 @@ if (!function_exists('dotFieldName')) {
         $fieldName = str_replace(']', '', $fieldName);
 
         return $fieldName;
+    }
+}
+
+if (!function_exists('changeArrayToObject')) {
+    /**
+     * 配列をオブジェクトに変換する
+     * ※オブジェクト(stdClass)に存在しないプロパティにアクセスするとエラーとなる
+     * その為Optionalクラスを利用し存在しないプロパティにアクセスしてもNULLを返すようにする
+     * __get()はクラスに存在しないプロパティにアクセスした際に呼ばれるマジックメソッドで、
+     * この中でプロパティに対する値がない時の考慮ができていればエラーとならない
+     * 参考：https://zenn.dev/cynningr/articles/01ce46d5f7169f
+     *
+     * @param array $array
+     * @return Illuminate\Support\Optional
+     */
+    function changeArrayToObject(array $array)
+    {
+        $object = new Optional((object)$array);
+        return $object;
     }
 }

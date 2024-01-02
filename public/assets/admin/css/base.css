@@ -19,3 +19,31 @@
 .table-layout-fixed {
     table-layout: fixed;
 }
+
+/*
+テーブル行内の文字を上下中央揃えにする
+*/
+.table > tbody {
+    vertical-align: middle !important;
+}
+
+/*
+ステータスバッチ用のセレクター
+*/
+.bg-outline-success {
+    color: #15ca20;
+    border: 1px solid #15ca20;
+    background-color: transparent !important;
+}
+
+.bg-outline-danger {
+    color: #fd3550;
+    border: 1px solid #fd3550;
+    background-color: transparent !important;
+}
+
+.bg-outline-info {
+    color: #0dcaf0;
+    border: 1px solid #0dcaf0;
+    background-color: transparent !important;
+}
