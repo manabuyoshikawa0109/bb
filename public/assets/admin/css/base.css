@@ -47,3 +47,25 @@
     border: 1px solid #0dcaf0;
     background-color: transparent !important;
 }
+
+/*
+ページネーションのリンクボタンの角を丸くする
+*/
+.page-item .page-link {
+    border-radius: 0.375rem !important;
+}
+
+/*
+ページネーションで現在開いているページのリンクボタンを黒色にする
+*/
+.active>.page-link, .page-link.active {
+    background-color: #212529 !important;
+    border-color: #212529 !important;
+}
+
+/*
+ページネーションの文字色を黒色にする
+*/
+.page-item:not(.active) .page-link {
+    color: #212529 !important;
+}
