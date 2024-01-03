@@ -48,7 +48,7 @@ if ($errors->any()) {
                 <form action="{{ route('admin.faq.save') }}" method="POST">
                     @csrf
                     <div class="d-flex justify-content-end pb-2 px-3">
-                        <button id="btn-add-faq" type="button" class="btn btn-dark radius-30"><i class="bx bx-plus-circle"></i>FAQを追加</button>
+                        <button id="add-faq-btn" type="button" class="btn btn-dark radius-30"><i class="bx bx-plus-circle"></i>FAQを追加</button>
                     </div>
                     <div class="accordion accordion-flush" id="faq-accordions">
                         @foreach ($orders as $order)
@@ -87,12 +87,12 @@ $(function() {
     // FAQ行を文字列に変更、改行を除外(htmlタグをエスケープしない)
     var row = '{!! str_replace(array("\r\n", "\r", "\n"), '', view('admin.pages.faq.row')->render()) !!}';
     // FAQ追加
-    $('#btn-add-faq').click(function() {
+    $('#add-faq-btn').click(function() {
         $('#faq-accordions').append(row);
     });
 
     // FAQ削除
-    $('#faq-accordions').on('click', '.accordion-button .lni-close', function() {
+    $('#faq-accordions').on('click', '.accordion-button .delete-faq-btn', function() {
         $(this).closest('.accordion-item').remove();
         // フェードアウトしてからFAQを削除
         // $(this).closest('.accordion-item').fadeOut(500).queue(function() {

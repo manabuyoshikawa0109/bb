@@ -18,7 +18,9 @@ $answer = old("answers.{$order}", $faq->answer);
         <button class="accordion-button flex-wrap @if(!$errors->has("questions.{$order}") && !$errors->has("answers.{$order}")) collapsed @endif" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ $order }}" aria-expanded="@if($errors->has("answers.{$order}")) true @else false @endif" aria-controls="collapse-{{ $order }}">
             <div class="col-12 d-flex align-items-center">
                 <input type="text" class="form-control me-2" name="questions[]" value="{{ $question }}" maxlength="100" placeholder="質問内容を入力">
-                <i class="lni lni-close"></i>
+                <div class="d-flex order-actions">
+                    <a href="javascript:;" class="ms-1 delete-faq-btn"><i class="bx bxs-trash"></i></a>
+                </div>
             </div>
             @include('admin.commons.components.html.errors', ['fieldName' => "questions.{$order}"])
         </button>
