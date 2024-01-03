@@ -4,18 +4,11 @@
     $fieldName : name属性
     $class : クラス名
     $default : デフォルト値
-    $min : 入力できる最小値
-    $max : 入力できる最大値
-
-    $name : $fieldNameをドット記法に変更したもの
+    $min : 入力可能な最小日付(Y-m-dの形式)
+    $max : 入力可能な最大日付(Y-m-dの形式)
 --}}
 
 @isset($fieldName)
-@php
-// name属性が配列になっている場合に備えドット記法に変更
-$name = str_replace('[', '.', $fieldName);
-$name = str_replace(']', '', $name);
-@endphp
-    <input id="{{ $id ?? null }}" type="date" class="form-control {{ $class ?? null }}" name="{{ $fieldName }}" value="{{ old($name, $default ?? today()->format('Y-m-d')) }}"　min="{{ $min ?? null }}" max="{{ $max ?? null }}">
-    @include('admin.commons.components.html.errors', ['fieldName' => $name])
+    <input id="{{ $id ?? null }}" type="date" class="form-control {{ $class ?? null }}" name="{{ $fieldName }}" value="{{ old($fieldName, $default ?? null) }}" min="{{ $min ?? null }}" max="{{ $max ?? null }}">
+    @include('admin.commons.components.html.errors', ['fieldName' => $fieldName])
 @endisset
