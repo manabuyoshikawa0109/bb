@@ -52,7 +52,7 @@ if ($type && Type::tryfrom($type)){
     </td>
     <td>
         <div class="d-flex order-actions">
-            <a href="javascript:;" class="ms-3"><i class="bx bxs-trash"></i></a>
+            <a href="javascript:;"><i class="bx bxs-trash"></i></a>
         </div>
     </td>
 </tr>

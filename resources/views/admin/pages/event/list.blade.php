@@ -38,12 +38,12 @@ if ($errors->any()) {
                 <table class="table table-layout-fixed mb-0">
                     <thead class="table-light">
                         <tr>
-                            <th style="width: 240px;">種別@required()</th>
-                            <th style="width: 340px;">種目名@required()</th>
+                            <th style="width: 250px;">種別@required()</th>
+                            <th style="width: 350px;">種目名@required()</th>
                             <th style="width: 150px;">募集数</th>
                             <th style="width: 150px;">参加費</th>
                             <th style="width: 150px;">開催時間</th>
-                            <th style="width: 80px;"></th>
+                            <th style="width: 60px;"></th>
                         </tr>
                     </thead>
                     <tbody id="event-rows">
