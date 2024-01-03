@@ -8,6 +8,8 @@ use App\Enums\Alert;
 
 @push('links')
 <link rel="stylesheet" href="/assets/admin/plugins/notifications/css/lobibox.min.css" />
+<!-- スクロールヒント -->
+<link rel="stylesheet" href="/assets/common/plugins/scroll-hint/css/scroll-hint.css">
 @endpush
 
 @section('inner-body')
@@ -41,6 +43,8 @@ use App\Enums\Alert;
 <!-- notification js -->
 <script src="/assets/admin/plugins/notifications/js/lobibox.min.js"></script>
 <script src="/assets/admin//plugins/notifications/js/notifications.min.js"></script>
+<!-- スクロールヒント -->
+<script src="/assets/common/plugins/scroll-hint/js/scroll-hint.min.js"></script>
 <script type="text/javascript">
 $(function() {
     {{-- フラッシュメッセージがある時のみ通知メッセージを表示 --}}
@@ -68,6 +72,14 @@ $(function() {
 		msg: '{{ $message }}',
 	});
     @endif
+
+    // スクロールヒントの初期化
+    // 参考:https://appleple.github.io/scroll-hint/
+    new ScrollHint(".js-scrollable", { // 横スクロールする要素の親要素に付与されているクラス名
+        i18n: {
+            scrollable: "スクロールできます" // 表示するメッセージ
+        }
+    });
 });
 </script>
 @endpush

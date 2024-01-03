@@ -61,8 +61,6 @@ if ($errors->any()) {
 </div>
 @endsection
 
-{{-- スクロールヒント --}}
-@include('admin.commons.components.js.scroll_hint')
 @push('scripts')
 <script type="text/javascript">
 $(function() {
