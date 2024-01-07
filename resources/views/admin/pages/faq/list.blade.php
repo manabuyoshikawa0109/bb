@@ -1,23 +1,5 @@
 @extends('admin.layouts.app')
 
-@php
-// 通常時、順番は1番から取得
-$orders = $faqs->pluck('order')->toArray();
-if ($errors->any()) {
-    // バリデーションエラー時、順番は0番から取得
-    $orders = array_keys(old('ids', []));
-}
-@endphp
-
-@push('links')
-<style>
-/* アコーディオンヘッダー内の疑似要素(矢印アイコン)を表示させない */
-.accordion-button::after {
-    content: none !important;
-}
-</style>
-@endpush
-
 @section('content')
 <!--breadcrumb-->
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
@@ -34,39 +16,63 @@ if ($errors->any()) {
     </div>
 </div>
 <!--end breadcrumb-->
-<div class="row">
-    <div class="col-12 col-lg-9 mx-auto">
-        <div class="text-center">
-            <h5 class="mb-0 text-uppercase d-flex justify-content-center align-items-center">
-                よくある質問 (FAQ)
-                <i class="lni lni-question-circle ms-1 align-middle" style="font-size:14px;" role="button" data-bs-toggle="popover" title="FAQの順番を変更" data-bs-content="FAQをドラッグ&ドロップして順番を変更できます。"></i>
-            </h5>
-            <hr/>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <form action="{{ route('admin.faq.save') }}" method="POST">
-                    @csrf
-                    <div class="d-flex justify-content-end pb-2 px-3">
-                        <button id="add-faq-btn" type="button" class="btn btn-dark radius-30"><i class="bx bx-plus-circle"></i>FAQを追加</button>
-                    </div>
-                    <div class="accordion accordion-flush" id="faq-accordions">
-                        @foreach ($orders as $order)
-                            @php
-                            $faq = $faqs->where('order', $order)->first();
-                            @endphp
-                            @include('admin.pages.faq.row')
-                        @endforeach
-                    </div>
-                    <div class="d-flex justify-content-center p-3">
-                        <button type="submit" class="btn btn-dark"><i class="bx bx-save"></i>保存する</button>
-                    </div>
-                </form>
+
+<div class="card">
+    <div class="card-body">
+        <form action="{{ route('admin.faq.list') }}" method="post">
+            @csrf
+            <div class="d-lg-flex align-items-center mb-4 gap-3">
+                <div class="position-relative">
+                    @include('admin.commons.components.html.text', [
+                        'fieldName' => 'keyword',
+                        'class' => 'ps-5 radius-30',
+                        'default' => $searchParam->keyword,
+                        'placeholder' => 'フリーワード検索',
+                    ])
+                    <span class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i></span>
+                </div>
+                <div class="ms-auto">
+                    <button id="fix-faq-order-btn" type="button" class="btn btn-dark radius-30 mt-2 mt-lg-0" @if($faqs->isEmpty()) disabled @endif><i class="fa-solid fa-arrows-up-down"></i>並び順確定</button>
+                    <a href="{{ route('admin.faq.add') }}" class="btn btn-dark radius-30 mt-2 mt-lg-0"><i class="bx bx-plus-circle"></i>新規登録</a>
+                </div>
             </div>
-        </div>
+            @include('admin.commons.components.html.errors', ['fieldName' => 'ids'])
+        </form>
+        <form id="sort-form" action="{{ route('admin.faq.sort') }}" method="post">
+            @csrf
+            <div class="table-responsive js-scrollable">
+                <table class="table table-layout-fixed mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 900px;">質問</th>
+                            <th style="width: 100px;">並び替え<i class="lni lni-question-circle ms-1 align-middle" role="button" data-bs-toggle="popover" title="FAQの並び順を変更" data-bs-content="ドラッグ&ドロップして並び順を変更できます"></i></th>
+                            <th style="width: 100px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="faqs">
+                        @foreach ($faqs as $faq)
+                        <tr>
+                            <input type="hidden" name="ids[]" value="{{ $faq->id }}">
+                            <td class="text-truncate">{{ $faq->question }}</td>
+                            <td>
+                                <div class="d-flex order-actions">
+                                    <a href="javascript:;" class="arrows-up-down-btn"><i class="fa-solid fa-arrows-up-down"></i></a>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex order-actions">
+                                    <a href="{{ route('admin.faq.edit', $faq->id) }}"><i class="bx bxs-edit"></i></a>
+                                    <a href="{{ route('admin.faq.delete', $faq->id) }}" class="ms-3" onclick="return confirm('FAQを削除しますか？')"><i class="bx bxs-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </form>
     </div>
 </div>
-<!--end row-->
 @endsection
 
 @include('admin.commons.components.js.popover')
@@ -76,37 +82,18 @@ if ($errors->any()) {
 <script type="text/javascript">
 $(function() {
     // FAQ行の並び替え初期設定
-    $('#faq-accordions').sortable({
-        handle: '.accordion-header',
-        // jquery-uiではデフォルトでbuttonタグ要素をドラッグ&ドロップして並び替えできないようになっている
-        // その為cancelオプションでbuttonタグの指定を外す
-        // 参考：https://kamegu.hateblo.jp/entry/jquery-ui/sortable-handle
-        cancel: "input, textarea, select, option",
+    $('.faqs').sortable({
+        handle: '.arrows-up-down-btn',
     });
 
-    // FAQ行を文字列に変更、改行を除外(htmlタグをエスケープしない)
-    var row = '{!! str_replace(array("\r\n", "\r", "\n"), '', view('admin.pages.faq.row')->render()) !!}';
-    // FAQ追加
-    $('#add-faq-btn').click(function() {
-        $('#faq-accordions').append(row);
+    // フリーワード入力時即時検索実行
+    $('input[name="keyword"]').keyup(function (e) {
+        $(this).closest('form').submit();
     });
 
-    // FAQ削除
-    $('#faq-accordions').on('click', '.accordion-button .delete-faq-btn', function() {
-        $(this).closest('.accordion-item').remove();
-        // フェードアウトしてからFAQを削除
-        // $(this).closest('.accordion-item').fadeOut(500).queue(function() {
-        //     $(this).remove();
-        // });
-    });
-
-    // アコーディオンヘッダー内のテキストボックスクリック時、アコーディオンを開閉しない
-    // アコーディオンヘッダーのクリックイベントよりテキストボックスのfocus、blurイベントの方が呼ばれるのが早い
-    // 参考：https://stackoverflow.com/questions/74099301/stop-opening-of-bootstrap-accordion-when-textbox-is-clicked-using-a-listener-fun
-    $('#faq-accordions').on('focus', '.accordion-button input', function() {
-        $(this).closest('.accordion-button').attr('data-bs-toggle', 'disabled');
-    }).on('blur', '.accordion-button input', function() {
-        $(this).closest('.accordion-button').attr('data-bs-toggle', 'collapse');
+    //「並び順確定」ボタンクリック時、並び替えのフォーム送信
+    $('#fix-faq-order-btn').click(function () {
+        $('#sort-form').submit();
     });
 });
 </script>

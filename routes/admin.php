@@ -61,8 +61,13 @@ Route::name('admin.')->group(function () {
 
         // FAQ管理
         Route::controller(FaqController::class)->prefix('faq')->name('faq.')->group(function() {
-            Route::any  ('list', 'list')->name('list');
-            Route::post ('save', 'save')->name('save');
+            Route::any  ('list',         'list')->name('list');
+            Route::get  ('add',          'add')->name('add');
+            Route::post ('sort',         'sort')->name('sort');
+            Route::post ('create',       'create')->name('create');
+            Route::get  ('{faq}/edit',   'edit')->name('edit');
+            Route::post ('{faq}/update', 'update')->name('update');
+            Route::get  ('{faq}/delete', 'delete')->name('delete');
         });
 
         // 種目マスタ

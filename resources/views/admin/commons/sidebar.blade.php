@@ -74,12 +74,20 @@
         </li>
 
         <li class="@if (request()->route()->named('admin.faq.*')) mm-active @endif">
-            <a href="{{ route('admin.faq.list') }}">
+            <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon">
                     <i class='bx bx-help-circle'></i>
                 </div>
                 <div class="menu-title">FAQ管理</div>
             </a>
+            <ul class="@if (request()->route()->named('admin.faq.*')) mm-show @endif">
+                <li class="@if (request()->route()->named('admin.faq.list')) mm-active @endif">
+                    <a href="{{ route('admin.faq.list') }}"><i class="bx bx-right-arrow-alt"></i>一覧</a>
+                </li>
+                <li class="@if (request()->route()->named('admin.faq.add')) mm-active @endif">
+                    <a href="{{ route('admin.faq.add') }}"><i class="bx bx-right-arrow-alt"></i>新規登録</a>
+                </li>
+            </ul>
         </li>
 
         <li class="menu-label">マスター</li>
