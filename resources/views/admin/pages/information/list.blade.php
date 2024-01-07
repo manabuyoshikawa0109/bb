@@ -11,7 +11,8 @@ use App\Enums\ReleaseStatus;
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><a href="{{ route('admin.home.index') }}"><i class="bx bx-home-alt"></i></a>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('admin.home.index') }}"><i class="bx bx-home-alt"></i></a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">お知らせ一覧</li>
             </ol>
