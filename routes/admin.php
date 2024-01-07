@@ -56,7 +56,7 @@ Route::name('admin.')->group(function () {
             Route::get  ('{information}/detail',  'detail')->name('detail');
             Route::get  ('{information}/edit',    'edit')->name('edit');
             Route::post ('{information}/update',  'update')->name('update');
-            Route::post ('{information}/delete',  'delete')->name('delete');
+            Route::get  ('{information}/delete',  'delete')->name('delete');
         });
 
         // FAQ管理
@@ -83,7 +83,7 @@ Route::name('admin.')->group(function () {
             Route::post ('create',         'create')->name('create');
             Route::get  ('{place}/edit',   'edit')->name('edit');
             Route::post ('{place}/update', 'update')->name('update');
-            Route::post ('{place}/delete', 'delete')->name('delete');
+            Route::get  ('{place}/delete', 'delete')->name('delete');
         });
 
         Route::any ('adminer', [AdminerAutologinController::class, 'index'])->name('adminer.auto_login');
