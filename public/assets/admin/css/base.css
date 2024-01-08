@@ -69,3 +69,30 @@
 .page-item:not(.active) .page-link {
     color: #212529 !important;
 }
+
+/*
+公開ステータス絞り込みボタンホバー時に文字色・背景色を変更
+*/
+label.btn-outline-dark:hover {
+    color: #fff !important;
+    background-color: #212529 !important;
+	border-color: #212529 !important;
+}
+
+label.btn-outline-info:hover {
+    color: #000 !important;
+    background-color: #0dcaf0 !important;
+	border-color: #0dcaf0 !important;
+}
+
+label.btn-outline-success:hover {
+	color: #fff !important;
+	background-color: #15ca20 !important;
+	border-color: #15ca20 !important;
+}
+
+label.btn-outline-danger:hover {
+	color: #fff !important;
+	background-color: #fd3550 !important;
+	border-color: #fd3550 !important;
+}
