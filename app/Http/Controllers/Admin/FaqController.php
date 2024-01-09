@@ -46,7 +46,7 @@ class FaqController extends Controller
         // クエリ生成
         $query = Faq::query();
 
-        // キーワードで件名、本文を部分一致検索
+        // キーワードで質問、回答を部分一致検索
         if($searchParam->keyword){
             $query->where(function ($query) use ($searchParam) {
                 $query->where('faqs.question', 'like', "%{$searchParam->keyword}%")
